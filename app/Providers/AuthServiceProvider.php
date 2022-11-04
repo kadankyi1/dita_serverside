@@ -4,6 +4,7 @@ namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Laravel\Passport\Passport;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -25,6 +26,15 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Passport::tokensCan([
+            'get-info-on-apps' => 'View information on apps',
+            'get-info-in-background' => 'Get information while app is in background',
+            
+            //ADMIN SCOPE
+            'get-info' => 'Get information',
+            'add-admins' => 'Can add administrators',
+
+        ]);
+        //Passport::loadKeysFrom(__DIR__.'/../secrets/oauth');
     }
 }

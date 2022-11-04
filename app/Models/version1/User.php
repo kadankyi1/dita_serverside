@@ -1,16 +1,23 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\version1;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Laravel\Passport\HasApiTokens;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+
+    /**
+     * The primary key associated with the table.
+     *
+     * @var string
+     */
+    protected $primaryKey = 'user_id';
 
     /**
      * The attributes that are mass assignable.
@@ -18,9 +25,20 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'user_id',
+        'user_sys_id',
+        'user_email',
+        'user_fcm_token_android',
+        'user_fcm_token_web',
+        'user_fcm_token_ios',
+        'passcode_set_time',
+        'passcode',
+        'user_android_app_version_code',
+        'user_ios_app_version_code',
+        'user_flagged',
+        'user_flagged_reason',
+        'created_at',
+        'updated_at',
     ];
 
     /**

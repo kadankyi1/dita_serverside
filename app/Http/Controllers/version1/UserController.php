@@ -194,7 +194,7 @@ class UserController extends Controller
     
         if(empty($request->kw)){
             $found_books = DB::table('books')
-            ->select('books.book_id', 'books.book_cover_photo', 'books.book_sys_id', 'books.book_title', 'books.book_author', 'books.book_ratings', 'books.book_description_short', 'books.book_description_long', 'books.book_pages', 'books.book_pdf', 'books.book_summary_pdf', 'books.book_audio', 'books.book_summary_audio')
+            ->select('books.book_id', 'books.book_cover_photo', 'books.book_sys_id', 'books.book_title', 'books.book_author', 'books.book_ratings', 'books.book_description_short', 'books.book_description_long', 'books.book_pages', 'books.book_pdf', 'books.book_summary_pdf', 'books.book_audio', 'books.book_summary_audio', 'books.book_cost_usd')
             ->orderBy('created_at', 'desc')
             ->take(30)
             ->get();
@@ -208,7 +208,7 @@ class UserController extends Controller
     
             if(count($orwhere_array) > 0){
                 $found_books = DB::table('books')
-                    ->select('books.book_id', 'books.book_cover_photo', 'books.book_sys_id', 'books.book_title', 'books.book_author', 'books.book_ratings', 'books.book_description_short', 'books.book_description_long', 'books.book_pages', 'books.book_pdf', 'books.book_summary_pdf', 'books.book_audio', 'books.book_summary_audio')
+                    ->select('books.book_id', 'books.book_cover_photo', 'books.book_sys_id', 'books.book_title', 'books.book_author', 'books.book_ratings', 'books.book_description_short', 'books.book_description_long', 'books.book_pages', 'books.book_pdf', 'books.book_summary_pdf', 'books.book_audio', 'books.book_summary_audio', 'books.book_cost_usd')
                     ->where($where_array)
                     ->orWhere($orwhere_array)
                     ->orderBy('read_count', 'desc')
@@ -217,7 +217,7 @@ class UserController extends Controller
                             
             } else {
                 $found_books = DB::table('rates')
-                ->select('books.book_id', 'books.book_cover_photo', 'books.book_sys_id', 'books.book_title', 'books.book_author', 'books.book_ratings', 'books.book_description_short', 'books.book_description_long', 'books.book_pages', 'books.book_pdf', 'books.book_summary_pdf', 'books.book_audio', 'books.book_summary_audio')
+                ->select('books.book_id', 'books.book_cover_photo', 'books.book_sys_id', 'books.book_title', 'books.book_author', 'books.book_ratings', 'books.book_description_short', 'books.book_description_long', 'books.book_pages', 'books.book_pdf', 'books.book_summary_pdf', 'books.book_audio', 'books.book_summary_audio', 'books.book_cost_usd')
                 ->where($where_array)
                 ->orderBy('read_count', 'desc')
                 ->take(30)
@@ -231,6 +231,7 @@ class UserController extends Controller
             $found_books[$i]->book_summary_pdf = config('app.url') . "/" . $found_books[$i]->book_summary_pdf;
             $found_books[$i]->book_audio = config('app.url') . "/" . $found_books[$i]->book_audio;
             $found_books[$i]->book_summary_audio = config('app.url') . "/" . $found_books[$i]->book_summary_audio;
+            $found_books[$i]->book_cost_usd = "$" . strval($found_books[$i]->book_cost_usd);
         }
 
         return response([

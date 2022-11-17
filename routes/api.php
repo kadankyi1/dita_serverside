@@ -21,3 +21,6 @@ Route::post('/v1/user/send-login-code',[App\Http\Controllers\version1\UserContro
 
 // USE LOGIN CODE TO LOGIN
 Route::post('/v1/user/verify-login-code',[App\Http\Controllers\version1\UserController::class, 'verifyLoginCode']);
+
+// GET BOOK LISTING
+Route::middleware('auth:api')->post('/v1/user/get-books', [App\Http\Controllers\version1\UserController::class, 'getBookListing']);

@@ -4,10 +4,12 @@ namespace App\Http\Controllers\version1;
 
 use Illuminate\Http\Request;
 use App\Models\version1\User;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\version1\LoginCodeMail;
 use App\Http\Controllers\version1\UtilController;
+use Illuminate\Support\Facades\Auth;
 
 ini_set('memory_limit','1024M');
 ini_set("upload_max_filesize","100M");
@@ -141,9 +143,104 @@ class UserController extends Controller
     
     
         }
-
-
-
     }
     
+    /*
+    |--------------------------------------------------------------------------
+    |--------------------------------------------------------------------------
+    | THIS FUNCTION SENDS LIST OF BOOKS
+    |--------------------------------------------------------------------------
+    |--------------------------------------------------------------------------
+    */
+
+    public function getBookListing(Request $request)
+    {
+    
+        // CHECKING THAT THE REQUEST FROM THE USER HAS A VALID TOKEN
+        if (!Auth::guard('api')->check()) {
+            return response([
+                "status" => "error", 
+                "message" => "Session closed. You have to login again"
+            ]);
+        }
+    
+        // CHECKING THAT USER TOKEN HAS THE RIGHT PERMISSION
+        if (!$request->user()->tokenCan('get-info-on-apps')) {
+            return response([
+                "status" => "error", 
+                "message" => "You do not have permission"
+            ]);
+        }
+    
+        // CHECKING IF USER FLAGGED
+        if (auth()->user()->user_flagged) {
+            $request->user()->token()->revoke();
+            return response([
+                "status" => "error", 
+                "message" => "Account flagged."
+            ]);
+        }
+    
+
+        // MAKING SURE THE INPUT HAS THE EXPECTED VALUES
+        $validatedData = $request->validate([
+            "kw" => "",
+            "app_type" => "bail|required|max:8",
+            "app_version_code" => "bail|required|integer"
+        ]);
+    
+        $like_keyword = '%' . $request->kw . '%';
+    
+    
+        if(empty($request->kw)){
+            $found_books = DB::table('books')
+            ->select('books.book_id', 'books.book_cover_photo', 'books.book_sys_id', 'books.book_title', 'books.book_author', 'books.book_ratings', 'books.book_description_short', 'books.book_description_long', 'books.book_pages', 'books.book_pdf', 'books.book_summary_pdf', 'books.book_audio', 'books.book_summary_audio')
+            ->orderBy('created_at', 'desc')
+            ->take(30)
+            ->get();
+        } else {
+            $where_array = array(
+                ['book_title', 'LIKE', $like_keyword],
+            ); 
+            $orwhere_array = array(
+                ['book_author', 'LIKE', $like_keyword],
+            ); 
+    
+            if(count($orwhere_array) > 0){
+                $found_books = DB::table('books')
+                    ->select('books.book_id', 'books.book_cover_photo', 'books.book_sys_id', 'books.book_title', 'books.book_author', 'books.book_ratings', 'books.book_description_short', 'books.book_description_long', 'books.book_pages', 'books.book_pdf', 'books.book_summary_pdf', 'books.book_audio', 'books.book_summary_audio')
+                    ->where($where_array)
+                    ->orWhere($orwhere_array)
+                    ->orderBy('read_count', 'desc')
+                    ->take(30)
+                    ->get();
+                            
+            } else {
+                $found_books = DB::table('rates')
+                ->select('books.book_id', 'books.book_cover_photo', 'books.book_sys_id', 'books.book_title', 'books.book_author', 'books.book_ratings', 'books.book_description_short', 'books.book_description_long', 'books.book_pages', 'books.book_pdf', 'books.book_summary_pdf', 'books.book_audio', 'books.book_summary_audio')
+                ->where($where_array)
+                ->orderBy('read_count', 'desc')
+                ->take(30)
+                ->get();
+            }
+        }
+        
+        for ($i=0; $i < count($found_books); $i++) { 
+            $found_books[$i]->book_cover_photo = "http://10.0.2.2:3000" . "/" . $found_books[$i]->book_cover_photo;
+            $found_books[$i]->book_pdf = "http://10.0.2.2:3000" . "/" . $found_books[$i]->book_pdf;
+            $found_books[$i]->book_summary_pdf = "http://10.0.2.2:3000" . "/" . $found_books[$i]->book_summary_pdf;
+            $found_books[$i]->book_audio = "http://10.0.2.2:3000" . "/" . $found_books[$i]->book_audio;
+            $found_books[$i]->book_summary_audio = "http://10.0.2.2:3000" . "/" . $found_books[$i]->book_summary_audio;
+        }
+
+        return response([
+            "status" => "success", 
+            "message" => "Operation successful", 
+            "data" => $found_books, 
+            "kw" => $request->kw
+        ]);
+    }
+    
+    
+
 }

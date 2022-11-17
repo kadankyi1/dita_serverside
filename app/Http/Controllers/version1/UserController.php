@@ -226,11 +226,11 @@ class UserController extends Controller
         }
         
         for ($i=0; $i < count($found_books); $i++) { 
-            $found_books[$i]->book_cover_photo = "http://10.0.2.2:3000" . "/" . $found_books[$i]->book_cover_photo;
-            $found_books[$i]->book_pdf = "http://10.0.2.2:3000" . "/" . $found_books[$i]->book_pdf;
-            $found_books[$i]->book_summary_pdf = "http://10.0.2.2:3000" . "/" . $found_books[$i]->book_summary_pdf;
-            $found_books[$i]->book_audio = "http://10.0.2.2:3000" . "/" . $found_books[$i]->book_audio;
-            $found_books[$i]->book_summary_audio = "http://10.0.2.2:3000" . "/" . $found_books[$i]->book_summary_audio;
+            $found_books[$i]->book_cover_photo = config('app.url') . "/" . $found_books[$i]->book_cover_photo;
+            $found_books[$i]->book_pdf = config('app.url') . "/" . $found_books[$i]->book_pdf;
+            $found_books[$i]->book_summary_pdf = config('app.url') . "/" . $found_books[$i]->book_summary_pdf;
+            $found_books[$i]->book_audio = config('app.url') . "/" . $found_books[$i]->book_audio;
+            $found_books[$i]->book_summary_audio = config('app.url') . "/" . $found_books[$i]->book_summary_audio;
         }
 
         return response([

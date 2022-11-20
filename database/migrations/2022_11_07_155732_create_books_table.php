@@ -29,6 +29,9 @@ return new class extends Migration
             $table->string('book_audio', 255)->default("");
             $table->string('book_summary_audio', 255)->default("");
             $table->decimal('book_cost_usd', 12, 2);
+            $table->decimal('book_summary_cost_usd', 12, 2);
+            $table->decimal('book_audio_cost_usd', 12, 2);
+            $table->decimal('book_audio_summary_cost_usd', 12, 2);
             $table->integer('read_count')->default(0);
             $table->integer('buy_count')->default(0);
             $table->timestamps();

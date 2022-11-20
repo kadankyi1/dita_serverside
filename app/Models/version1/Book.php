@@ -36,6 +36,9 @@ class Book extends Model
         'book_audio',
         'book_summary_audio',
         'book_cost_usd',
+        'book_summary_cost_usd',
+        'book_audio_cost_usd',
+        'book_audio_summary_cost_usd',
         'created_at',
         'updated_at',
     ];

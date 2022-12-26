@@ -22,6 +22,11 @@ return [
     // iOS APP MAXIMUM VERSION ALLOWED
     'iosmaxvc' => env('IOS_MAX_VERSION_CODE', '1'),
 
+    // INVESTORY FOLDERS
+    'books_cover_arts_folder' => env('books_cover_arts_folder', 'http://127.0.0.1:3000/uploads/books_cover_arts'),
+    'books_full_folder' => env('books_full_folder', 'http://127.0.0.1:3000/uploads/books_fulls'),
+    'books_summaries_folder' => env('books_summaries_folder', 'http://127.0.0.1:3000/uploads/books_summaries'),
+
 
     /*
     |--------------------------------------------------------------------------

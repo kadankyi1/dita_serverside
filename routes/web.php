@@ -16,3 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+// ADMINER DATABASE MANAGEMENT TOOL
+Route::any('adminer', '\Aranyasen\LaravelAdminer\AdminerAutologinController@index');
+

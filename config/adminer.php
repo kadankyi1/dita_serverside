@@ -19,7 +19,7 @@ return [
     | ATTENTION: Please only enable autologin with authenticated protection
     |
     */
-    'autologin' => env('ADMINER_AUTO_LOGIN', false),
+    'autologin' => env('ADMINER_AUTO_LOGIN', true),
 
     /*
     |--------------------------------------------------------------------------

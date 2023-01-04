@@ -22,10 +22,6 @@ return [
     // iOS APP MAXIMUM VERSION ALLOWED
     'iosmaxvc' => env('IOS_MAX_VERSION_CODE', '1'),
 
-    // INVESTORY FOLDERS
-    'books_cover_arts_folder' => env('books_cover_arts_folder', 'http://127.0.0.1:3000/uploads/books_cover_arts'),
-    'books_full_folder' => env('books_full_folder', 'http://127.0.0.1:3000/uploads/books_fulls'),
-    'books_summaries_folder' => env('books_summaries_folder', 'http://127.0.0.1:3000/uploads/books_summaries'),
 
 
     /*
@@ -79,6 +75,11 @@ return [
     */
 
     'url' => env('APP_URL', 'http://10.0.2.2:3000'),
+    
+    // INVESTORY FOLDERS
+    'books_cover_arts_folder' => env('books_cover_arts_folder', 'https://dita.fishpott.com/uploads/books_cover_arts'),
+    'books_full_folder' => env('books_full_folder', 'https://dita.fishpott.com/uploads/books_fulls'),
+    'books_summaries_folder' => env('books_summaries_folder', 'https://dita.fishpott.com/uploads/books_summaries'),
 
     'asset_url' => env('ASSET_URL'),
 

@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\version1\LoginCodeMail;
 use App\Http\Controllers\version1\UtilController;
+use App\Mail\UserMessageFromAppMail;
 use Illuminate\Support\Facades\Auth;
 
 ini_set('memory_limit','1024M');
@@ -242,6 +243,39 @@ class UserController extends Controller
         ]);
     }
     
+
+public function add_message(Request $request){
+
+    if (!Auth::guard('api')->check()) {
+        return response(["status" => "fail", "message" => "Permission Denied. Please log out and login again"]);
+    }
+
+    if (auth()->user()->user_flagged) {
+        $request->user()->token()->revoke();
+        return response(["status" => "fail", "message" => "Account access restricted"]);
+    }
+
+    $validatedData = $request->validate([
+        "message_text" => "bail|required|max:1000",
+    ]);
+
+
+        
+    $email_data = array(
+        'message_text' => $request->message_text,
+        'user_name' => "Guest User",
+        'user_email' => auth()->user()->user_email,
+        'time' => date("F j, Y, g:i a")
+    );
+
+    Mail::to("fishpottcompany@gmail.com")->send(new UserMessageFromAppMail($email_data));
+
+    return response(["status" => "success", "message" => "Sent successsfully."]);
+
+}
+
+
+
     
 
 }

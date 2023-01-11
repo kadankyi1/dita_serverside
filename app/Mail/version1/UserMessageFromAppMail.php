@@ -32,6 +32,6 @@ class UserMessageFromAppMail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.usermessagefrommapp.blade')->with('data', $this->email_data);
+        return $this->markdown('emails.usermessagefrommapp')->with('data', $this->email_data);
     }
 }

@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\version1\LoginCodeMail;
 use App\Http\Controllers\version1\UtilController;
-use App\Mail\UserMessageFromAppMail;
+use App\Mail\version1\UserMessageFromAppMail;
 use Illuminate\Support\Facades\Auth;
 
 ini_set('memory_limit','1024M');

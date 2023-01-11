@@ -244,7 +244,7 @@ class UserController extends Controller
     }
     
 
-public function add_message(Request $request){
+public function contactDitaTeam(Request $request){
 
     if (!Auth::guard('api')->check()) {
         return response(["status" => "fail", "message" => "Permission Denied. Please log out and login again"]);

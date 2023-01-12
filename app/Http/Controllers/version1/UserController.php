@@ -228,7 +228,7 @@ class UserController extends Controller
         
         for ($i=0; $i < count($found_books); $i++) { 
 
-            if(file_exists(public_path() . "uploads/books_cover_arts" . $found_books[$i]->book_cover_photo)){
+            if(file_exists(public_path() . "/uploads/books_cover_arts" . $found_books[$i]->book_cover_photo)){
                 $found_books[$i]->book_cover_photo = config('app.books_cover_arts_folder') . "/" . $found_books[$i]->book_cover_photo;
             } else {
                 $found_books[$i]->book_cover_photo = config('app.books_cover_arts_folder') . "/sample_cover_art.jpg";

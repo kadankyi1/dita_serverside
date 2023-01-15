@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\version1\LoginCodeMail;
 use App\Http\Controllers\version1\UtilController;
 use App\Mail\version1\UserMessageFromAppMail;
+use App\Models\version1\Book;
+use App\Models\version1\Transaction;
 use Illuminate\Support\Facades\Auth;
 
 ini_set('memory_limit','1024M');
@@ -308,12 +310,38 @@ public function buyBook(Request $request){
     $validatedData = $request->validate([
         "item_id" => "bail|required|max:100",
         "item_type" => "bail|required|max:100",
+        "payment_type" => "bail|required|max:100",
         "payment_ref_number" => "bail|required|max:100",
         "payment_date" => "bail|required|max:100",
         "app_type" => "bail|required|max:8",
         "app_version_code" => "bail|required|integer"
     ]);
 
+    
+    $book = Book::where('book_id', $request->item_id)->first();
+    if($book == null || empty($book->book_sys_id)){
+        return response([
+            "status" => "error", 
+            "message" => "Book not found"
+        ]);
+    }
+    
+
+    $transactionData["transaction_sys_id"] =  auth()->user()->user_id . "_" . date("YmdHis") . UtilController::getRandomString(4);
+    $transactionData["transaction_type"] = $request->item_type;
+    $transactionData["transaction_referenced_item_id"] = $book->book_sys_id;
+    $transactionData["transaction_buyer_id"] = auth()->user()->user_id;
+    $transactionData["transaction_payment_type"] = $request->payment_type;
+    $transactionData["transaction_payment_ref_id"] = $request->payment_ref_number;
+    $transactionData["transaction_buyer_id"] = $request->transaction_payment_date;
+    $transactionData["transaction_payment_status"] = "Unverified";
+    $transaction = Transaction::create($transactionData);
+
+
+    return response([
+        "status" => "success", 
+        "message" => "You can start reading your book while we verify the payment."
+    ]);
 
 }
 

@@ -30,6 +30,7 @@ class Transaction extends Model
         'transaction_payment_type',
         'transaction_payment_ref_id',
         'transaction_payment_date',
+        'transaction_payment_status',
         'created_at',
         'updated_at',
     ];

@@ -295,6 +295,28 @@ public function contactDitaTeam(Request $request){
 
 }
 
+public function buyBook(Request $request){
+    if (!Auth::guard('api')->check()) {
+        return response(["status" => "fail", "message" => "Permission Denied. Please log out and login again"]);
+    }
+
+    if (auth()->user()->user_flagged) {
+        $request->user()->token()->revoke();
+        return response(["status" => "fail", "message" => "Account access restricted"]);
+    }
+
+    $validatedData = $request->validate([
+        "item_id" => "bail|required|max:100",
+        "item_type" => "bail|required|max:100",
+        "payment_ref_number" => "bail|required|max:100",
+        "payment_date" => "bail|required|max:100",
+        "app_type" => "bail|required|max:8",
+        "app_version_code" => "bail|required|integer"
+    ]);
+
+
+}
+
 
 
     

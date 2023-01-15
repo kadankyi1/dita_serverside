@@ -346,7 +346,7 @@ public function recordPurchase(Request $request){
     $transactionData["transaction_buyer_id"] = auth()->user()->user_id;
     $transactionData["transaction_payment_type"] = $request->payment_type;
     $transactionData["transaction_payment_ref_id"] = $request->payment_ref_number;
-    $transactionData["transaction_payment_date"] = $request->transaction_payment_date;
+    $transactionData["transaction_payment_date"] = $request->payment_date;
     $transactionData["transaction_payment_status"] = "Unverified";
     $transaction = Transaction::create($transactionData);
 

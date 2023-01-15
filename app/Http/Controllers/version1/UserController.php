@@ -297,7 +297,7 @@ public function contactDitaTeam(Request $request){
 
 }
 
-public function buyBook(Request $request){
+public function recordPurchase(Request $request){
     if (!Auth::guard('api')->check()) {
         return response(["status" => "fail", "message" => "Permission Denied. Please log out and login again"]);
     }

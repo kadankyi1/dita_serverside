@@ -27,3 +27,6 @@ Route::middleware('auth:api')->post('/v1/user/get-books', [App\Http\Controllers\
 
 // CONTACT DITA TEAM
 Route::middleware('auth:api')->post('/v1/user/send-message', [App\Http\Controllers\version1\UserController::class, 'contactDitaTeam']);
+
+// RECORD PURCHSE
+Route::middleware('auth:api')->post('/v1/user/record-payment', [App\Http\Controllers\version1\UserController::class, 'recordPurchase']);

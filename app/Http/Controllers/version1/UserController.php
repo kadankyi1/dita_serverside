@@ -317,6 +317,19 @@ public function buyBook(Request $request){
         "app_version_code" => "bail|required|integer"
     ]);
 
+    if($request->item_type != "book_full" && $request->item_type != "book_summary"){
+        return response([
+            "status" => "error", 
+            "message" => "Book error"
+        ]);
+    } 
+    
+    if($request->payment_type != "momo" && $request->payment_type != "card"){
+        return response([
+            "status" => "error", 
+            "message" => "Payment error"
+        ]);
+    } 
     
     $book = Book::where('book_id', $request->item_id)->first();
     if($book == null || empty($book->book_sys_id)){

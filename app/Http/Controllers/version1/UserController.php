@@ -256,6 +256,13 @@ class UserController extends Controller
                 $found_books[$i]->book_summary_audio = "";
             }
             $found_books[$i]->book_cost_usd = "$" . strval($found_books[$i]->book_cost_usd);
+
+            $transaction = Transaction::where('transaction_referenced_item_id', '=', $found_books[$i]->book_sys_id)->where('transaction_referenced_item_id', '=', $found_books[$i]->book_sys_id)->where('transaction_payment_status', '=', "verified_passed")->first();
+            if($transaction == null || empty($transaction->transaction_referenced_item_id)){
+                $found_books[$i]["book_purchased"] = "no";
+            } else {
+                $found_books[$i]["book_purchased"] = "yes";
+            }
         }
 
         return response([
@@ -330,7 +337,7 @@ public function recordPurchase(Request $request){
             "message" => "Payment error"
         ]);
     } 
-    
+
     $book = Book::where('book_sys_id', '=', $request->item_id)->first();
     if($book == null || empty($book->book_sys_id)){
         return response([

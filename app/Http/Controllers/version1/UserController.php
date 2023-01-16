@@ -331,7 +331,7 @@ public function recordPurchase(Request $request){
         ]);
     } 
     
-    $book = Book::where('book_id', $request->item_id)->first();
+    $book = Book::where('book_sys_id', '=', $request->item_id)->first();
     if($book == null || empty($book->book_sys_id)){
         return response([
             "status" => "error", 

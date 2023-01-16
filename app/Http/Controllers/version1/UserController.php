@@ -257,11 +257,18 @@ class UserController extends Controller
             }
             $found_books[$i]->book_cost_usd = "$" . strval($found_books[$i]->book_cost_usd);
 
-            $transaction = Transaction::where('transaction_referenced_item_id', '=', $found_books[$i]->book_sys_id)->where('transaction_referenced_item_id', '=', $found_books[$i]->book_sys_id)->where('transaction_payment_status', '=', "verified_passed")->first();
+            $transaction = Transaction::where('transaction_type', '=', "book_full")->where('transaction_referenced_item_id', '=', $found_books[$i]->book_sys_id)->where('transaction_referenced_item_id', '=', $found_books[$i]->book_sys_id)->where('transaction_payment_status', '=', "verified_passed")->first();
             if($transaction == null || empty($transaction->transaction_referenced_item_id)){
-                $found_books[$i]->book_purchased = "no";
+                $found_books[$i]->book_full_purchased = "no";
             } else {
-                $found_books[$i]->book_purchased = "yes";
+                $found_books[$i]->book_full_purchased = "yes";
+            }
+
+            $transaction = Transaction::where('transaction_type', '=', "book_summary")->where('transaction_referenced_item_id', '=', $found_books[$i]->book_sys_id)->where('transaction_referenced_item_id', '=', $found_books[$i]->book_sys_id)->where('transaction_payment_status', '=', "verified_passed")->first();
+            if($transaction == null || empty($transaction->transaction_referenced_item_id)){
+                $found_books[$i]->book_summary_purchased = "no";
+            } else {
+                $found_books[$i]->book_summary_purchased = "yes";
             }
         }
 

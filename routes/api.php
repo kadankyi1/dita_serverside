@@ -25,6 +25,9 @@ Route::post('/v1/user/verify-login-code',[App\Http\Controllers\version1\UserCont
 // GET BOOK LISTING
 Route::middleware('auth:api')->post('/v1/user/get-books', [App\Http\Controllers\version1\UserController::class, 'getBookListing']);
 
+// GET BOOK SUMMARIES LISTING
+Route::middleware('auth:api')->post('/v1/user/get-books-summaries', [App\Http\Controllers\version1\UserController::class, 'getBookSummariesListing']);
+
 // CONTACT DITA TEAM
 Route::middleware('auth:api')->post('/v1/user/send-message', [App\Http\Controllers\version1\UserController::class, 'contactDitaTeam']);
 

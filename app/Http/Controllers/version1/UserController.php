@@ -329,7 +329,7 @@ class UserController extends Controller
     
         if(empty($request->kw)){
             $where_array = array(
-                ['book_summary_pdf', '!=', ''],
+                ['book_summary_pdf', '<>', ''],
             ); 
             $found_books = DB::table('books')
             ->select('books.book_id', 'books.book_cover_photo', 'books.book_sys_id', 'books.book_title', 'books.book_author', 'books.book_ratings', 'books.book_description_short', 'books.book_description_long', 'books.book_pages', 'books.book_pdf', 'books.book_summary_pdf', 'books.book_audio', 'books.book_summary_audio', 'books.book_cost_usd', 'books.book_summary_cost_usd')
@@ -339,11 +339,10 @@ class UserController extends Controller
             ->get();
         } else {
             $where_array = array(
-                ['book_summary_pdf', '!=', ''],
+                ['book_summary_pdf', '<>', ''],
                 ['book_title', 'LIKE', $like_keyword],
             ); 
             $orwhere_array = array(
-                ['book_summary_pdf', '!=', ''],
                 ['book_author', 'LIKE', $like_keyword],
             ); 
     

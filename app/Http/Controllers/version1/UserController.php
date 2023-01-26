@@ -230,27 +230,27 @@ class UserController extends Controller
         
         for ($i=0; $i < count($found_books); $i++) { 
 
-            if(file_exists(public_path() . "/uploads/books_cover_arts/" . $found_books[$i]->book_cover_photo)){
+            if(!empty($found_books[$i]->book_cover_photo) && file_exists(public_path() . "/uploads/books_cover_arts/" . $found_books[$i]->book_cover_photo)){
                 $found_books[$i]->book_cover_photo = config('app.books_cover_arts_folder') . "/" . $found_books[$i]->book_cover_photo;
             } else {
                 $found_books[$i]->book_cover_photo = config('app.books_cover_arts_folder') . "/sample_cover_art.jpg";
             }
-            if(file_exists(public_path() . "/uploads/books_fulls/" . $found_books[$i]->book_pdf)){
+            if(!empty($found_books[$i]->book_pdf) && file_exists(public_path() . "/uploads/books_fulls/" . $found_books[$i]->book_pdf)){
                 $found_books[$i]->book_pdf = config('app.books_full_folder') . "/" . $found_books[$i]->book_pdf;
             } else {
                 $found_books[$i]->book_pdf = "";
             }
-            if(file_exists(public_path() . "/uploads/books_summaries/" . $found_books[$i]->book_summary_pdf)){
+            if(!empty($found_books[$i]->book_summary_pdf) && file_exists(public_path() . "/uploads/books_summaries/" . $found_books[$i]->book_summary_pdf)){
                 $found_books[$i]->book_summary_pdf = config('app.books_summaries_folder') . "/" . $found_books[$i]->book_summary_pdf;
             } else {
                 $found_books[$i]->book_summary_pdf = "";
             }
-            if(file_exists(public_path() . "/uploads/books_audios/" . $found_books[$i]->book_audio)){
+            if(!empty($found_books[$i]->book_audio) && file_exists(public_path() . "/uploads/books_audios/" . $found_books[$i]->book_audio)){
                 $found_books[$i]->book_audio = config('app.url') . "/" . $found_books[$i]->book_audio;
             } else {
                 $found_books[$i]->book_audio = "";
             }
-            if(file_exists(public_path() . "/uploads/books_audios_summaries/" . $found_books[$i]->book_summary_audio)){
+            if(!empty($found_books[$i]->book_summary_audio) && file_exists(public_path() . "/uploads/books_audios_summaries/" . $found_books[$i]->book_summary_audio)){
                 $found_books[$i]->book_summary_audio = config('app.url') . "/" . $found_books[$i]->book_summary_audio;
             } else {
                 $found_books[$i]->book_summary_audio = "";
@@ -367,27 +367,27 @@ class UserController extends Controller
         
         for ($i=0; $i < count($found_books); $i++) { 
 
-            if(file_exists(public_path() . "/uploads/books_cover_arts/" . $found_books[$i]->book_cover_photo)){
+            if(!empty($found_books[$i]->book_cover_photo) && file_exists(public_path() . "/uploads/books_cover_arts/" . $found_books[$i]->book_cover_photo)){
                 $found_books[$i]->book_cover_photo = config('app.books_cover_arts_folder') . "/" . $found_books[$i]->book_cover_photo;
             } else {
                 $found_books[$i]->book_cover_photo = config('app.books_cover_arts_folder') . "/sample_cover_art.jpg";
             }
-            if(file_exists(public_path() . "/uploads/books_fulls/" . $found_books[$i]->book_pdf)){
+            if(!empty($found_books[$i]->book_pdf) && file_exists(public_path() . "/uploads/books_fulls/" . $found_books[$i]->book_pdf)){
                 $found_books[$i]->book_pdf = config('app.books_full_folder') . "/" . $found_books[$i]->book_pdf;
             } else {
                 $found_books[$i]->book_pdf = "";
             }
-            if(file_exists(public_path() . "/uploads/books_summaries/" . $found_books[$i]->book_summary_pdf)){
+            if(!empty($found_books[$i]->book_summary_pdf) && file_exists(public_path() . "/uploads/books_summaries/" . $found_books[$i]->book_summary_pdf)){
                 $found_books[$i]->book_summary_pdf = config('app.books_summaries_folder') . "/" . $found_books[$i]->book_summary_pdf;
             } else {
                 $found_books[$i]->book_summary_pdf = "";
             }
-            if(file_exists(public_path() . "/uploads/books_audios/" . $found_books[$i]->book_audio)){
+            if(!empty($found_books[$i]->book_audio) && file_exists(public_path() . "/uploads/books_audios/" . $found_books[$i]->book_audio)){
                 $found_books[$i]->book_audio = config('app.url') . "/" . $found_books[$i]->book_audio;
             } else {
                 $found_books[$i]->book_audio = "";
             }
-            if(file_exists(public_path() . "/uploads/books_audios_summaries/" . $found_books[$i]->book_summary_audio)){
+            if(!empty($found_books[$i]->book_summary_audio) && file_exists(public_path() . "/uploads/books_audios_summaries/" . $found_books[$i]->book_summary_audio)){
                 $found_books[$i]->book_summary_audio = config('app.url') . "/" . $found_books[$i]->book_summary_audio;
             } else {
                 $found_books[$i]->book_summary_audio = "";

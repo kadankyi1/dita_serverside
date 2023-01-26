@@ -280,6 +280,144 @@ class UserController extends Controller
         ]);
     }
     
+    /*
+    |--------------------------------------------------------------------------
+    |--------------------------------------------------------------------------
+    | THIS FUNCTION SENDS LIST OF BOOKS
+    |--------------------------------------------------------------------------
+    |--------------------------------------------------------------------------
+    */
+
+    public function getBookSummariesListing(Request $request)
+    {
+    
+        // CHECKING THAT THE REQUEST FROM THE USER HAS A VALID TOKEN
+        if (!Auth::guard('api')->check()) {
+            return response([
+                "status" => "error", 
+                "message" => "Session closed. You have to login again"
+            ]);
+        }
+    
+        // CHECKING THAT USER TOKEN HAS THE RIGHT PERMISSION
+        if (!$request->user()->tokenCan('get-info-on-apps')) {
+            return response([
+                "status" => "error", 
+                "message" => "You do not have permission"
+            ]);
+        }
+    
+        // CHECKING IF USER FLAGGED
+        if (auth()->user()->user_flagged) {
+            $request->user()->token()->revoke();
+            return response([
+                "status" => "error", 
+                "message" => "Account flagged."
+            ]);
+        }
+    
+
+        // MAKING SURE THE INPUT HAS THE EXPECTED VALUES
+        $validatedData = $request->validate([
+            "kw" => "",
+            "app_type" => "bail|required|max:8",
+            "app_version_code" => "bail|required|integer"
+        ]);
+    
+        $like_keyword = '%' . $request->kw . '%';
+    
+    
+        if(empty($request->kw)){
+            $where_array = array(
+                ['book_summary_pdf', '!=', ''],
+            ); 
+            $found_books = DB::table('books')
+            ->select('books.book_id', 'books.book_cover_photo', 'books.book_sys_id', 'books.book_title', 'books.book_author', 'books.book_ratings', 'books.book_description_short', 'books.book_description_long', 'books.book_pages', 'books.book_pdf', 'books.book_summary_pdf', 'books.book_audio', 'books.book_summary_audio', 'books.book_cost_usd', 'books.book_summary_cost_usd')
+            ->where($where_array)
+            ->orderBy('created_at', 'desc')
+            ->take(30)
+            ->get();
+        } else {
+            $where_array = array(
+                ['book_summary_pdf', '!=', ''],
+                ['book_title', 'LIKE', $like_keyword],
+            ); 
+            $orwhere_array = array(
+                ['book_summary_pdf', '!=', ''],
+                ['book_author', 'LIKE', $like_keyword],
+            ); 
+    
+            if(count($orwhere_array) > 0){
+                $found_books = DB::table('books')
+                    ->select('books.book_id', 'books.book_cover_photo', 'books.book_sys_id', 'books.book_title', 'books.book_author', 'books.book_ratings', 'books.book_description_short', 'books.book_description_long', 'books.book_pages', 'books.book_pdf', 'books.book_summary_pdf', 'books.book_audio', 'books.book_summary_audio', 'books.book_cost_usd', 'books.book_summary_cost_usd')
+                    ->where($where_array)
+                    ->orWhere($orwhere_array)
+                    ->orderBy('read_count', 'desc')
+                    ->take(30)
+                    ->get();
+                            
+            } else {
+                $found_books = DB::table('rates')
+                ->select('books.book_id', 'books.book_cover_photo', 'books.book_sys_id', 'books.book_title', 'books.book_author', 'books.book_ratings', 'books.book_description_short', 'books.book_description_long', 'books.book_pages', 'books.book_pdf', 'books.book_summary_pdf', 'books.book_audio', 'books.book_summary_audio', 'books.book_cost_usd', 'books. book_summary_cost_usd')
+                ->where($where_array)
+                ->orderBy('read_count', 'desc')
+                ->take(30)
+                ->get();
+            }
+        }
+        
+        for ($i=0; $i < count($found_books); $i++) { 
+
+            if(file_exists(public_path() . "/uploads/books_cover_arts/" . $found_books[$i]->book_cover_photo)){
+                $found_books[$i]->book_cover_photo = config('app.books_cover_arts_folder') . "/" . $found_books[$i]->book_cover_photo;
+            } else {
+                $found_books[$i]->book_cover_photo = config('app.books_cover_arts_folder') . "/sample_cover_art.jpg";
+            }
+            if(file_exists(public_path() . "/uploads/books_fulls/" . $found_books[$i]->book_pdf)){
+                $found_books[$i]->book_pdf = config('app.books_full_folder') . "/" . $found_books[$i]->book_pdf;
+            } else {
+                $found_books[$i]->book_pdf = "";
+            }
+            if(file_exists(public_path() . "/uploads/books_summaries/" . $found_books[$i]->book_summary_pdf)){
+                $found_books[$i]->book_summary_pdf = config('app.books_summaries_folder') . "/" . $found_books[$i]->book_summary_pdf;
+            } else {
+                $found_books[$i]->book_summary_pdf = "";
+            }
+            if(file_exists(public_path() . "/uploads/books_audios/" . $found_books[$i]->book_audio)){
+                $found_books[$i]->book_audio = config('app.url') . "/" . $found_books[$i]->book_audio;
+            } else {
+                $found_books[$i]->book_audio = "";
+            }
+            if(file_exists(public_path() . "/uploads/books_audios_summaries/" . $found_books[$i]->book_summary_audio)){
+                $found_books[$i]->book_summary_audio = config('app.url') . "/" . $found_books[$i]->book_summary_audio;
+            } else {
+                $found_books[$i]->book_summary_audio = "";
+            }
+            $found_books[$i]->book_cost_usd = "$" . strval($found_books[$i]->book_cost_usd);
+
+            $transaction = Transaction::where('transaction_type', '=', "book_full")->where('transaction_referenced_item_id', '=', $found_books[$i]->book_sys_id)->where('transaction_referenced_item_id', '=', $found_books[$i]->book_sys_id)->where('transaction_payment_status', '=', "verified_passed")->first();
+            if($transaction == null || empty($transaction->transaction_referenced_item_id)){
+                $found_books[$i]->book_full_purchased = "no";
+            } else {
+                $found_books[$i]->book_full_purchased = "yes";
+            }
+
+            $transaction = Transaction::where('transaction_type', '=', "book_summary")->where('transaction_referenced_item_id', '=', $found_books[$i]->book_sys_id)->where('transaction_referenced_item_id', '=', $found_books[$i]->book_sys_id)->where('transaction_payment_status', '=', "verified_passed")->first();
+            if($transaction == null || empty($transaction->transaction_referenced_item_id)){
+                $found_books[$i]->book_summary_purchased = "no";
+            } else {
+                $found_books[$i]->book_summary_purchased = "yes";
+            }
+        }
+
+        return response([
+            "status" => "success", 
+            "message" => "Operation successful", 
+            "data" => $found_books, 
+            "kw" => $request->kw
+        ]);
+    }
+    
 
 public function contactDitaTeam(Request $request){
 

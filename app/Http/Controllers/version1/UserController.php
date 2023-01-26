@@ -333,8 +333,7 @@ class UserController extends Controller
             ); 
             $found_books = DB::table('books')
             ->select('books.book_id', 'books.book_cover_photo', 'books.book_sys_id', 'books.book_title', 'books.book_author', 'books.book_ratings', 'books.book_description_short', 'books.book_description_long', 'books.book_pages', 'books.book_pdf', 'books.book_summary_pdf', 'books.book_audio', 'books.book_summary_audio', 'books.book_cost_usd', 'books.book_summary_cost_usd')
-            ->whereNotNull('book_summary_pdf')
-            //->where($where_array)
+            ->where($where_array)
             ->orderBy('created_at', 'desc')
             ->take(30)
             ->get();

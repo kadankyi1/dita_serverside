@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('transaction_sys_id', 255)->unique();
             $table->string('transaction_type', 255);
             $table->string('transaction_referenced_item_id', 255);
-            $table->string('transaction_buyer_id', 255);
+            $table->string('transaction_buyer_email', 255);
             $table->string('transaction_payment_type', 255);
             $table->string('transaction_payment_ref_id', 255);
             $table->date('transaction_payment_date');

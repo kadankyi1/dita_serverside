@@ -31,5 +31,11 @@ Route::middleware('auth:api')->post('/v1/user/get-books-summaries', [App\Http\Co
 // CONTACT DITA TEAM
 Route::middleware('auth:api')->post('/v1/user/send-message', [App\Http\Controllers\version1\UserController::class, 'contactDitaTeam']);
 
+// GET PAYMENT URL
+Route::post('/v1/user/get-payment-url',[App\Http\Controllers\version1\UserController::class, 'getPaymentUrl']);
+
+// VERIFY PAYMENT URL
+Route::post('/v1/user/verify-payment',[App\Http\Controllers\version1\UserController::class, 'verifyPayStackPayment']);
+
 // RECORD PURCHSE
 Route::middleware('auth:api')->post('/v1/user/record-payment', [App\Http\Controllers\version1\UserController::class, 'recordPurchase']);

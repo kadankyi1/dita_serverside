@@ -494,7 +494,206 @@ public function recordPurchase(Request $request){
     $transactionData["transaction_sys_id"] =  auth()->user()->user_id . "_" . date("YmdHis") . UtilController::getRandomString(4);
     $transactionData["transaction_type"] = $request->item_type;
     $transactionData["transaction_referenced_item_id"] = $book->book_sys_id;
-    $transactionData["transaction_buyer_id"] = auth()->user()->user_id;
+    $transactionData["transaction_buyer_email"] = auth()->user()->user_email;
+    $transactionData["transaction_payment_type"] = $request->payment_type;
+    $transactionData["transaction_payment_ref_id"] = $request->payment_ref_number;
+    $transactionData["transaction_payment_date"] = $request->payment_date;
+    $transactionData["transaction_payment_status"] = "unverified";
+    $transaction = Transaction::create($transactionData);
+
+
+    return response([
+        "status" => "success", 
+        "message" => "You can start reading your book while we verify the payment."
+    ]);
+
+}
+
+
+public function getPaymentUrl(Request $request){
+    $validatedData = $request->validate([
+        "user_email" => "bail|required|max:100",
+        "item_id" => "bail|required|max:100",
+        "item_type" => "bail|required|max:100"
+    ]);
+
+    if($request->item_type == "book_full"){
+        $where_array = array(
+            ['book_sys_id', '=', $request->item_id],
+        ); 
+    } else if($request->item_type == "book_summary"){
+        $where_array = array(
+            ['book_sys_id', '=', $request->item_id],
+            ['book_summary_pdf', '<>', ''],
+        ); 
+    } else {
+        return response([
+            "status" => "error", 
+            "message" => "Book error"
+        ]);
+    }
+    $found_books = DB::table('books')
+                  ->select('book_sys_id', 'books.book_cost_usd', 'books.book_summary_cost_usd')
+                  ->where($where_array)
+                  ->orderBy('read_count', 'desc')
+                  ->take(1)
+                  ->get();
+  
+    if(empty($found_books[0])){
+        return response([
+            "status" => "error", 
+            "message" => "Item not found"
+        ]);
+    }
+
+    $url = "https://api.paystack.co/transaction/initialize";
+
+    $fields = [
+        'email' => $request->user_email,
+        'amount' => $found_books[0]->book_cost_usd*100,
+        //'currency' => "USD",
+        'callback' => config('app.paystackpaymentcallback'),
+    ];
+
+    $authorization =  "Authorization: Bearer " . config('app.paystacksecretkey');
+
+    $fields_string = http_build_query($fields);
+
+    //open connection
+    $ch = curl_init();
+    
+    //set the url, number of POST vars, POST data
+    curl_setopt($ch,CURLOPT_URL, $url);
+    curl_setopt($ch,CURLOPT_POST, true);
+    curl_setopt($ch,CURLOPT_POSTFIELDS, $fields_string);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+        $authorization,
+        "Cache-Control: no-cache",
+    ));
+    
+    //So that curl_exec returns the contents of the cURL; rather than echoing it
+    curl_setopt($ch,CURLOPT_RETURNTRANSFER, true); 
+    
+    //execute post
+    $result = curl_exec($ch);
+    $result = json_decode($result);
+
+    if($result->status == true && !empty($result->data->reference)){
+        $transactionData["transaction_sys_id"] =  $request->user_email . "_" . date("YmdHis") . UtilController::getRandomString(4);
+        $transactionData["transaction_type"] = $request->item_type;
+        $transactionData["transaction_referenced_item_id"] = $found_books[0]->book_sys_id;
+        $transactionData["transaction_buyer_email"] = $request->user_email;
+        $transactionData["transaction_payment_type"] = "paystack";
+        $transactionData["transaction_payment_ref_id"] = $result->data->reference;
+        $transactionData["transaction_payment_date"] = date("Y-m-d");
+        $transactionData["transaction_payment_status"] = "unverified";
+        $transaction = Transaction::create($transactionData);
+    } 
+
+    return $result;
+
+}
+
+public function verifyPayStackPayment(Request $request){
+
+    $validatedData = $request->validate([
+        "reference" => "bail|required|max:100",
+    ]);
+
+    $url = "https://api.paystack.co/transaction/verify/" . $request->reference;
+    $authorization =  "Authorization: Bearer " . config('app.paystacksecretkey');
+
+    $curl = curl_init();
+  
+    curl_setopt_array($curl, array(
+      CURLOPT_URL => $url,
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => "",
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 30,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => "GET",
+      CURLOPT_HTTPHEADER => array(
+        $authorization,
+        "Cache-Control: no-cache",
+      ),
+    ));
+    
+    $response = curl_exec($curl);
+    $err = curl_error($curl);
+  
+    curl_close($curl);
+    
+    if ($err) {
+        return response([
+            "status" => "error", 
+            "message" => "Failed to make request"
+        ]);
+    } else {
+       return json_decode($response) ;
+      //echo $response;
+    }
+}
+
+
+public function recordWebPurchase(Request $request){
+
+    $validatedData = $request->validate([
+        "user_email" => "bail|required|max:100",
+        "item_id" => "bail|required|max:100",
+        "item_type" => "bail|required|max:100",
+        "payment_type" => "bail|required|max:100",
+        "payment_ref_number" => "bail|required|max:100",
+        "payment_date" => "bail|required|max:100",
+        "app_type" => "bail|required|max:8",
+        "app_version_code" => "bail|required|integer"
+    ]);
+
+    //CHECKING IF USER EXISTS
+    $user1 = User::where('user_email', '=', $request->user_email)->first();
+    if($user1 === null){
+        $userData["user_sys_id"] = date("Y-m-d-H-i-s") . UtilController::getRandomString(91);
+        $userData["user_email"] = $validatedData["user_email"];
+        $userData["user_fcm_token_android"] = "";
+        $userData["user_fcm_token_web"] = "";
+        $userData["user_fcm_token_ios"] = "";
+        $userData["user_flagged"] = false;
+        $userData["user_flagged_reason"] = "";
+        $userData["passcode_set_time"] = date("Y-m-d H:i:s");
+        $userData["passcode"] = uniqid();        
+        $userData["user_android_app_version_code"] = "1";
+        $userData["user_ios_app_version_code"] = "1";
+        $user1 = User::create($userData);
+    } 
+
+
+    if($request->item_type != "book_full" && $request->item_type != "book_summary"){
+        return response([
+            "status" => "error", 
+            "message" => "Book error"
+        ]);
+    } 
+    
+    if($request->payment_type != "momo" && $request->payment_type != "card"){
+        return response([
+            "status" => "error", 
+            "message" => "Payment error"
+        ]);
+    } 
+
+    $book = Book::where('book_sys_id', '=', $request->item_id)->first();
+    if($book == null || empty($book->book_sys_id)){
+        return response([
+            "status" => "error", 
+            "message" => "Book not found"
+        ]);
+    }
+    
+
+    $transactionData["transaction_sys_id"] =  auth()->user()->user_id . "_" . date("YmdHis") . UtilController::getRandomString(4);
+    $transactionData["transaction_type"] = $request->item_type;
+    $transactionData["transaction_referenced_item_id"] = $book->book_sys_id;
+    $transactionData["transaction_buyer_email"] = auth()->user()->user_email;
     $transactionData["transaction_payment_type"] = $request->payment_type;
     $transactionData["transaction_payment_ref_id"] = $request->payment_ref_number;
     $transactionData["transaction_payment_date"] = $request->payment_date;

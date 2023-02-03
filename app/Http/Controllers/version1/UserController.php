@@ -149,7 +149,7 @@ class UserController extends Controller
             ); 
 
             $purchases_books_transactions = DB::table('transactions')
-            ->select('transactions.transaction_referenced_item_id')
+            ->select('transactions.transaction_referenced_item_id', 'transactions.transaction_payment_ref_id')
             ->where($where_array)
             ->orderBy('created_at', 'desc')
             ->get();

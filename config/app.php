@@ -35,7 +35,7 @@ return [
     'momoaccountnumber' => env('MOMO_ACCOUNT_NUMBER', '0241194365'),
     'momoaccountname' => env('MOMO_ACCOUNT_NAME', 'Jennifer Quansah'),
     'paystacksecretkey' => env('PAYSTACK_SECRET_KEY', 'sk_test_fc1bb9c9f1f97854f5a685d21b4fc7a65f0bef25'),
-    'paystackpaymentcallback' => env('PAYSTACK_PAYMENT_CALLBACK', 'https://dita.fishpott.com/api/v1/user/record-payment'),
+    'paystackpaymentcallback' => env('PAYSTACK_PAYMENT_CALLBACK', 'http://dita.local/reader'),
 
 
     /*

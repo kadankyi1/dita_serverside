@@ -30,6 +30,10 @@ Route::get('/buy', function () {
     return view('webapp/buy');
 });
 
+Route::get('/reader', function () {
+    return view('webapp/reader');
+});
+
 Route::get('/how-to-pay', function () {
     return view('webapp/howtopay');
 });

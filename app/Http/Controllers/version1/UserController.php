@@ -552,7 +552,7 @@ public function getPaymentUrl(Request $request){
         'email' => $request->user_email,
         'amount' => $found_books[0]->book_cost_usd*100,
         //'currency' => "USD",
-        'callback' => config('app.paystackpaymentcallback'),
+        'callback_url' => config('app.paystackpaymentcallback'),
     ];
 
     $authorization =  "Authorization: Bearer " . config('app.paystacksecretkey');
@@ -599,41 +599,10 @@ public function verifyPayStackPayment(Request $request){
     $validatedData = $request->validate([
         "reference" => "bail|required|max:100",
     ]);
-
-    $url = "https://api.paystack.co/transaction/verify/" . $request->reference;
-    $authorization =  "Authorization: Bearer " . config('app.paystacksecretkey');
-
-    $curl = curl_init();
-  
-    curl_setopt_array($curl, array(
-      CURLOPT_URL => $url,
-      CURLOPT_RETURNTRANSFER => true,
-      CURLOPT_ENCODING => "",
-      CURLOPT_MAXREDIRS => 10,
-      CURLOPT_TIMEOUT => 30,
-      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-      CURLOPT_CUSTOMREQUEST => "GET",
-      CURLOPT_HTTPHEADER => array(
-        $authorization,
-        "Cache-Control: no-cache",
-      ),
-    ));
-    
-    $response = curl_exec($curl);
-    $err = curl_error($curl);
-  
-    curl_close($curl);
-    
-    if ($err) {
-        return response([
-            "status" => "error", 
-            "message" => "Failed to make request"
-        ]);
-    } else {
-       return json_decode($response) ;
-      //echo $response;
-    }
+    return UtilController::verifyPayStackPayment($request->reference);
 }
+
+
 
 
 public function recordWebPurchase(Request $request){

@@ -25,7 +25,10 @@ var web_home_url = `${hostweb}/admin/users/list`;
 var host_api = "http://dita.local";
 //var host_api = "http://pjdigitalpool";
 
-// LOGIN API URL
+// GET LOGIN CODE URL
+var get_login_code_url = `${host_api}/api/v1/user/send-login-code`;
+
+// GET PAYMENT URL API URL
 var get_payment_url = `${host_api}/api/v1/user/get-payment-url`;
 
 
@@ -148,7 +151,7 @@ function send_request_to_server_from_form(method, url_to_server, form_data, data
         dataType: data_type,
         success: function(response){ 
             show_log_in_console(response);
-            if(response.status === true){
+            if(response.status === true || response.status === "success"){
                 success_response_function(response);
             } else {
                 error_response_function(response.message);

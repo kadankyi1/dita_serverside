@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\version1;
 
 use App\Http\Controllers\Controller;
+use App\Models\version1\Transaction;
 use Illuminate\Http\Request;
 
 class UtilController extends Controller
@@ -58,6 +59,7 @@ class UtilController extends Controller
         $err = curl_error($curl);
     
         curl_close($curl);
+        $response = json_decode($response);
         
         if ($err) {
             return response([
@@ -65,7 +67,21 @@ class UtilController extends Controller
                 "message" => "Failed to make request"
             ]);
         } else {
-        return json_decode($response) ;
+            $transaction = Transaction::where('transaction_payment_ref_id', '=', $reference)->first();
+            if($transaction == null || empty($transaction->transaction_referenced_item_id)){
+                return response([
+                    "status" => "error", 
+                    "message" => "Failed to make request"
+                ]);
+            }
+            
+            if($response->data->status == "success"){
+                $transaction->transaction_payment_status = "verified_passed";
+                $transaction->save();  
+            }
+ 
+
+        return  $response;
         //echo $response;
         }
     }

@@ -13,7 +13,7 @@ class Transaction extends Model
      *
      * @var string
      */
-    protected $primaryKey = 'book_id';
+    protected $primaryKey = 'transaction_sys_id';
 
 
     /**

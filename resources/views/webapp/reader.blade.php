@@ -4,9 +4,10 @@ use App\Models\version1\Book;
 use App\Models\version1\Transaction;
 use App\Http\Controllers\version1\UtilController;
 
-$trxref = $_GET["trxref"];
-$reference = $_GET["reference"];
-if(!empty($trxref) && !empty($reference)){
+if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
+
+    $trxref = $_GET["trxref"];
+    $reference = $_GET["reference"];
 
     $transaction = Transaction::where('transaction_payment_ref_id', '=', $reference)->first();
     if($transaction == null || empty($transaction->transaction_sys_id)){
@@ -157,82 +158,63 @@ if(!empty($trxref) && !empty($reference)){
         <div class="form-41-mian pt-lg-4 pt-md-3 pb-4">
             <div class="container">
                 <div class="heading text-center mx-auto">
-                    <h5 class="title-small text-center mb-2"><?php echo $error; ?></h5>
-                    <h3 class="title-big2 mb-2">111111</h3>
-                    <p class="mb-5">You can read this book on this website, on our mobile apps on androids or iphones</p>
+                    <h5 class="title-small text-center mb-2"></h5>
+                    <h3 class="title-big2 mb-2">READER - ACCESS YOUR BOOKS</h3>
+                    <p class="mb-5" id="info_text">Enter your email to receive a login code</p>
                 </div>
                 <div class="row">
-                  <div class="col-lg-3 col-md-6 item">
-                    <div class="card">
-                        <div class="card-header p-0 position-relative">
-                            <a href="/buy?ref=11111">
-                                <img class="card-img-bottom d-block" src="111111" alt="Card image cap" height="300px">
-                            </a>
-                            <ul class="location-top">
-                                <li class="tip">11111</li>
-                            </ul>
-                        </div>
-                        <div class="card-body blog-details">
-                            <a href="/buy?ref=11111" class="blog-desc">1111111</a>
-                            <div class="author align-items-center mt-3 mb-1">
-                              <span class="meta-value">- By 11111</span>
-                              <br>
-                              <span class="summary-available">1111</span>
+
+                    <div class="offset-lg-4 col-lg-4 form-inner-cont">                                   
+                        <form action="" method="post" id="sendlogincodeform" class="signin-form">
+                            <div class="">
+                                <span id="buyform" >
+                                <div class="form-input mb-4">
+                                    <input type="email" name="user_email" id="user_email" placeholder="Email *" required />
+                                    <input type="hidden" name="app_type" id="app_type" value="web" readonly />
+                                    <input type="hidden" name="app_version_code" id="app_version_code" value="1" readonly />
+                                </div>
+                                <div class="text-center" id="buybtn">
+                                   <button id="proceed_btn" type="submit"  class="btn btn-style btn-primary">Send Code</button>
+                                </div>
+                                </span>
                             </div>
+                        </form>                        
+                        <form action="" method="post" id="verifylogincodeform" class="signin-form" style="display: none">
+                            <div class="">
+                                <span id="buyform" >
+                                <div class="form-input mb-4">
+                                    <input type="email" name="user_email" id="user_email2" placeholder="Email *" readonly />
+                                </div>
+                                <div class="form-input mb-4">
+                                    <input type="text" name="login_code" id="login_code"  placeholder="Login Code *" required />
+                                </div>
+                                <div class="text-center" id="buybtn">
+                                   <button id="proceed_btn" type="submit"  class="btn btn-style btn-primary">Login</button>
+                                </div>
+                                </span>
+                            </div>
+                        </form>                        
+                        <form action="" method="post" id="choosebookform" class="signin-form" style="display: none">
+                            <div class="">
+                                <span id="buyform" >
+                                <div class="form-input mb-4">
+                                  <select name="item_type" id="item_type">
+                                    <option value="">Choose A Book</option>
+                                    <option value="book_full">Full Book</option>
+                                    <option value="book_summary">Summary</option>
+                                  </select>
+                                </div>
+                                <div class="text-center" id="buybtn">
+                                   <button id="proceed_btn" type="submit"  class="btn btn-style btn-primary">Read</button>
+                                </div>
+                                </span>
+                            </div>
+                        </form>
+                        <div style="align-content: center; text-align: center;">
+                            <div id="loader" class="lds-roller" style="display: none"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
                         </div>
                     </div>
-                </div>
     
-                    <div class="col-lg-5 contacts-5-grid-main section-gap mt-lg-0 mt-4">
-                        <div class="contacts-5-grid">
-                            <div class="map-content-5">
-                              <section class="tab-content">
-                                  <div class="contact-type">
-                                      <div class="address-grid mb-3">
-                                          <h6>Description</h6>
-                                          <p class="list-book-desc">111111</p>
-                                          
-                                          </span>
-                                      </div>
-                                  </div>
-                              </section>
-                            </div>
-                        </div>
-                    </div>
-    
-                    <div class="col-lg-4 form-inner-cont">
-                      <div id="loader" class="lds-roller" style="display: none"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-                                 
-                      <form action="" method="post" id="real_buy_form" class="signin-form">
-                          <div class="">
-                              <div class="form-input mb-4">
-                                <select name="item_type" id="item_type">
-                                  <option value="">Choose Preference</option>
-                                  <option value="book_full">Full Book</option>
-                                  <option value="book_summary">Summary</option>
-                                </select>
-                              </div>
-                              <span id="buyform" >
-                              </section>
-                              <div class="form-input mb-4">
-                                  <input type="hidden" name="item_id" id="item_id" value=""
-                                      readonly />
-                              </div>
-                              <div class="form-input mb-4">
-                                  <input type="text" name="book_amt" id="book_amt" 
-                                      readonly />
-                              </div>
-                              <div class="form-input mb-4">
-                                  <input type="email" name="user_email" id="user_email" placeholder="Email *"
-                                      required />
-                              </div>
-                              <div class="text-right" id="buybtn">
-                                 <button id="proceed_btn" type="submit"  class="btn btn-style btn-primary">Proceed</button>
-                              </div>
-                              </span>
-                          </div>
-                      </form>
-                  </div>
                 </div>
             </div>
             <!-- //contacts-5-grid -->

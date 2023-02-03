@@ -58,6 +58,13 @@ class UserController extends Controller
             ]);
         }
 
+        if($request->app_type != "IOS" && $request->app_type == "ANDROID" && $request->app_type == "WEB"){
+            return response([
+                "status" => "error", 
+                "message" => "Please update your app."
+                ]);
+        }
+
         // SENDING LOGIN CODE
         $passcode = UtilController::getRandomString(10);
 
@@ -136,12 +143,44 @@ class UserController extends Controller
             $user1->passcode = "";
             $user1->save();  
 
+            $where_array = array(
+                ['transaction_buyer_email', '=', $user1->user_email],
+                ['transaction_payment_status', '=', 'verified_passed']
+            ); 
+
+            $purchases_books_transactions = DB::table('transactions')
+            ->select('transactions.verified_passed', 'transactions.transaction_referenced_item_id')
+            ->where($where_array)
+            ->orderBy('read_count', 'desc')
+            ->get();
+    
+    
+        $found_books = array();
+
+        for ($i=0; $i < count($purchases_books_transactions); $i++) { 
+            
+            $where_array = array(
+                ['book_sys_id', '=', $purchases_books_transactions[$i]->transaction_referenced_item_id]
+            ); 
+            
+            $this_book = DB::table('books')
+            ->select('books.book_id', 'books.book_cover_photo', 'books.book_sys_id', 'books.book_title', 'books.book_author', 'books.book_ratings', 'books.book_description_short', 'books.book_description_long', 'books.book_pages', 'books.book_pdf', 'books.book_summary_pdf', 'books.book_audio', 'books.book_summary_audio', 'books.book_cost_usd', 'books. book_summary_cost_usd')
+            ->where($where_array)
+            ->orderBy('read_count', 'desc')
+            ->take(1)
+            ->get();
+
+            array_push($found_books, $this_book);
+        }
+
+
             return response([
                 "status" => "success", 
                 "message" => "Login successful",
                 "user_email" => $user1->user_email,
                 "user_id" => $user1->user_sys_id,
                 "access_token" => $accessToken,
+                "data" => $found_books, 
             ]);
     
     
@@ -219,7 +258,7 @@ class UserController extends Controller
                     ->get();
                             
             } else {
-                $found_books = DB::table('rates')
+                $found_books = DB::table('books')
                 ->select('books.book_id', 'books.book_cover_photo', 'books.book_sys_id', 'books.book_title', 'books.book_author', 'books.book_ratings', 'books.book_description_short', 'books.book_description_long', 'books.book_pages', 'books.book_pdf', 'books.book_summary_pdf', 'books.book_audio', 'books.book_summary_audio', 'books.book_cost_usd', 'books. book_summary_cost_usd')
                 ->where($where_array)
                 ->orderBy('read_count', 'desc')
@@ -356,7 +395,7 @@ class UserController extends Controller
                     ->get();
                             
             } else {
-                $found_books = DB::table('rates')
+                $found_books = DB::table('books')
                 ->select('books.book_id', 'books.book_cover_photo', 'books.book_sys_id', 'books.book_title', 'books.book_author', 'books.book_ratings', 'books.book_description_short', 'books.book_description_long', 'books.book_pages', 'books.book_pdf', 'books.book_summary_pdf', 'books.book_audio', 'books.book_summary_audio', 'books.book_cost_usd', 'books. book_summary_cost_usd')
                 ->where($where_array)
                 ->orderBy('read_count', 'desc')

@@ -164,12 +164,13 @@ class UserController extends Controller
             ); 
             
             $this_book = DB::table('books')
-            ->select('books.book_id', 'books.book_cover_photo', 'books.book_sys_id', 'books.book_title', 'books.book_author', 'books.book_ratings', 'books.book_description_short', 'books.book_description_long', 'books.book_pages', 'books.book_pdf', 'books.book_summary_pdf', 'books.book_audio', 'books.book_summary_audio', 'books.book_cost_usd', 'books.book_summary_cost_usd')
+            ->select('books.book_sys_id', 'books.book_title')
             ->where($where_array)
             ->orderBy('read_count', 'desc')
             ->take(1)
             ->get();
 
+            $this_book[0]->transaction_payment_ref_id =  $purchases_books_transactions[$i]->transaction_payment_ref_id;
             array_push($found_books, $this_book);
         }
 

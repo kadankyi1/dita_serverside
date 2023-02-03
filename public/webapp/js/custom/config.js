@@ -9,10 +9,10 @@ var hostweb = "http://dita.local";
 //var hostweb = "http://pjdigitalpool";
 
 // LOGIN PAGE URL
-var web_login_url = `${hostweb}/admin/login`;
+var web_reader_url = `${hostweb}/reader`;
 
 // DASHBOARD PAGE URL
-var web_home_url = `${hostweb}/admin/users/list`;
+//var web_home_url = `${hostweb}/admin/users/list`;
 
 
 
@@ -27,6 +27,9 @@ var host_api = "http://dita.local";
 
 // GET LOGIN CODE URL
 var get_login_code_url = `${host_api}/api/v1/user/send-login-code`;
+
+// VERIFY LOGIN CODE URL
+var verify_login_code_url = `${host_api}/api/v1/user/verify-login-code`;
 
 // GET PAYMENT URL API URL
 var get_payment_url = `${host_api}/api/v1/user/get-payment-url`;

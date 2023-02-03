@@ -149,7 +149,7 @@ class UserController extends Controller
             ); 
 
             $purchases_books_transactions = DB::table('transactions')
-            ->select('transactions.transaction_referenced_item_id', 'transactions.transaction_payment_ref_id')
+            ->select('transactions.transaction_referenced_item_id', 'transactions.transaction_payment_ref_id', 'transactions.transaction_type')
             ->where($where_array)
             ->orderBy('created_at', 'desc')
             ->get();
@@ -171,6 +171,14 @@ class UserController extends Controller
             ->get();
 
             $this_book[0]->transaction_payment_ref_id =  $purchases_books_transactions[$i]->transaction_payment_ref_id;
+            
+            if($purchases_books_transactions[$i]->transaction_type == "book_full"){
+                $this_book[0]->book_title =  $this_book[0]->book_title . "(Full Book)";
+            } else if($purchases_books_transactions[$i]->transaction_type == "book_summary"){
+                $this_book[0]->book_title =  $this_book[0]->book_title . "(Summary)";
+            } else {
+                continue;
+            }
             array_push($found_books, $this_book);
         }
 

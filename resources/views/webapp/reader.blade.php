@@ -4,13 +4,23 @@ use App\Models\version1\Book;
 use App\Models\version1\Transaction;
 use App\Http\Controllers\version1\UtilController;
 
+//var_dump($_GET); exit;
 if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
 
     $trxref = $_GET["trxref"];
     $reference = $_GET["reference"];
 
-    $transaction = Transaction::where('transaction_payment_ref_id', '=', $reference)->first();
+    $this_transaction = DB::table('transactions')
+            ->select('transaction_sys_id', 'transaction_referenced_item_id', 'transaction_type')
+            ->where([['transaction_payment_ref_id', '=', $reference]])
+            ->orderBy('created_at', 'desc')
+            ->take(1)
+            ->get();
+
+    $transaction =  $this_transaction[0];
+    //var_dump($transaction); exit;
     if($transaction == null || empty($transaction->transaction_sys_id)){
+        //echo "here 2"; exit;
         $error = "We could not verify your payment";
     } 
 
@@ -23,14 +33,18 @@ if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
         }
 
         if($transaction->transaction_type == "book_full"){
+        //echo "here 1"; 
             if(!empty($book->book_pdf) && file_exists(public_path() . "/uploads/books_fulls/" . $book->book_pdf)){
                 $reader_book_url = config('app.books_full_folder') . "/" . $book->book_pdf;
+        //echo "here 2"; exit;
             } else {
                 $error = "Book not found. You can contact support if this is a problem";
             }
         } else if($transaction->transaction_type == "book_summary"){
+        //echo "here 3"; exit;
             if(!empty($book->book_summary_pdf) && file_exists(public_path() . "/uploads/books_summaries/" . $book->book_summary_pdf)){
                 $reader_book_url = config('app.books_summaries_folder') . "/" . $book->book_summary_pdf;
+        //echo "here 4"; exit;
             } else {
                 $error = "Book not found. You can contact support if this is a problem";
             }
@@ -46,6 +60,8 @@ if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
     $reader_book_url = "";
 }
 
+//echo "error: " . $error;
+//echo "<br><br><br>reader_book_url: " . $reader_book_url; //exit;
 ?>
 
 <!doctype html>
@@ -186,7 +202,9 @@ if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
                                     <input type="email" name="user_email" id="user_email2" placeholder="Email *" readonly />
                                 </div>
                                 <div class="form-input mb-4">
-                                    <input type="text" name="login_code" id="login_code"  placeholder="Login Code *" required />
+                                    <input type="text" name="user_passcode" id="user_passcode"  placeholder="Login Code *" required />
+                                    <input type="hidden" name="app_type" id="app_type" value="web" readonly />
+                                    <input type="hidden" name="app_version_code" id="app_version_code" value="1" readonly />
                                 </div>
                                 <div class="text-center" id="buybtn">
                                    <button id="proceed_btn" type="submit"  class="btn btn-style btn-primary">Login</button>
@@ -198,10 +216,8 @@ if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
                             <div class="">
                                 <span id="buyform" >
                                 <div class="form-input mb-4">
-                                  <select name="item_type" id="item_type">
+                                  <select name="book_chosen" id="book_chosen" required>
                                     <option value="">Choose A Book</option>
-                                    <option value="book_full">Full Book</option>
-                                    <option value="book_summary">Summary</option>
                                   </select>
                                 </div>
                                 <div class="text-center" id="buybtn">

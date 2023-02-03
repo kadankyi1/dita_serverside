@@ -15,7 +15,16 @@ $(document).ready(function ()
         e.preventDefault(); 
         $('#info_text').html('Verifying code..');
         fade_in_loader_and_fade_out_form("loader", "verifylogincodeform");       
-        send_request_to_server_from_form("post", get_login_code_url, $("#verifylogincodeform").serialize(), "json", success_response_function2, error_response_function2);
+        send_request_to_server_from_form("post", verify_login_code_url, $("#verifylogincodeform").serialize(), "json", success_response_function2, error_response_function2);
+    });
+    
+    $("#choosebookform").submit(function (e) 
+    {
+        e.preventDefault(); 
+        $('#info_text').html('Verifying code..');
+        fade_in_loader_and_fade_out_form("loader", "choosebookform");       
+        var url = web_reader_url + '?trxref=' + $('#book_chosen').val() + '&reference=' + $('#book_chosen').val();
+        redirect_to_next_page(url, true);
     });
     
 
@@ -43,6 +52,27 @@ function success_response_function2(response)
     $('#info_text').html('Choose your preferred book to read');
     $('#verifylogincodeform').hide();
     $('#sendlogincodeform').hide();
+
+    //console.log("response.data.length: " + response.data.length);
+    if(response.data.length > 0){
+        $('#book_chosen').html('');
+        $('#book_chosen').append(
+            '<option value="">Choose Book</option>'
+        );
+        for (let index = 0; index < response.data.length; index++) {
+            const element = response.data[index];
+            /*
+            console.log("element");
+            console.log(element);
+            console.log(element[0]);
+            console.log(element[0]["book_title"]);
+            console.log(element[0].book_title);
+            */
+            $('#book_chosen').append(
+                '<option value="' + element[0].transaction_payment_ref_id +'">' + element[0].book_title +' </option>'
+            );
+        }
+    }
     fade_out_loader_and_fade_in_form("loader", "choosebookform"); 
 }
 

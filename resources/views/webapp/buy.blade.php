@@ -183,8 +183,9 @@ if(!empty($id)){
                 </div>
 
                 <div class="col-lg-4 form-inner-cont">
-                  <div id="loader" class="lds-roller" style="display: none"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-                             
+                  <div style="align-content: center; text-align: center;">
+                    <div id="loader" class="lds-roller" style="display: none"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                  </div>          
                   <form action="" method="post" id="real_buy_form" class="signin-form">
                       <div class="">
                           <div class="form-input mb-4">

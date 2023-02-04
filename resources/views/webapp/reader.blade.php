@@ -18,7 +18,7 @@ if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
             ->get();
 
     //var_dump($this_transaction[0]); exit;
-    if($this_transaction[0] == null || empty($this_transaction[0]->transaction_sys_id)){
+    if(empty($this_transaction[0]) || empty($this_transaction[0]->transaction_sys_id)){
         //echo "here 2"; exit;
         $error = "We could not verify your payment";
     } 

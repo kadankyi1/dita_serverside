@@ -17,9 +17,8 @@ if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
             ->take(1)
             ->get();
 
-    $transaction =  $this_transaction[0];
-    //var_dump($transaction); exit;
-    if($transaction == null || empty($transaction->transaction_sys_id)){
+    //var_dump($this_transaction[0]); exit;
+    if($this_transaction[0] == null || empty($this_transaction[0]->transaction_sys_id)){
         //echo "here 2"; exit;
         $error = "We could not verify your payment";
     } 
@@ -27,12 +26,12 @@ if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
     $verification_response = UtilController::verifyPayStackPayment($reference);
     //var_dump($verification_response); exit;
     if(!empty($verification_response->data->status) && $verification_response->data->status == "success"){
-        $book = Book::where('book_sys_id', '=', $transaction->transaction_referenced_item_id)->first();
+        $book = Book::where('book_sys_id', '=', $this_transaction[0]->transaction_referenced_item_id)->first();
         if($book == null || empty($book->book_sys_id)){
             $error = "Book not found. You can contact support if this is a problem";
         }
 
-        if($transaction->transaction_type == "book_full"){
+        if($this_transaction[0]->transaction_type == "book_full"){
         //echo "here 1"; 
             if(!empty($book->book_pdf) && file_exists(public_path() . "/uploads/books_fulls/" . $book->book_pdf)){
                 $reader_book_url = config('app.books_full_folder') . "/" . $book->book_pdf;
@@ -40,7 +39,7 @@ if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
             } else {
                 $error = "Book not found. You can contact support if this is a problem";
             }
-        } else if($transaction->transaction_type == "book_summary"){
+        } else if($this_transaction[0]->transaction_type == "book_summary"){
         //echo "here 3"; exit;
             if(!empty($book->book_summary_pdf) && file_exists(public_path() . "/uploads/books_summaries/" . $book->book_summary_pdf)){
                 $reader_book_url = config('app.books_summaries_folder') . "/" . $book->book_summary_pdf;

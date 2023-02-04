@@ -88,7 +88,8 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://10.0.2.2:3000'),
+    //'url' => env('APP_URL', 'http://10.0.2.2:3000'),
+    'url' => env('APP_URL', 'https://dita.fishpott.com'),
     
     // INVESTORY FOLDERS
     'books_cover_arts_folder' => env('books_cover_arts_folder', 'https://dita.fishpott.com/uploads/books_cover_arts'),

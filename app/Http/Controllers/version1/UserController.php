@@ -318,6 +318,9 @@ class UserController extends Controller
             } else {
                 $found_books[$i]->book_summary_purchased = "yes";
             }
+
+            $found_books[$i]->book_reference_url = config('app.url') . "/search?kw=" . $found_books[$i]->book_sys_id;
+
         }
 
         return response([
@@ -455,6 +458,7 @@ class UserController extends Controller
             } else {
                 $found_books[$i]->book_summary_purchased = "yes";
             }
+            $found_books[$i]->book_reference_url = config('app.url') . "/search?kw=" . $found_books[$i]->book_sys_id;
         }
 
         return response([

@@ -100,20 +100,24 @@ if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
 
           <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <ul class="navbar-nav ml-auto">
-              <li class="nav-item active">
-                  <a class="nav-link" href="/">Search <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item @@about__active">
-                  <a class="nav-link" href="/how-to-pay">How To Buy</a>
-              </li>
-             <!--
-              <li class="nav-item @@pages__active">
-                  <a class="nav-link" href="features.html">App features</a>
-              </li>
-              -->
-              <li class="nav-item @@contact__active">
-                  <a class="nav-link" href="/contact">Contact</a>
-              </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Search</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/reader">Read <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item @@about__active">
+                    <a class="nav-link" href="/how-to-pay">How To Buy</a>
+                </li>
+                 <!--
+                  <li class="nav-item @@pages__active">
+                      <a class="nav-link" href="features.html">App features</a>
+                  </li>
+                  -->
+                  <li class="nav-item @@contact__active">
+                      <a class="nav-link" href="/contact">Contact</a>
+                  </li>
+              </ul>
           </ul>
           </div>
           <!-- toggle switch for light and dark theme -->
@@ -162,7 +166,7 @@ if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
   <div class="container py-xl-5 py-lg-3">
     <div class="welcome-left text-center py-md-3 mb-md-5">
       <h3 class="mb-4">Search & Read on our mobile Apps</h3>
-      <p class="text-italic">**Find a book on the mobile app, use the reference number to pay on our website and read on your mobile apps or on our website. Click the button below to download your desired mobile app</p>
+      <p class="text-italic">Find a book on the mobile app, use the reference number to pay on our website and read on your mobile apps or on our website. Click the button below to download your desired mobile app</p>
       <a href="#download" class="btn btn-primary btn-style mt-md-5 mt-4 mr-2">Android App</a>
       <a href="#download" class="btn btn-white btn-style mt-md-5 mt-4">iPhone App</a>
     </div>

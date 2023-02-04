@@ -19,6 +19,7 @@ if(!empty($id)){
                 ->orderBy('read_count', 'desc')
                 ->take(1)
                 ->get();
+      if(!empty($found_books[0])){
         if(!empty($found_books[0]->book_cover_photo) && file_exists(public_path() . "/uploads/books_cover_arts/" . $found_books[0]->book_cover_photo)){
             $found_books[0]->book_cover_photo = config('app.books_cover_arts_folder') . "/" . $found_books[0]->book_cover_photo;
         } else {
@@ -52,7 +53,9 @@ if(!empty($id)){
         }
         $found_books[0]->book_cost_usd = "$" . strval($found_books[0]->book_cost_usd);
         $found_books[0]->book_summary_cost_usd = "$" . strval($found_books[0]->book_summary_cost_usd);
-
+      } else {
+        $found_books = array();
+      }
 } else {
   $found_books = array();
 }

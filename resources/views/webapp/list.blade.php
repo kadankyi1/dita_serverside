@@ -16,15 +16,17 @@ $kw = "a";
 
   $like_keyword = '%' . $kw . '%';
     
-    if(!empty($kw) && ctype_alpha($kw)){
+    if(!empty($kw) && ctype_alnum($kw)){
+        //echo "here 1"; exit;
         $where_array = array(
-            ['book_title', 'LIKE', $like_keyword],
+            //['book_title', 'LIKE', $like_keyword],
+            ['book_sys_id', '=', $kw],
         ); 
         $orwhere_array = array(
-            ['book_author', 'LIKE', $like_keyword],
+            ['book_title', 'LIKE', $like_keyword],
         ); 
 
-        if(count($orwhere_array) > 0){
+        //if(count($orwhere_array) > 0){
             $found_books = DB::table('books')
                 ->select('books.book_id', 'books.book_cover_photo', 'books.book_sys_id', 'books.book_title', 'books.book_author', 'books.book_ratings', 'books.book_description_short', 'books.book_description_long', 'books.book_pages', 'books.book_pdf', 'books.book_summary_pdf', 'books.book_audio', 'books.book_summary_audio', 'books.book_cost_usd', 'books.book_summary_cost_usd')
                 ->where($where_array)
@@ -32,7 +34,7 @@ $kw = "a";
                 ->orderBy('read_count', 'desc')
                 ->take(30)
                 ->get();
-                        
+        /*                
         } else {
             $found_books = DB::table('rates')
             ->select('books.book_id', 'books.book_cover_photo', 'books.book_sys_id', 'books.book_title', 'books.book_author', 'books.book_ratings', 'books.book_description_short', 'books.book_description_long', 'books.book_pages', 'books.book_pdf', 'books.book_summary_pdf', 'books.book_audio', 'books.book_summary_audio', 'books.book_cost_usd', 'books. book_summary_cost_usd')
@@ -41,6 +43,7 @@ $kw = "a";
             ->take(30)
             ->get();
         }
+        */
     } else {
       $found_books = DB::table('books')
         ->select('books.book_id', 'books.book_cover_photo', 'books.book_sys_id', 'books.book_title', 'books.book_author', 'books.book_ratings', 'books.book_description_short', 'books.book_description_long', 'books.book_pages', 'books.book_pdf', 'books.book_summary_pdf', 'books.book_audio', 'books.book_summary_audio', 'books.book_cost_usd', 'books.book_summary_cost_usd')

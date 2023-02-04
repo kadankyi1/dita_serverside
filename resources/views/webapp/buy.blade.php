@@ -101,21 +101,24 @@ if(!empty($id)){
 
           <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <ul class="navbar-nav ml-auto">
-              <li class="nav-item active">
-                  <a class="nav-link" href="/">Search <span class="sr-only">(current)</span></a>
+              <li class="nav-item">
+                  <a class="nav-link" href="/">Search</a>
               </li>
               <li class="nav-item @@about__active">
-                  <a class="nav-link" href="/how-to-pay">How To Buy</a>
+                  <a class="nav-link" href="/reader">Read</a>
               </li>
-             <!--
-              <li class="nav-item @@pages__active">
-                  <a class="nav-link" href="features.html">App features</a>
+              <li class="nav-item">
+                  <a class="nav-link" href="/how-to-pay">How To Buy</span></a>
               </li>
-              -->
-              <li class="nav-item @@contact__active">
-                  <a class="nav-link" href="/contact">Contact</a>
-              </li>
-          </ul>
+               <!--
+                <li class="nav-item @@pages__active">
+                    <a class="nav-link" href="features.html">App features</a>
+                </li>
+                -->
+                <li class="nav-item ">
+                    <a class="nav-link" href="/contact">Contact</a>
+                </li>
+            </ul>
           </div>
           <!-- toggle switch for light and dark theme -->
           <div class="mobile-position">

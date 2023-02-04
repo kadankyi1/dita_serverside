@@ -16,7 +16,7 @@ $kw = "a";
 
   $like_keyword = '%' . $kw . '%';
     
-    if(!empty($kw) && ctype_alnum($kw)){
+    if(!empty($kw)){
         //echo "here 1"; exit;
         $where_array = array(
             //['book_title', 'LIKE', $like_keyword],

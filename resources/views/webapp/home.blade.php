@@ -647,7 +647,7 @@ Author URL: http://w3layouts.com
   </script>
   <!--//MENU-JS-->
 
-  <!-- bootstrap js -->
+  <!-- bootstrap js https://p.w3layouts.com/demos_new/template_demo/11-08-2020/appflow-liberty-demo_Free/1795288211/web/blog-single.html -->
   <script src="webapp/js/bootstrap.min.js"></script>
   <script src="webapp/js/custom/config.js"></script>
   <script src="webapp/js/custom/home/custom-home.js"></script>

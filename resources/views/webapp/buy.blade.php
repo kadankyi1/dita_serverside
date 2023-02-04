@@ -26,15 +26,19 @@ if(!empty($id)){
         }
         if(!empty($found_books[0]->book_pdf) && file_exists(public_path() . "/uploads/books_fulls/" . $found_books[0]->book_pdf)){
             $found_books[0]->book_pdf = config('app.books_full_folder') . "/" . $found_books[0]->book_pdf;
+            $found_books[0]->book_full_available_option = '<option value="book_full">Full Book</option>';
         } else {
             $found_books[0]->book_pdf = "";
+            $found_books[0]->book_full_available_option = "";
         }
         if(!empty($found_books[0]->book_summary_pdf) && file_exists(public_path() . "/uploads/books_summaries/" . $found_books[0]->book_summary_pdf)){
             $found_books[0]->book_summary_pdf = config('app.books_summaries_folder') . "/" . $found_books[0]->book_summary_pdf;
             $found_books[0]->book_summary_available = "*Summary available for $" . $found_books[0]->book_summary_cost_usd;
+            $found_books[0]->book_summary_available_option = '<option value="book_summary">Summary</option>';
         } else {
             $found_books[0]->book_summary_pdf = "";
             $found_books[0]->book_summary_available = "";
+            $found_books[0]->book_summary_available_option = "";
         }
         if(!empty($found_books[0]->book_audio) && file_exists(public_path() . "/uploads/books_audios/" . $found_books[0]->book_audio)){
             $found_books[0]->book_audio = config('app.url') . "/" . $found_books[0]->book_audio;
@@ -191,8 +195,8 @@ if(!empty($id)){
                           <div class="form-input mb-4">
                             <select name="item_type" id="item_type" onchange="setBuyform(this, '<?php echo $found_books[0]->book_cost_usd ?>', '<?php echo $found_books[0]->book_summary_cost_usd ?>')">
                               <option value="">Choose Preference</option>
-                              <option value="book_full">Full Book</option>
-                              <option value="book_summary">Summary</option>
+                              <?php echo $found_books[0]->book_full_available_option ?>
+                              <?php echo $found_books[0]->book_summary_available_option ?>
                             </select>
                           </div>
                           <span id="buyform" style="display: none">

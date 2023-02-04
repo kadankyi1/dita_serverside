@@ -84,7 +84,7 @@ if(!empty($id)){
 <header id="site-header" class="fixed-top">
   <div class="container">
       <nav class="navbar navbar-expand-lg stroke">
-          <a class="navbar-brand" href="index.html">
+          <a class="navbar-brand" href="/">
               <span class="fa fa-cube"></span> App Flow
           </a>
           <!-- if logo is image enable this   

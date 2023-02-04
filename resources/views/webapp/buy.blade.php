@@ -142,6 +142,7 @@ if(!empty($id)){
     </div>
 </section>
 <!-- contacts-5-grid -->
+<?php if(!empty($found_books[0])){ ?>
 <div class="w3l-contact-10 py-5" id="contact">
     <div class="form-41-mian pt-lg-4 pt-md-3 pb-4">
         <div class="container">
@@ -244,6 +245,22 @@ if(!empty($id)){
         <!-- //contacts-5-grid -->
     </div>
 </div>
+<?php } else { ?>
+  <div class="w3l-contact-10 py-5" id="contact">
+    <div class="form-41-mian pt-lg-4 pt-md-3 pb-4">
+        <div class="container">
+            <div class="heading text-center mx-auto">
+                <h5 class="title-small text-center mb-2">Book not foundg</h5>
+                <h3 class="title-big2 mb-2">Book Not Found</h3>
+                <p class="mb-5">We don't know how you got here.. or do we now?</p>
+            </div>
+        </div>
+        <!-- //contacts-5-grid -->
+    </div>
+</div>
+
+
+<?php } ?>
 
 <div class="middle py-5">
   <div class="container py-xl-5 py-lg-3">

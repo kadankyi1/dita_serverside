@@ -250,7 +250,6 @@ if(!empty($id)){
     <div class="form-41-mian pt-lg-4 pt-md-3 pb-4">
         <div class="container">
             <div class="heading text-center mx-auto">
-                <h5 class="title-small text-center mb-2">Book not foundg</h5>
                 <h3 class="title-big2 mb-2">Book Not Found</h3>
                 <p class="mb-5">We don't know how you got here.. or do we now?</p>
             </div>

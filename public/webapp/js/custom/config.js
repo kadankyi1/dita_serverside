@@ -23,7 +23,7 @@ var web_reader_url = `${hostweb}/reader`;
 ****************************************/
 
 //var host_api = "http://dita.local";
-var host_api = "https://dita.fishpott.com/";
+var host_api = "https://dita.fishpott.com";
 
 // GET LOGIN CODE URL
 var get_login_code_url = `${host_api}/api/v1/user/send-login-code`;

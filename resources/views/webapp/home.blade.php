@@ -25,8 +25,8 @@ Author URL: http://w3layouts.com
 <header id="site-header" class="fixed-top">
   <div class="container">
       <nav class="navbar navbar-expand-lg stroke">
-          <a class="navbar-brand" href="/">
-              <span class="fa fa-cube"></span> App Flow
+          <a class="navbar-brand theawalfont" style="font-size: 45px" href="/">
+              Tafarri
           </a>
           <!-- if logo is image enable this   
       <a class="navbar-brand" href="#index.html">
@@ -111,7 +111,7 @@ Author URL: http://w3layouts.com
 			<div class="grids-area-hny main-cont-wthree-fea row">
 				<div class="col-lg-3 col-md-6 grids-feature">
 					<div class="area-box">
-						<span class="fa fa-cubes"></span>
+						<span class="fa fa-cuba"></span>
 						<h4><a href="#feature" class="title-head">Modular</a></h4>
 						<p>Vivamus a ligula quam. Ut blandit eu leo non sed..</p>
 					</div>

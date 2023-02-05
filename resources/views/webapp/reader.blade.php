@@ -82,9 +82,9 @@ if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
 <header id="site-header" class="fixed-top">
   <div class="container">
       <nav class="navbar navbar-expand-lg stroke">
-          <a class="navbar-brand" href="/">
-              <span class="fa fa-cube"></span> App Flow
-          </a>
+        <a class="navbar-brand theawalfont" style="font-size: 45px" href="/">
+          Tafara
+        </a>
           <!-- if logo is image enable this   
       <a class="navbar-brand" href="#index.html">
           <img src="image-path" alt="Your logo" title="Your logo" style="height:35px;" />

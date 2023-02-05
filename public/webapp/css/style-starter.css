@@ -12769,3 +12769,12 @@ li.tip {
         transform: rotate(360deg);
       }
     }
+
+  @font-face{
+    font-family:"awalfont";
+    src: url('../AwalRamadhan.ttf'); /*URL to font*/
+  }
+
+  .theawalfont {
+    font-family: 'awalfont';
+  }

@@ -35,7 +35,7 @@ return [
     'momoaccountnumber' => env('MOMO_ACCOUNT_NUMBER', '0241194365'),
     'momoaccountname' => env('MOMO_ACCOUNT_NAME', 'Jennifer Quansah'),
     'paystacksecretkey' => env('PAYSTACK_SECRET_KEY', 'sk_test_fc1bb9c9f1f97854f5a685d21b4fc7a65f0bef25'),
-    'paystackpaymentcallback' => env('PAYSTACK_PAYMENT_CALLBACK', 'https://dita.fishpott.com/reader'),
+    'paystackpaymentcallback' => env('PAYSTACK_PAYMENT_CALLBACK', 'https://tafarri.com/reader'),
 
 
     /*
@@ -89,12 +89,12 @@ return [
     */
 
     //'url' => env('APP_URL', 'http://10.0.2.2:3000'),
-    'url' => env('APP_URL', 'https://dita.fishpott.com'),
+    'url' => env('APP_URL', 'https://tafarri.com'),
     
     // INVESTORY FOLDERS
-    'books_cover_arts_folder' => env('books_cover_arts_folder', 'https://dita.fishpott.com/uploads/books_cover_arts'),
-    'books_full_folder' => env('books_full_folder', 'https://dita.fishpott.com/uploads/books_fulls'),
-    'books_summaries_folder' => env('books_summaries_folder', 'https://dita.fishpott.com/uploads/books_summaries'),
+    'books_cover_arts_folder' => env('books_cover_arts_folder', 'https://tafarri.com/uploads/books_cover_arts'),
+    'books_full_folder' => env('books_full_folder', 'https://tafarri.com/uploads/books_fulls'),
+    'books_summaries_folder' => env('books_summaries_folder', 'https://tafarri.com/uploads/books_summaries'),
 
     'asset_url' => env('ASSET_URL'),
 

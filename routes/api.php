@@ -15,7 +15,6 @@ use App\Http\Controllers\version1\UserController;
 |
 */
 
-
 // GET LOGIN CODE
 Route::post('/v1/user/send-login-code',[App\Http\Controllers\version1\UserController::class, 'sendLoginVerificationCode']);
 
@@ -29,7 +28,7 @@ Route::middleware('auth:api')->post('/v1/user/get-books', [App\Http\Controllers\
 Route::middleware('auth:api')->post('/v1/user/get-books-summaries', [App\Http\Controllers\version1\UserController::class, 'getBookSummariesListing']);
 
 // CONTACT DITA TEAM
-Route::middleware('auth:api')->post('/v1/user/send-message', [App\Http\Controllers\version1\UserController::class, 'contactDitaTeam']);
+Route::middleware('auth:api')->post('/v1/user/send-message', [App\Http\Controllers\version1\UserController::class, 'contactTafarriTeam']);
 
 // GET PAYMENT URL
 Route::post('/v1/user/get-payment-url',[App\Http\Controllers\version1\UserController::class, 'getPaymentUrl']);

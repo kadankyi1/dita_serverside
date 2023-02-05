@@ -13,7 +13,7 @@ Author URL: http://w3layouts.com
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Dita</title>
+    <title>Tafarri: Books & Summaries</title>
 
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,700&display=swap" rel="stylesheet">
     
@@ -488,7 +488,7 @@ Author URL: http://w3layouts.com
             -->
           </div>
           <div class="midd-footer-28 align-center py-4 mt-5">
-            <p class="copy-footer-28 text-center"> &copy; <?php echo date('Y'); ?> App Flow. All Rights Reserved. Design by <a
+            <p class="copy-footer-28 text-center"> &copy; <?php echo date('Y'); ?> Tafarri. All Rights Reserved. Design by <a
                 href="https://w3layouts.com/">W3Layouts</a></p>
           </div>
         </div>

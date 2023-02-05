@@ -108,7 +108,7 @@ $kw = "a";
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Dita:Search</title>
+    <title>Tafarri:Search</title>
 
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,700&display=swap" rel="stylesheet">
     
@@ -439,7 +439,7 @@ $kw = "a";
       <div class="footer-bg-layer">
         <div class="container py-lg-3">
           <div class="midd-footer-28 align-center py-4 mt-5">
-            <p class="copy-footer-28 text-center"> &copy; <?php echo date('Y'); ?> App Flow. All Rights Reserved. Design by <a
+            <p class="copy-footer-28 text-center"> &copy; <?php echo date('Y'); ?> Tafarri. All Rights Reserved. Design by <a
               href="https://w3layouts.com/">W3Layouts</a></p>
           </div>
         </div>

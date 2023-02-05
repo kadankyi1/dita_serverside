@@ -470,7 +470,7 @@ class UserController extends Controller
     }
     
 
-public function contactDitaTeam(Request $request){
+public function contactTafarriTeam(Request $request){
 
     if (!Auth::guard('api')->check()) {
         return response(["status" => "fail", "message" => "Permission Denied. Please log out and login again"]);

@@ -87,33 +87,18 @@ Author URL: http://w3layouts.com
             <div class="row main-cont-wthree-2">
                 <div class="col-lg-6 feature-grid-left">
                     <h3 class="title-big mb-4">Buying On Our Mobile Apps</h3>
-                    <p class="text-para">Due t</p>
+                    <p class="text-para"></p>
                     <ol class="w3l-right mt-4 mb-0">
-                        <li>Enter your email to receive a login code</li>
-                        <li>Enter the login code to complete your login</li>
-                        <li>Quisque venenatis eros et, init commodo risus amet.</li>
-                        <li>Suspendisse non sed consequat magna a velit</li>
+                        <li>Login to the app by entering your email and confirming a code sent to you</li>
+                        <li>Go to "Ebooks" or "Summaries" and search for your book by entering a word from the title</li>
+                        <li>Click on the desired book from the list. A reference will be listed on the page that opens</li>
+                        <li>Visit tafarri.com and enter the reference code in the search bar. It will display the book</li>
+                        <li>Click on the book from the list, choose if it's a full book or summary, enter your that you used on the mobile app email and click proceed</li>
+                        <li>This will take you to the page where you pay with card or mobile money</li>
+                        <li>Close your mobile app, reopen it and search for the book. It will provide you with the option to read</li>
                     </ol>
-                    <div class="row mt-5">
-                        <div class="col-4 col-lg-3">
-                            <div class="count-data text-center">
-                                <h4 class="count-number font-weight-bold">1023</h4>
-                                <span>Customers</span>
-                            </div>
-                        </div>
-                        <div class="col-4 col-lg-3">
-                            <div class="count-data text-center">
-                                <h4 class="count-number font-weight-bold">5470</h4>
-                                <span>Downloads</span>
-                            </div>
-                        </div>
-                        <div class="col-4 col-lg-3">
-                            <div class="count-data text-center">
-                                <h4 class="count-number font-weight-bold">3560</h4>
-                                <span>Satisfied</span>
-                            </div>
-                        </div>
-                    </div>
+                    <a href="/search" class="btn btn-primary btn-style mt-md-5 mt-4 mr-2">Download Android App</a>
+                    <a href="/contact" class="btn btn-outline-primary btn-style mt-md-5 mt-4">Download iPhone App</a>
                 </div>
                 <div class="col-lg-6 feature-grid-right mt-lg-0 mt-5">
                     <img src="webapp/images/about.png" alt="" class="img-fluid">
@@ -125,26 +110,19 @@ Author URL: http://w3layouts.com
 <section class="w3l-features1 py-5" id="features">
     <div class="call-w3 py-lg-5 py-md-4">
         <div class="container">
-            <div class="row main-cont-wthree-2">
-                <div class="col-lg-6 feature-grid-right mb-lg-0 mb-5">
-                    <img src="webapp/images/about1.png" alt="" class="img-fluid">
-                </div>
-                <div class="col-lg-6 feature-grid-left">
-                    <h3 class="title-big mb-4">Buy On Our Website</h3>
-                    <p class="text-para">Curabitur id gravida risus. Fusce eget ex fermentum, ultricies nisi ac sed,
-                        lacinia est.
-                        Quisque ut lectus consequat, venenatis eros et, init commodo risus. Nullam sit amet laoreet
-                        elit.
-                        non sed. </p>
+
+                <div class="col-lg-12 feature-grid-left">
+                    <h3 class="title-big mb-4">Buying On Our Website</h3>
                     <ol class="w3l-right mt-4 mb-0">
-                        <li>Your app will be used by a host and for different.</li>
-                        <li>Suspendisse non sed consequat magna a velit commodo</li>
-                        <li>Fusce eget ex fermentum, ultricies nisi ac sed et, init dolor sit</li>
-                        <li>Quisque venenatis eros et, init commodo risus amet.</li>
-                        <li>Suspendisse non sed consequat magna a velit</li>
-                    </ol>
-                    <a href="#download" class="btn btn-primary btn-style mt-md-5 mt-4 mr-2">Get started</a>
-                    <a href="#download" class="btn btn-outline-primary btn-style mt-md-5 mt-4">Contact Us</a>
+                      <li>Visit tafarri.com</li>
+                      <li>Search for your book by entering a word from the title in the input provided</li>
+                      <li>Click on the desired book from the list.</li>
+                      <li>Choose if it's a full book or summary you want, enter your email and click proceed</li>
+                      <li>This will take you to the page where you pay with card or mobile money</li>
+                      <li>Your book will be displayed to you after payment.</li>
+                  </ol>
+                    <a href="/search" class="btn btn-primary btn-style mt-md-5 mt-4 mr-2">Find A Book</a>
+                    <a href="/contact" class="btn btn-outline-primary btn-style mt-md-5 mt-4">Contact Us</a>
                 </div>
             </div>
         </div>
@@ -172,7 +150,7 @@ Author URL: http://w3layouts.com
       <div class="footer-bg-layer">
         <div class="container py-lg-3">
           <div class="midd-footer-28 align-center py-4 mt-5">
-            <p class="copy-footer-28 text-center"> &copy; <?php echo date('Y'); ?> App Flow. All Rights Reserved. Design by <a
+            <p class="copy-footer-28 text-center"> &copy; <?php echo date('Y'); ?> Tafarri. All Rights Reserved. Design by <a
               href="https://w3layouts.com/">W3Layouts</a></p>
           </div>
         </div>

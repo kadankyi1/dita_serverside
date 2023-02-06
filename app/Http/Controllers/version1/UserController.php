@@ -129,7 +129,6 @@ class UserController extends Controller
         
         //CHECKING IF USER EXISTS
         $user1 = User::where('user_email', '=', $request->user_email)->where('passcode', '=', $request->user_passcode)->where('user_flagged', '=', 0)->first();
-        echo "User-Email: " . $user1->user_email;
         if($user1 === null){
             return response([
                 "status" => "error", 
@@ -171,12 +170,12 @@ class UserController extends Controller
             ->take(1)
             ->get();
 
-            $this_book[0]->transaction_payment_ref_id =  $purchases_books_transactions[$i]->transaction_payment_ref_id;
+            $this_book[$i]->transaction_payment_ref_id =  $purchases_books_transactions[$i]->transaction_payment_ref_id;
             
             if($purchases_books_transactions[$i]->transaction_type == "book_full"){
-                $this_book[0]->book_title =  $this_book[0]->book_title . "(Full Book)";
+                $this_book[$i]->book_title =  $this_book[$i]->book_title . "(Full Book)";
             } else if($purchases_books_transactions[$i]->transaction_type == "book_summary"){
-                $this_book[0]->book_title =  $this_book[0]->book_title . "(Summary)";
+                $this_book[$i]->book_title =  $this_book[$i]->book_title . "(Summary)";
             } else {
                 continue;
             }

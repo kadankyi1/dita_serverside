@@ -83,7 +83,7 @@ if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
   <div class="container">
       <nav class="navbar navbar-expand-lg stroke">
         <a class="navbar-brand theawalfont" style="font-size: 45px" href="/">
-          Tafara
+          Tafarri
         </a>
           <!-- if logo is image enable this   
       <a class="navbar-brand" href="#index.html">

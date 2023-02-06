@@ -295,8 +295,10 @@ class UserController extends Controller
             }
             if(!empty($found_books[$i]->book_summary_pdf) && file_exists(public_path() . "/uploads/books_summaries/" . $found_books[$i]->book_summary_pdf)){
                 $found_books[$i]->book_summary_pdf = config('app.books_summaries_folder') . "/" . $found_books[$i]->book_summary_pdf;
+                $found_books[$i]->book_summary_cost_usd = "$" . strval($found_books[$i]->book_summary_cost_usd);
             } else {
                 $found_books[$i]->book_summary_pdf = "";
+                $found_books[$i]->book_summary_cost_usd = "";
             }
             if(!empty($found_books[$i]->book_audio) && file_exists(public_path() . "/uploads/books_audios/" . $found_books[$i]->book_audio)){
                 $found_books[$i]->book_audio = config('app.url') . "/" . $found_books[$i]->book_audio;
@@ -305,10 +307,8 @@ class UserController extends Controller
             }
             if(!empty($found_books[$i]->book_summary_audio) && file_exists(public_path() . "/uploads/books_audios_summaries/" . $found_books[$i]->book_summary_audio)){
                 $found_books[$i]->book_summary_audio = config('app.url') . "/" . $found_books[$i]->book_summary_audio;
-                $found_books[$i]->book_summary_cost_usd = "$" . strval($found_books[$i]->book_summary_cost_usd);
             } else {
                 $found_books[$i]->book_summary_audio = "";
-                $found_books[$i]->book_summary_cost_usd = "";
             }
             $found_books[$i]->book_cost_cedi_info = "You will be charged the cedi equivalent of the listed price at $1 to Ghc" .  strval(config('app.dollartocedirate'));
 
@@ -439,8 +439,10 @@ class UserController extends Controller
             }
             if(!empty($found_books[$i]->book_summary_pdf) && file_exists(public_path() . "/uploads/books_summaries/" . $found_books[$i]->book_summary_pdf)){
                 $found_books[$i]->book_summary_pdf = config('app.books_summaries_folder') . "/" . $found_books[$i]->book_summary_pdf;
+                $found_books[$i]->book_summary_cost_usd = "$" . strval($found_books[$i]->book_summary_cost_usd);
             } else {
                 $found_books[$i]->book_summary_pdf = "";
+                $found_books[$i]->book_summary_cost_usd = "";
             }
             if(!empty($found_books[$i]->book_audio) && file_exists(public_path() . "/uploads/books_audios/" . $found_books[$i]->book_audio)){
                 $found_books[$i]->book_audio = config('app.url') . "/" . $found_books[$i]->book_audio;
@@ -449,10 +451,8 @@ class UserController extends Controller
             }
             if(!empty($found_books[$i]->book_summary_audio) && file_exists(public_path() . "/uploads/books_audios_summaries/" . $found_books[$i]->book_summary_audio)){
                 $found_books[$i]->book_summary_audio = config('app.url') . "/" . $found_books[$i]->book_summary_audio;
-                $found_books[$i]->book_summary_cost_usd = "$" . strval($found_books[$i]->book_summary_cost_usd);
             } else {
                 $found_books[$i]->book_summary_audio = "";
-                $found_books[$i]->book_summary_cost_usd = "";
             }
             $found_books[$i]->book_cost_cedi_info = "You will be charged the cedi equivalent of the listed price at $1 to Ghc" .  strval(config('app.dollartocedirate'));
 

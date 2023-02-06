@@ -104,18 +104,11 @@ Author URL: http://w3layouts.com
                                     </div>
                                     <div class="address-grid mb-3">
                                         <h6>Email</h6>
-                                        <a href="mailto:mailone@example.com" class="link1">info@fishpott.com</a>
+                                        <a href="mailto:mailone@example.com" class="link1">info@tafarri.com</a>
                                         <span class="pos-icon">
                                             <span class="fa fa-envelope">
 
                                             </span>
-                                        </span>
-                                    </div>
-                                    <div class="address-grid">
-                                        <h6>Phone</h6>
-                                        <a href="tel:+12 324-016-695" class="link1">+233 324-016-695</a><span
-                                            class="pos-icon">
-                                            <span class="fa fa-headphones"></span>
                                         </span>
                                     </div>
                                 </div>

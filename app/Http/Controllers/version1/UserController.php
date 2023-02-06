@@ -288,8 +288,10 @@ class UserController extends Controller
             }
             if(!empty($found_books[$i]->book_pdf) && file_exists(public_path() . "/uploads/books_fulls/" . $found_books[$i]->book_pdf)){
                 $found_books[$i]->book_pdf = config('app.books_full_folder') . "/" . $found_books[$i]->book_pdf;
+                $found_books[$i]->book_cost_usd = "$" . strval($found_books[$i]->book_cost_usd);
             } else {
                 $found_books[$i]->book_pdf = "";
+                $found_books[$i]->book_cost_usd = "";
             }
             if(!empty($found_books[$i]->book_summary_pdf) && file_exists(public_path() . "/uploads/books_summaries/" . $found_books[$i]->book_summary_pdf)){
                 $found_books[$i]->book_summary_pdf = config('app.books_summaries_folder') . "/" . $found_books[$i]->book_summary_pdf;
@@ -303,10 +305,11 @@ class UserController extends Controller
             }
             if(!empty($found_books[$i]->book_summary_audio) && file_exists(public_path() . "/uploads/books_audios_summaries/" . $found_books[$i]->book_summary_audio)){
                 $found_books[$i]->book_summary_audio = config('app.url') . "/" . $found_books[$i]->book_summary_audio;
+                $found_books[$i]->book_summary_cost_usd = "$" . strval($found_books[$i]->book_summary_cost_usd);
             } else {
                 $found_books[$i]->book_summary_audio = "";
+                $found_books[$i]->book_summary_cost_usd = "";
             }
-            $found_books[$i]->book_cost_usd = "$" . strval($found_books[$i]->book_cost_usd);
             $found_books[$i]->book_cost_cedi_info = "You will be charged the cedi equivalent of the listed price at $1 to Ghc" .  strval(config('app.dollartocedirate'));
 
             $transaction = Transaction::where('transaction_type', '=', "book_full")->where('transaction_referenced_item_id', '=', $found_books[$i]->book_sys_id)->where('transaction_buyer_email', '=', auth()->user()->user_email)->where('transaction_payment_status', '=', "verified_passed")->first();
@@ -429,8 +432,10 @@ class UserController extends Controller
             }
             if(!empty($found_books[$i]->book_pdf) && file_exists(public_path() . "/uploads/books_fulls/" . $found_books[$i]->book_pdf)){
                 $found_books[$i]->book_pdf = config('app.books_full_folder') . "/" . $found_books[$i]->book_pdf;
+                $found_books[$i]->book_cost_usd = "$" . strval($found_books[$i]->book_cost_usd);
             } else {
                 $found_books[$i]->book_pdf = "";
+                $found_books[$i]->book_cost_usd = "";
             }
             if(!empty($found_books[$i]->book_summary_pdf) && file_exists(public_path() . "/uploads/books_summaries/" . $found_books[$i]->book_summary_pdf)){
                 $found_books[$i]->book_summary_pdf = config('app.books_summaries_folder') . "/" . $found_books[$i]->book_summary_pdf;
@@ -444,10 +449,11 @@ class UserController extends Controller
             }
             if(!empty($found_books[$i]->book_summary_audio) && file_exists(public_path() . "/uploads/books_audios_summaries/" . $found_books[$i]->book_summary_audio)){
                 $found_books[$i]->book_summary_audio = config('app.url') . "/" . $found_books[$i]->book_summary_audio;
+                $found_books[$i]->book_summary_cost_usd = "$" . strval($found_books[$i]->book_summary_cost_usd);
             } else {
                 $found_books[$i]->book_summary_audio = "";
+                $found_books[$i]->book_summary_cost_usd = "";
             }
-            $found_books[$i]->book_cost_usd = "$" . strval($found_books[$i]->book_cost_usd);
             $found_books[$i]->book_cost_cedi_info = "You will be charged the cedi equivalent of the listed price at $1 to Ghc" .  strval(config('app.dollartocedirate'));
 
             $transaction = Transaction::where('transaction_type', '=', "book_full")->where('transaction_referenced_item_id', '=', $found_books[$i]->book_sys_id)->where('transaction_buyer_email', '=', auth()->user()->user_email)->where('transaction_payment_status', '=', "verified_passed")->first();

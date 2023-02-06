@@ -176,23 +176,6 @@ if(!empty($id)){
                 </div>
             </div>
 
-                <div class="col-lg-5 contacts-5-grid-main section-gap mt-lg-0 mt-4">
-                    <div class="contacts-5-grid">
-                        <div class="map-content-5">
-                          <section class="tab-content">
-                              <div class="contact-type">
-                                  <div class="address-grid mb-3">
-                                      <h6>Description</h6>
-                                      <p class="list-book-desc"><?php echo $found_books[0]->book_description_long ?></p>
-                                      
-                                      </span>
-                                  </div>
-                              </div>
-                          </section>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="col-lg-4 form-inner-cont">
                   <div style="align-content: center; text-align: center;">
                     <div id="loader" class="lds-roller" style="display: none"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
@@ -243,6 +226,24 @@ if(!empty($id)){
                       </div>
                   </form>
               </div>
+              
+              <div class="col-lg-5 contacts-5-grid-main section-gap mt-lg-0 mt-4">
+                <div class="contacts-5-grid">
+                    <div class="map-content-5">
+                      <section class="tab-content">
+                          <div class="contact-type">
+                              <div class="address-grid mb-3">
+                                  <h6>Description</h6>
+                                  <p class="list-book-desc"><?php echo $found_books[0]->book_description_long ?></p>
+                                  
+                                  </span>
+                              </div>
+                          </div>
+                      </section>
+                    </div>
+                </div>
+            </div>
+            
             </div>
         </div>
         <!-- //contacts-5-grid -->

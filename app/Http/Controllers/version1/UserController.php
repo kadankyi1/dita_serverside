@@ -307,6 +307,7 @@ class UserController extends Controller
                 $found_books[$i]->book_summary_audio = "";
             }
             $found_books[$i]->book_cost_usd = "$" . strval($found_books[$i]->book_cost_usd);
+            $found_books[$i]->book_cost_cedi_info = "You will be charged the cedi equivalent of the listed price at $1 to Ghc" .  strval(config('app.dollartocedirate'));
 
             $transaction = Transaction::where('transaction_type', '=', "book_full")->where('transaction_referenced_item_id', '=', $found_books[$i]->book_sys_id)->where('transaction_buyer_email', '=', auth()->user()->user_email)->where('transaction_payment_status', '=', "verified_passed")->first();
             if($transaction == null || empty($transaction->transaction_referenced_item_id)){
@@ -447,6 +448,7 @@ class UserController extends Controller
                 $found_books[$i]->book_summary_audio = "";
             }
             $found_books[$i]->book_cost_usd = "$" . strval($found_books[$i]->book_cost_usd);
+            $found_books[$i]->book_cost_cedi_info = "You will be charged the cedi equivalent of the listed price at $1 to Ghc" .  strval(config('app.dollartocedirate'));
 
             $transaction = Transaction::where('transaction_type', '=', "book_full")->where('transaction_referenced_item_id', '=', $found_books[$i]->book_sys_id)->where('transaction_buyer_email', '=', auth()->user()->user_email)->where('transaction_payment_status', '=', "verified_passed")->first();
             if($transaction == null || empty($transaction->transaction_referenced_item_id)){
@@ -602,10 +604,10 @@ public function getPaymentUrl(Request $request){
     }
 
     $url = "https://api.paystack.co/transaction/initialize";
-
+    $amt = $found_books[0]->book_cost_usd*100*config('app.dollartocedirate');
     $fields = [
         'email' => $request->user_email,
-        'amount' => $found_books[0]->book_cost_usd*100,
+        'amount' => $amt,
         //'currency' => "USD",
         'callback_url' => config('app.paystackpaymentcallback'),
     ];

@@ -31,6 +31,7 @@ return [
     |
     */
 
+    'dollartocedirate' => env('DOLLAR_TO_CEDI_RATE', 12),
     'momonetworkname' => env('MOMO_NETWORK_NAME', 'MTN'),
     'momoaccountnumber' => env('MOMO_ACCOUNT_NUMBER', '0241194365'),
     'momoaccountname' => env('MOMO_ACCOUNT_NAME', 'Jennifer Quansah'),

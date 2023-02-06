@@ -176,7 +176,7 @@ if(!empty($id)){
                 </div>
             </div>
 
-                <div class="col-lg-4 form-inner-cont">
+                <div class="col-lg-4 form-inner-cont  section-gap mt-lg-0 mt-4">
                   <div style="align-content: center; text-align: center;">
                     <div id="loader" class="lds-roller" style="display: none"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
                   </div>          
@@ -243,7 +243,7 @@ if(!empty($id)){
                     </div>
                 </div>
             </div>
-            
+
             </div>
         </div>
         <!-- //contacts-5-grid -->

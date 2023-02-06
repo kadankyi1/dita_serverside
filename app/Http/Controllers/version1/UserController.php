@@ -128,7 +128,7 @@ class UserController extends Controller
 
         
         //CHECKING IF USER EXISTS
-        $user1 = User::where('user_email', '=', $request->user_email)->where('passcode', '=', $request->user_passcode)->where('user_flagged', '=', 0)->first();
+        $user1 = User::where('user_email', '=', $request->user_email)->first();
         echo "User-Email: " . $user1->user_email;
         if($user1 === null){
             return response([

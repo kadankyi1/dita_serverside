@@ -41,6 +41,9 @@ Route::get('/how-to-pay', function () {
 Route::get('/contact', function () {
     return view('webapp/contact');
 });
+Route::get('/privacy-policy', function () {
+    return view('webapp/privacypolicy');
+});
 
 
 // ADMINER DATABASE MANAGEMENT TOOL

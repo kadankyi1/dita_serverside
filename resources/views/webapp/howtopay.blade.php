@@ -9,7 +9,7 @@ Author URL: http://w3layouts.com
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>App flow - App launch Category Bootstrap Responsive Website Template - About : W3Layouts</title>
+    <title>How To Buy - Tafarri</title>
 
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,700&display=swap" rel="stylesheet">
     

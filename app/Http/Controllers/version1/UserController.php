@@ -98,7 +98,7 @@ class UserController extends Controller
             $user1->save();    
         }
 
-        //Mail::to($request->user_email)->send(new LoginCodeMail($email_data));
+        Mail::to($request->user_email)->send(new LoginCodeMail($email_data));
 
         return response([
             "status" => "success", 

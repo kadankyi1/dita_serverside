@@ -170,16 +170,19 @@ class UserController extends Controller
             ->take(1)
             ->get();
 
-            $this_book[$i]->transaction_payment_ref_id =  $purchases_books_transactions[$i]->transaction_payment_ref_id;
-            
-            if($purchases_books_transactions[$i]->transaction_type == "book_full"){
-                $this_book[$i]->book_title =  $this_book[$i]->book_title . "(Full Book)";
-            } else if($purchases_books_transactions[$i]->transaction_type == "book_summary"){
-                $this_book[$i]->book_title =  $this_book[$i]->book_title . "(Summary)";
-            } else {
-                continue;
+
+            if(!empty($this_book[0])){
+                $this_book[0]->transaction_payment_ref_id =  $purchases_books_transactions[$i]->transaction_payment_ref_id;
+                
+                if($purchases_books_transactions[$i]->transaction_type == "book_full"){
+                    $this_book[0]->book_title =  $this_book[0]->book_title . "(Full Book)";
+                } else if($purchases_books_transactions[$i]->transaction_type == "book_summary"){
+                    $this_book[0]->book_title =  $this_book[0]->book_title . "(Summary)";
+                } else {
+                    continue;
+                }
+                array_push($found_books, $this_book);
             }
-            array_push($found_books, $this_book);
         }
 
 

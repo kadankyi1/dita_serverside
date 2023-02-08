@@ -97,7 +97,7 @@ Author URL: http://w3layouts.com
                         <li>This will take you to the page where you pay with card or mobile money</li>
                         <li>Close your mobile app, reopen it and search for the book. It will provide you with the option to read</li>
                     </ol>
-                    <a href="/search" class="btn btn-primary btn-style mt-md-5 mt-4 mr-2">Download Android App</a>
+                    <a href="https://play.google.com/store/apps/details?id=com.tafarri.tafarri" class="btn btn-primary btn-style mt-md-5 mt-4 mr-2">Download Android App</a>
                     <a href="/contact" class="btn btn-outline-primary btn-style mt-md-5 mt-4">Download iPhone App</a>
                 </div>
                 <div class="col-lg-6 feature-grid-right mt-lg-0 mt-5">
@@ -136,7 +136,7 @@ Author URL: http://w3layouts.com
 			<div class="welcome-left text-center py-md-3 mb-md-5">
         <h3 class="mb-4">Search & Read on our mobile Apps</h3>
         <p class="text-italic">Find a book on the mobile app, use the reference number to pay on our website and read on your mobile apps or on our website. Click the button below to download your desired mobile app</p>
-				<a href="#download" class="btn btn-primary btn-style mt-md-5 mt-4 mr-2">Android App</a>
+				<a href="https://play.google.com/store/apps/details?id=com.tafarri.tafarri" class="btn btn-primary btn-style mt-md-5 mt-4 mr-2">Android App</a>
 				<a href="#download" class="btn btn-white btn-style mt-md-5 mt-4">iPhone App</a>
 			</div>
 		</div>

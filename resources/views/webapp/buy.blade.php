@@ -27,7 +27,11 @@ if(!empty($id)){
         }
         if(!empty($found_books[0]->book_pdf) && file_exists(public_path() . "/uploads/books_fulls/" . $found_books[0]->book_pdf)){
             $found_books[0]->book_pdf = config('app.books_full_folder') . "/" . $found_books[0]->book_pdf;
-            $found_books[0]->book_full_available_option = '<option value="book_full">Full Book</option>';
+            if($found_books[0]->book_cost_usd >  0){
+              $found_books[0]->book_full_available_option = '<option value="book_full">Full Book</option>';
+            } else {
+              $found_books[0]->book_full_available_option = '';
+            }
         } else {
             $found_books[0]->book_pdf = "";
             $found_books[0]->book_full_available_option = "";
@@ -35,7 +39,11 @@ if(!empty($id)){
         if(!empty($found_books[0]->book_summary_pdf) && file_exists(public_path() . "/uploads/books_summaries/" . $found_books[0]->book_summary_pdf)){
             $found_books[0]->book_summary_pdf = config('app.books_summaries_folder') . "/" . $found_books[0]->book_summary_pdf;
             $found_books[0]->book_summary_available = "*Summary available for $" . $found_books[0]->book_summary_cost_usd;
-            $found_books[0]->book_summary_available_option = '<option value="book_summary">Summary</option>';
+            if($found_books[0]->book_summary_cost_usd >  0){
+              $found_books[0]->book_summary_available_option = '<option value="book_summary">Summary</option>';
+            } else {
+              $found_books[0]->book_summary_available = '';
+            }
         } else {
             $found_books[0]->book_summary_pdf = "";
             $found_books[0]->book_summary_available = "";
@@ -51,8 +59,9 @@ if(!empty($id)){
         } else {
             $found_books[0]->book_summary_audio = "";
         }
-        $found_books[0]->book_cost_usd = "$" . strval($found_books[0]->book_cost_usd);
-        $found_books[0]->book_summary_cost_usd = "$" . strval($found_books[0]->book_summary_cost_usd);
+
+        //$found_books[0]->book_cost_usd = "$" . strval($found_books[0]->book_cost_usd);
+        //$found_books[0]->book_summary_cost_usd = "$" . strval($found_books[0]->book_summary_cost_usd);
       } else {
         $found_books = array();
       }
@@ -162,7 +171,7 @@ if(!empty($id)){
                             <img class="card-img-bottom d-block" src="<?php echo $found_books[0]->book_cover_photo ?>" alt="Card image cap" height="300px">
                         </a>
                         <ul class="location-top">
-                            <li class="tip"><?php echo $found_books[0]->book_cost_usd ?></li>
+                            <li class="tip">$<?php echo $found_books[0]->book_cost_usd ?></li>
                         </ul>
                     </div>
                     <div class="card-body blog-details">
@@ -182,8 +191,21 @@ if(!empty($id)){
                   </div>          
                   <form action="" method="post" id="real_buy_form" class="signin-form">
                       <div class="">
+                        <?php if($found_books[0]->book_cost_usd <=  0){ ?>
+                          <div class="text-right" id="readfull">
+                            <button id="proceed_btn" type="submit"  class="btn btn-style btn-primary">Read Full Book</button>
+                         </div>
+                        <?php } ?>
+                        
+                        <?php if($found_books[0]->book_summary_cost_usd <=  0){ ?>
+                          <div class="text-right" id="readsum">
+                            <button id="proceed_btn" type="submit"  class="btn btn-style btn-primary">Read Summary</button>
+                         </div>
+                        <?php } ?>
+                          
+                          
                           <div class="form-input mb-4">
-                            <select name="item_type" id="item_type" onchange="setBuyform(this, '<?php echo $found_books[0]->book_cost_usd ?>', '<?php echo $found_books[0]->book_summary_cost_usd ?>')">
+                            <select name="item_type" id="item_type" onchange="setBuyform(this, '$<?php echo $found_books[0]->book_cost_usd ?>', '$<?php echo $found_books[0]->book_summary_cost_usd ?>')">
                               <option value="">Choose Preference</option>
                               <?php echo $found_books[0]->book_full_available_option ?>
                               <?php echo $found_books[0]->book_summary_available_option ?>

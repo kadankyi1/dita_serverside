@@ -31,7 +31,7 @@ if(!empty($id)){
               $found_books[0]->book_full_available_option = '<option value="book_full">Full Book</option>';
             } else {
               $found_books[0]->book_full_available_option = '';
-              $found_books[$i]->book_cost_usd = "Free";
+              $found_books[0]->book_cost_usd = "Free";
             }
         } else {
             $found_books[0]->book_pdf = "";
@@ -44,7 +44,7 @@ if(!empty($id)){
               $found_books[0]->book_summary_available_option = '<option value="book_summary">Summary</option>';
             } else {
               $found_books[0]->book_summary_available = '';
-              $found_books[$i]->book_summary_cost_usd = "Free";
+              $found_books[0]->book_summary_cost_usd = "Free";
             }
         } else {
             $found_books[0]->book_summary_pdf = "";

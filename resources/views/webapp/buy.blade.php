@@ -29,9 +29,10 @@ if(!empty($id)){
             $found_books[0]->book_pdf = config('app.books_full_folder') . "/" . $found_books[0]->book_pdf;
             if($found_books[0]->book_cost_usd >  0){
               $found_books[0]->book_full_available_option = '<option value="book_full">Full Book</option>';
+              $found_books[0]->book_string_cost_usd = "$" . strval($found_books[0]->book_cost_usd);
             } else {
               $found_books[0]->book_full_available_option = '';
-              $found_books[0]->book_cost_usd = "Free";
+              $found_books[0]->book_string_cost_usd = "Free";
             }
         } else {
             $found_books[0]->book_pdf = "";
@@ -42,9 +43,10 @@ if(!empty($id)){
             $found_books[0]->book_summary_available = "*Summary available for $" . $found_books[0]->book_summary_cost_usd;
             if($found_books[0]->book_summary_cost_usd >  0){
               $found_books[0]->book_summary_available_option = '<option value="book_summary">Summary</option>';
+              $found_books[0]->book_string_summary_cost_usd = "$" . strval($found_books[0]->book_summary_cost_usd);
             } else {
               $found_books[0]->book_summary_available = '';
-              $found_books[0]->book_summary_cost_usd = "Free";
+              $found_books[0]->book_string_summary_cost_usd = "Free";
             }
         } else {
             $found_books[0]->book_summary_pdf = "";
@@ -61,9 +63,7 @@ if(!empty($id)){
         } else {
             $found_books[0]->book_summary_audio = "";
         }
-
-        //$found_books[0]->book_cost_usd = "$" . strval($found_books[0]->book_cost_usd);
-        //$found_books[0]->book_summary_cost_usd = "$" . strval($found_books[0]->book_summary_cost_usd);
+        
       } else {
         $found_books = array();
       }
@@ -173,7 +173,7 @@ if(!empty($id)){
                             <img class="card-img-bottom d-block" src="<?php echo $found_books[0]->book_cover_photo ?>" alt="Card image cap" height="300px">
                         </a>
                         <ul class="location-top">
-                            <li class="tip">$<?php echo $found_books[0]->book_cost_usd ?></li>
+                            <li class="tip"><?php echo $found_books[0]->book_string_cost_usd ?></li>
                         </ul>
                     </div>
                     <div class="card-body blog-details">

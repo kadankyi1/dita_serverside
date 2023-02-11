@@ -31,6 +31,7 @@ if(!empty($id)){
               $found_books[0]->book_full_available_option = '<option value="book_full">Full Book</option>';
             } else {
               $found_books[0]->book_full_available_option = '';
+              $found_books[$i]->book_cost_usd = "Free";
             }
         } else {
             $found_books[0]->book_pdf = "";
@@ -43,6 +44,7 @@ if(!empty($id)){
               $found_books[0]->book_summary_available_option = '<option value="book_summary">Summary</option>';
             } else {
               $found_books[0]->book_summary_available = '';
+              $found_books[$i]->book_summary_cost_usd = "Free";
             }
         } else {
             $found_books[0]->book_summary_pdf = "";
@@ -193,7 +195,7 @@ if(!empty($id)){
                       <div class="">
                         <?php if($found_books[0]->book_cost_usd <= 0 && $found_books[0]->book_pdf != ""){ ?>
                           <div  style="align-content: center; text-align: center;" class="text-right" id="readfull">
-                            <button id="proceed_btn" type="submit"  class="btn btn-style btn-primary">Read Full Book</button>
+                            <a id="proceed_btn" href="/reader?type=1&ref=<?php echo $found_books[0]->book_sys_id ?>"   class="btn btn-style btn-primary">Read Full Book</a>
                          </div>
                         <?php } ?>
                         

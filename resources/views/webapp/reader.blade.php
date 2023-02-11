@@ -54,6 +54,10 @@ if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
         $error = "We could not verify your payment";
     }
 
+} else if(!empty($_GET["ref"]) && !empty($_GET["type"]) ){ 
+
+  
+  
 } else {
     $error = "Please buy this book to read";
     $reader_book_url = "";

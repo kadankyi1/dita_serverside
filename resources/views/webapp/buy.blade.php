@@ -191,13 +191,13 @@ if(!empty($id)){
                   </div>          
                   <form action="" method="post" id="real_buy_form" class="signin-form">
                       <div class="">
-                        <?php if($found_books[0]->book_cost_usd <=  0){ ?>
+                        <?php if($found_books[0]->book_cost_usd <= 0 && $found_books[0]->book_pdf != ""){ ?>
                           <div  style="align-content: center; text-align: center;" class="text-right" id="readfull">
                             <button id="proceed_btn" type="submit"  class="btn btn-style btn-primary">Read Full Book</button>
                          </div>
                         <?php } ?>
                         
-                        <?php if($found_books[0]->book_summary_cost_usd <=  0){ ?>
+                        <?php if($found_books[0]->book_summary_cost_usd <= 0 && $found_books[0]->book_summary_pdf != ""){ ?>
                           <div  style="align-content: center; text-align: center;" class="text-right mt-2" id="readsum">
                             <button id="proceed_btn" type="submit"  class="btn btn-style btn-primary">Read Summary</button>
                          </div>

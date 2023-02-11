@@ -192,18 +192,19 @@ if(!empty($id)){
                   <form action="" method="post" id="real_buy_form" class="signin-form">
                       <div class="">
                         <?php if($found_books[0]->book_cost_usd <=  0){ ?>
-                          <div class="text-right" id="readfull">
+                          <div  style="align-content: center; text-align: center;" class="text-right" id="readfull">
                             <button id="proceed_btn" type="submit"  class="btn btn-style btn-primary">Read Full Book</button>
                          </div>
                         <?php } ?>
                         
                         <?php if($found_books[0]->book_summary_cost_usd <=  0){ ?>
-                          <div class="text-right" id="readsum">
+                          <div  style="align-content: center; text-align: center;" class="text-right mt-2" id="readsum">
                             <button id="proceed_btn" type="submit"  class="btn btn-style btn-primary">Read Summary</button>
                          </div>
                         <?php } ?>
                           
-                          
+
+                        <?php if($found_books[0]->book_cost_usd > 0 || $found_books[0]->book_summary_cost_usd > 0 ){ ?>
                           <div class="form-input mb-4">
                             <select name="item_type" id="item_type" onchange="setBuyform(this, '$<?php echo $found_books[0]->book_cost_usd ?>', '$<?php echo $found_books[0]->book_summary_cost_usd ?>')">
                               <option value="">Choose Preference</option>
@@ -211,6 +212,8 @@ if(!empty($id)){
                               <?php echo $found_books[0]->book_summary_available_option ?>
                             </select>
                           </div>
+                        <?php } ?>
+                          
                           <span id="buyform" style="display: none">
 
                             <!--

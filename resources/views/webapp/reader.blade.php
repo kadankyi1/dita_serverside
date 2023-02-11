@@ -55,8 +55,34 @@ if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
     }
 
 } else if(!empty($_GET["ref"]) && !empty($_GET["type"]) ){ 
+    
+    $summary_or_book = $_GET["type"];
+    $book_sys_id = $_GET["ref"];
 
-  
+    $book = Book::where('book_sys_id', '=', $book_sys_id)->first();
+    if($book == null || empty($book->book_sys_id)){
+      $error = "The free book not found. You can contact support if this is a problem";
+    }
+
+    if($summary_or_book == "1"){ // book_full
+      //echo "here 1"; 
+      if(!empty($book->book_pdf) && file_exists(public_path() . "/uploads/books_fulls/" . $book->book_pdf) && $book->book_cost_usd <= 0){
+          $reader_book_url = config('app.books_full_folder') . "/" . $book->book_pdf;
+      //echo "here 2"; exit;
+      } else {
+          $error = "The free book not found. You can contact support if this is a problem";
+      }
+    } else if($this_transaction[0]->transaction_type == "2"){ //book_summary
+      //echo "here 3"; exit;
+      if(!empty($book->book_summary_pdf) && file_exists(public_path() . "/uploads/books_summaries/" . $book->book_summary_pdf)  && $book->book_summary_cost_usd <= 0){
+          $reader_book_url = config('app.books_summaries_folder') . "/" . $book->book_summary_pdf;
+      //echo "here 4"; exit;
+      } else {
+          $error = "The free book was not found. You can contact support if this is a problem";
+      }
+    } else {
+      $error = "The free book not found. You can contact support if this is a problem";
+    }
   
 } else {
     $error = "Please buy this book to read";

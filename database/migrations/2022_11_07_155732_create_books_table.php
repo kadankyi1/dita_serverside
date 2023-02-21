@@ -34,6 +34,8 @@ return new class extends Migration
             $table->decimal('book_audio_summary_cost_usd', 12, 2);
             $table->integer('read_count')->default(0);
             $table->integer('buy_count')->default(0);
+            $table->boolean('bookfull_flagged')->default(false);
+            $table->boolean('booksummary_flagged')->default(false);
             $table->timestamps();
         });
     }

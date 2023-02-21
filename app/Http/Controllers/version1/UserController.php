@@ -286,8 +286,7 @@ class UserController extends Controller
             } else {
                 $found_books[$i]->book_cover_photo = config('app.books_cover_arts_folder') . "/sample_cover_art.jpg";
             }
-
-            if(!$found_books[$i]->bookfull_flagged && !empty($found_books[$i]->book_pdf) && file_exists(public_path() . "/uploads/books_fulls/" . $found_books[$i]->book_pdf)){
+            if(!empty($found_books[$i]->book_pdf) && !empty($found_books[$i]->book_pdf) && file_exists(public_path() . "/uploads/books_fulls/" . $found_books[$i]->book_pdf)){
                 $found_books[$i]->book_pdf = config('app.books_full_folder') . "/" . $found_books[$i]->book_pdf;
                 if($found_books[$i]->book_cost_usd <=  0){
                     $found_books[$i]->book_cost_usd = "Free";
@@ -298,7 +297,7 @@ class UserController extends Controller
                 $found_books[$i]->book_pdf = "";
                 $found_books[$i]->book_cost_usd = "";
             }
-            if(!$found_books[$i]->booksummary_flagged && !empty($found_books[$i]->book_summary_pdf) && file_exists(public_path() . "/uploads/books_summaries/" . $found_books[$i]->book_summary_pdf)){
+            if(!empty($found_books[$i]->book_summary_pdf) && file_exists(public_path() . "/uploads/books_summaries/" . $found_books[$i]->book_summary_pdf)){
                 $found_books[$i]->book_summary_pdf = config('app.books_summaries_folder') . "/" . $found_books[$i]->book_summary_pdf;
                 if($found_books[$i]->book_summary_cost_usd <=  0){
                     $found_books[$i]->book_summary_cost_usd = "Free";

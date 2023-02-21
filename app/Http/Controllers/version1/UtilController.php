@@ -75,6 +75,7 @@ class UtilController extends Controller
                 ]);
             }
             
+            var_dump($response);
             if($response->data->status == "success"){
                 $transaction->transaction_payment_status = "verified_passed";
                 $transaction->save();  

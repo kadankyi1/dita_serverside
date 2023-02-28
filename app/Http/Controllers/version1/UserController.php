@@ -522,7 +522,7 @@ public function contactTafarriTeam(Request $request){
         'time' => date("F j, Y, g:i a")
     );
 
-    Mail::to("fishpottcompany@gmail.com")->send(new UserMessageFromAppMail($email_data));
+    Mail::to("support@tafarri.com")->send(new UserMessageFromAppMail($email_data));
 
     return response(["status" => "success", "message" => "Sent successsfully."]);
 

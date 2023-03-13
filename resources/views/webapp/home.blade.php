@@ -97,7 +97,7 @@ Author URL: http://w3layouts.com
                     <!--<p class="mt-2 link">*We will give a trial download link to your mail address</p>-->
                 </div>
                 <div class="col-lg-5 col-md-7 mt-lg-0 mt-4">
-                    <img src="webapp/images/screenshot.png" alt="" class="img-fluid" />
+                    <img src="webapp/images/screenshot.jpg" alt="" class="img-fluid" />
                 </div>
             </div>
         </div>

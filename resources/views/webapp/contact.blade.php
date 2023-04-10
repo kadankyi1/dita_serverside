@@ -9,7 +9,16 @@ Author URL: http://w3layouts.com
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Contact Tafarri</title>
+    <meta name="keywords" content="Contact Us,Contact,Tafarri,Tafarr.com,Summaries,Book Summaries">
+    <link rel="apple-touch-icon" sizes="180x180" href="webapp/images/favico/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="webapp/images/favico/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="webapp/images/favico/favicon-16x16.png">
+    <link rel="manifest" href="webapp/images/favico/site.webmanifest">
+    <link rel="mask-icon" href="webapp/images/favico/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>Tafarri - Contact Us</title>
+
 
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,700&display=swap" rel="stylesheet">
     
@@ -104,7 +113,7 @@ Author URL: http://w3layouts.com
                                     </div>
                                     <div class="address-grid mb-3">
                                         <h6>Email</h6>
-                                        <a href="mailto:mailone@example.com" class="link1">info@tafarri.com</a>
+                                        <a href="mailto:support@tafarri.com" class="link1">support@tafarri.com</a>
                                         <span class="pos-icon">
                                             <span class="fa fa-envelope">
 

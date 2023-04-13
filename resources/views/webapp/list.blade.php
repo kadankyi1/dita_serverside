@@ -247,11 +247,13 @@ $kw = "a";
                   <div class="card-body blog-details">
                       <a href="/buy?ref=<?php echo $item->book_sys_id ?>" class="blog-desc"><?php echo $item->book_title ?></a>
                       <p class="list-book-desc"><?php echo $item->book_description_short ?></p>
-                      <div class="author align-items-center mt-3 mb-1">
-                        <span class="meta-value">- By <?php echo $item->book_author ?></span>
-                        <br>
-                        <span class="summary-available"><?php echo $item->book_summary_available ?></span>
-                      </div>
+                      <!--
+                        <div class="author align-items-center mt-3 mb-1">
+                            <span class="meta-value">- By <?php echo $item->book_author ?></span>
+                            <br>
+                            <span class="summary-available"><?php echo $item->book_summary_available; ?></span>
+                        </div>
+                      -->
                   </div>
               </div>
           </div>
@@ -442,7 +444,7 @@ $kw = "a";
 		<div class="container py-xl-5 py-lg-3">
 			<div class="welcome-left text-center py-md-3 mb-md-5">
         <h3 class="mb-4">Search & Read on our mobile Apps</h3>
-        <p class="text-italic">Find a book on the mobile app, use the reference number to pay on our website and read on your mobile apps or on our website. Click the button below to download your desired mobile app</p>
+        <p class="text-italic">Find a summary on the mobile app, use the reference number to pay on our website and read on your mobile apps or on our website. Click the button below to download your desired mobile app</p>
 				<a href="https://play.google.com/store/apps/details?id=com.tafarri.tafarri" target="_blank" class="btn btn-primary btn-style mt-md-5 mt-4 mr-2">Android App</a>
 				<a href="https://apps.apple.com/us/app/id1670395865" target="_blank" class="btn btn-white btn-style mt-md-5 mt-4">iPhone App</a>
 			</div>

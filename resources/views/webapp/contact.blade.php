@@ -138,7 +138,7 @@ Author URL: http://w3layouts.com
 		<div class="container py-xl-5 py-lg-3">
 			<div class="welcome-left text-center py-md-3 mb-md-5">
         <h3 class="mb-4">Search & Read on our mobile Apps</h3>
-        <p class="text-italic">Find a book on the mobile app, use the reference number to pay on our website and read on your mobile apps or on our website. Click the button below to download your desired mobile app</p>
+        <p class="text-italic">Find a summary on the mobile app, use the reference number to pay on our website and read on your mobile apps or on our website. Click the button below to download your desired mobile app</p>
 				<a href="https://play.google.com/store/apps/details?id=com.tafarri.tafarri" target="_blank" class="btn btn-primary btn-style mt-md-5 mt-4 mr-2">Android App</a>
 				<a href="https://apps.apple.com/us/app/id1670395865" target="_blank" class="btn btn-white btn-style mt-md-5 mt-4">iPhone App</a>
 			</div>

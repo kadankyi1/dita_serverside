@@ -6,6 +6,75 @@ Author URL: http://w3layouts.com
 @php($all_books_count = DB::table('books')->count())
 @php($all_books_count = DB::table('books')->where(array(['book_summary_pdf', '<>', '']))->count())
 
+<?php
+use App\Models\version1\Book;
+use App\Models\version1\Transaction;
+
+    $found_books = DB::table('books')
+    ->select('books.book_id', 'books.book_cover_photo', 'books.book_sys_id', 'books.book_title', 'books.book_author', 'books.book_ratings', 'books.book_description_short', 'books.book_description_long', 'books.book_pages', 'books.book_pdf', 'books.book_summary_pdf', 'books.book_audio', 'books.book_summary_audio', 'books.book_cost_usd', 'books.book_summary_cost_usd')
+    ->orderBy('created_at', 'desc')
+    ->take(4)
+    ->get();
+    
+    for ($i=0; $i < count($found_books); $i++) { 
+
+        if(!empty($found_books[$i]->book_cover_photo) && file_exists(public_path() . "/uploads/books_cover_arts/" . $found_books[$i]->book_cover_photo)){
+            $found_books[$i]->book_cover_photo = config('app.books_cover_arts_folder') . "/" . $found_books[$i]->book_cover_photo;
+        } else {
+            $found_books[$i]->book_cover_photo = config('app.books_cover_arts_folder') . "/sample_cover_art.jpg";
+        }
+        if(!empty($found_books[$i]->book_pdf) && file_exists(public_path() . "/uploads/books_fulls/" . $found_books[$i]->book_pdf)){
+            $found_books[$i]->book_pdf = config('app.books_full_folder') . "/" . $found_books[$i]->book_pdf;
+            if($found_books[$i]->book_cost_usd <=  0){
+                $found_books[$i]->book_cost_usd = "Free";
+            } else {
+                $found_books[$i]->book_cost_usd = "$" . strval($found_books[$i]->book_cost_usd);
+            }
+        } else {
+            $found_books[$i]->book_pdf = "";
+            $found_books[$i]->book_cost_usd = "";
+        }
+        if(!empty($found_books[$i]->book_summary_pdf) && file_exists(public_path() . "/uploads/books_summaries/" . $found_books[$i]->book_summary_pdf)){
+            $found_books[$i]->book_summary_pdf = config('app.books_summaries_folder') . "/" . $found_books[$i]->book_summary_pdf;
+            if($found_books[$i]->book_summary_cost_usd <=  0){
+                $found_books[$i]->book_summary_cost_usd = "Summary available for Free";
+            } else {
+                $found_books[$i]->book_summary_available = "$" . $found_books[$i]->book_summary_cost_usd;
+            }
+        } else {
+            $found_books[$i]->book_summary_pdf = "";
+            $found_books[$i]->book_summary_available = "";
+        }
+        if(!empty($found_books[$i]->book_audio) && file_exists(public_path() . "/uploads/books_audios/" . $found_books[$i]->book_audio)){
+            $found_books[$i]->book_audio = config('app.url') . "/" . $found_books[$i]->book_audio;
+        } else {
+            $found_books[$i]->book_audio = "";
+        }
+        if(!empty($found_books[$i]->book_summary_audio) && file_exists(public_path() . "/uploads/books_audios_summaries/" . $found_books[$i]->book_summary_audio)){
+            $found_books[$i]->book_summary_audio = config('app.url') . "/" . $found_books[$i]->book_summary_audio;
+        } else {
+            $found_books[$i]->book_summary_audio = "";
+        }
+
+        $transaction = Transaction::where('transaction_type', '=', "book_full")->where('transaction_referenced_item_id', '=', $found_books[$i]->book_sys_id)->where('transaction_referenced_item_id', '=', $found_books[$i]->book_sys_id)->where('transaction_payment_status', '=', "verified_passed")->first();
+        if($transaction == null || empty($transaction->transaction_referenced_item_id)){
+            $found_books[$i]->book_full_purchased = "no";
+        } else {
+            $found_books[$i]->book_full_purchased = "yes";
+        }
+
+        $transaction = Transaction::where('transaction_type', '=', "book_summary")->where('transaction_referenced_item_id', '=', $found_books[$i]->book_sys_id)->where('transaction_referenced_item_id', '=', $found_books[$i]->book_sys_id)->where('transaction_payment_status', '=', "verified_passed")->first();
+        if($transaction == null || empty($transaction->transaction_referenced_item_id)){
+            $found_books[$i]->book_summary_purchased = "no";
+        } else {
+            $found_books[$i]->book_summary_purchased = "yes";
+        }
+    }
+
+  //var_dump($found_books);
+  //exit;
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -96,8 +165,8 @@ Author URL: http://w3layouts.com
         <div class="banner-text py-md-4">
             <div class="row banner-info">
                 <div class="col-lg-7 w3pvt-logo align-self">
-                    <h2>Books & Summaries</h2>
-                    <p class="mt-3">Search for a book and summaries by title or a reference number you get from our mobile app. We want to make it easier for you to get the vital information books provide</p>
+                    <h2>Summaries</h2>
+                    <p class="mt-3">Search for a summary using a book title or a reference number you get from our mobile app. We want to make it easier to get the vital information books provide</p>
                     <form id="kw_form" method="post" class="">
                         <input type="text" id="kw" placeholder="book name or a reference number" required="">
                         <button onclick="goToSearch();" class="btn">Search</button>
@@ -112,225 +181,41 @@ Author URL: http://w3layouts.com
     </div>
 </section>
 <!-- //banner -->
-<!-- /bottom-grids-->
-<!-- 
-	<section class="w3l-bottom-grids-6 py-5">
-		<div class="container py-lg-5 py-md-4">
-			<div class="grids-area-hny main-cont-wthree-fea row">
-				<div class="col-lg-3 col-md-6 grids-feature">
-					<div class="area-box">
-						<span class="fa fa-cuba"></span>
-						<h4><a href="#feature" class="title-head">Modular</a></h4>
-						<p>Vivamus a ligula quam. Ut blandit eu leo non sed..</p>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6 grids-feature mt-md-0 mt-4">
-					<div class="area-box">
-						<span class="fa fa-laptop"></span>
-						<h4><a href="#feature" class="title-head">Responsive</a></h4>
-						<p>Vivamus a ligula quam. Ut blandit eu leo non sed..</p>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6 grids-feature mt-lg-0 mt-4">
-					<div class="area-box">
-						<span class="fa fa-balance-scale"></span>
-						<h4><a href="#feature" class="title-head">Scalable</a></h4>
-						<p>Vivamus a ligula quam. Ut blandit eu leo non sed..</p>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6 grids-feature mt-lg-0 mt-4">
-					<div class="area-box">
-						<span class="fa fa-pencil-square-o"></span>
-						<h4><a href="#feature" class="title-head">Customizable</a></h4>
-						<p>Vivamus a ligula quam. Ut blandit eu leo non sed..</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
--->
 
-	<!-- //bottom-grids-->
+<section class="w3l-blog-block py-5">
+  <div class="container py-lg-4 py-md-3">
 
-<!-- /mobile section --->
-<!-- 
-<section class="w3l-mobile-content-6 py-5">
-    <div class="mobile-info py-lg-5 py-md-4">
-        <div class="container">
-            <h3 class="title-big mb-5 text-center">Awesome App Features</h3>
-            <div class="row mobile-info-inn mx-lg-0">
-                <div class="col-lg-4 mobile-right">
-                    <div class="row mobile-right-grids mb-lg-5 mb-4">
-                        <div class="col-2 mobile-right-icon">
-                            <div class="mobile-icon">
-                                <span class="fa fa-tv"></span>
-                            </div>
-                        </div>
-                        <div class="col-10 mobile-right-info">
-                            <h6><a href="#url">Responsive web design</a></h6>
-                            <p>Lorem ipsum dolor sit amet,Ea sed illum facere aperiam sequi optio consec
-                                adipisicing elit.</p>
-                        </div>
-                    </div>
-                    <div class="row mobile-right-grids mb-lg-5 mb-4">
-                        <div class="col-2 mobile-right-icon">
-                            <div class="mobile-icon">
-                                <span class="fa fa-refresh"></span>
-                            </div>
-                        </div>
-                        <div class="col-10 mobile-right-info">
-                            <h6><a href="#url">Free updates forever</a></h6>
-                            <p>Lorem ipsum dolor sit amet,Ea sed illum facere aperiam sequi optio consec
-                                adipisicing elit.</p>
-                        </div>
-                    </div>
-                    <div class="row mobile-right-grids">
-                        <div class="col-2 mobile-right-icon">
-                            <div class="mobile-icon">
-                                <span class="fa fa-pie-chart"></span>
-                            </div>
-                        </div>
-                        <div class="col-10 mobile-right-info">
-                            <h6><a href="#url">Infinite colors</a></h6>
-                            <p>Lorem ipsum dolor sit amet,Ea sed illum facere aperiam sequi optio consec
-                                adipisicing elit.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 mobile-left">
-                    <img src="webapp/images/features.png" class="img-fluid radius-image" alt="">
-                </div>
-                <div class="col-lg-4 mobile-right">
-                    <div class="row mobile-right-grids mb-lg-5 mb-4">
-                        <div class="col-2 mobile-right-icon">
-                            <div class="mobile-icon">
-                                <span class="fa fa-cogs"></span>
-                            </div>
-                        </div>
-                        <div class="col-10 mobile-right-info">
-                            <h6><a href="#url">Loaded with features</a></h6>
-                            <p>Lorem ipsum dolor sit amet,Ea sed illum facere aperiam sequi optio consec
-                                adipisicing elit.</p>
-                        </div>
-                    </div>
-                    <div class="row mobile-right-grids mb-lg-5 mb-4">
-                        <div class="col-2 mobile-right-icon">
-                            <div class="mobile-icon">
-                                <span class="fa fa-support"></span>
-                            </div>
-                        </div>
-                        <div class="col-10 mobile-right-info">
-                            <h6><a href="#url">Friendly online support</a></h6>
-                            <p>Lorem ipsum dolor sit amet,Ea sed illum facere aperiam sequi optio consec
-                                adipisicing elit.</p>
-                        </div>
-                    </div>
-                    <div class="row mobile-right-grids">
-                        <div class="col-2 mobile-right-icon">
-                            <div class="mobile-icon">
-                                <span class="fa fa-recycle"></span>
-                            </div>
-                        </div>
-                        <div class="col-10 mobile-right-info">
-                            <h6><a href="#url">Built with SASS, Gulp</a></h6>
-                            <p>Lorem ipsum dolor sit amet,Ea sed illum facere aperiam sequi optio consec
-                                adipisicing elit.</p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
+    <div class="welcome-left text-center py-md-3 mb-md-5">
+      <h3 class="mb-4" style="color: #2c3038">Latest Summaries</h3>
     </div>
-</section>
- -->
+    <div class="row">
 
-<!-- //mobile section --->
-<!-- services page block 2 -->
-<!--
-<section class="w3l-features py-5" id="features">
-    <div class="call-w3 py-lg-5 py-md-4">
-        <div class="container">
-            <div class="row main-cont-wthree-2">
-                <div class="col-lg-6 feature-grid-left">
-                    <h3 class="title-big mb-4">Learn the features of new Beautiful lifestyle app!</h3>
-                    <p class="text-para">Curabitur id gravida risus. Fusce eget ex fermentum, ultricies nisi ac sed,
-                        lacinia est.
-                        Quisque ut lectus consequat, venenatis eros et, init commodo risus. Nullam sit amet laoreet elit.
-                        Suspendisse non sed consequat magna a velit efficitur risus dolor set. </p>
-                    <ol class="w3l-right mt-4 mb-0">
-                        <li>Suspendisse non sed consequat magna a velit commodo</li>
-                        <li>Fusce eget ex fermentum, ultricies nisi ac sed et, init dolor sit</li>
-                        <li>Quisque venenatis eros et, init commodo risus amet.</li>
-                        <li>Suspendisse non sed consequat magna a velit</li>
-                    </ol>
-                    
-                    <a href="contact.html" class="btn btn-primary btn-style mt-md-5 mt-4">Contact Us</a>
+      <?php foreach ($found_books as $key => $item) { ?>
+        <div class="col-lg-3 col-md-6 item">
+            <div class="card">
+                <div class="card-header p-0 position-relative">
+                    <a href="/buy?ref=<?php echo $item->book_sys_id ?>">
+                        <img class="card-img-bottom d-block" src="<?php echo $item->book_cover_photo ?>" alt="Card image cap" height="300px">
+                    </a>
+                    <ul class="location-top">
+                        <li class="tip"><?php echo $item->book_summary_available ?></li>
+                    </ul>
                 </div>
-                <div class="col-lg-6 feature-grid-right mt-lg-0 mt-5">
-                    <div class="call-grids-w3 d-grid">
-                        <div class="grids-1 box-wrap">
-                            <a href="#more" class="icon"><span class="fa fa-pencil-square-o"></span></a>
-                            <h4><a href="#feature" class="title-head">Easy to edit</a></h4>
-                            <p>Vivamus a ligula quam. Ut blandit eu leo non. Duis sed doloramet laoreet.</p>
-                        </div>
-                        <div class="grids-1 box-wrap">
-                            <a href="#more" class="icon"><span class="fa fa-life-ring"></span></a>
-                            <h4><a href="#feature" class="title-head">Full protection</a></h4>
-                            <p>Vivamus a ligula quam. Ut blandit eu leo non. Duis sed dolor amet laoreet.</p>
-                        </div>
-                        <div class="grids-1 box-wrap">
-                            <a href="#more" class="icon"><span class="fa fa-database"></span></a>
-                            <h4><a href="#feature" class="title-head">Data secure</a></h4>
-                            <p>Vivamus a ligula quam. Ut blandit eu leo non. Duis sed dolor amet laoreet.</p>
-                        </div>
-                        <div class="grids-1 box-wrap">
-                            <a href="#more" class="icon"><span class="fa fa-android"></span></a>
-                            <h4><a href="#feature" class="title-head">Hi-speed app</a></h4>
-                            <p>Vivamus a ligula quam. Ut blandit eu leo non. Duis sed dolor amet laoreet.</p>
-                        </div>
+                <div class="card-body blog-details">
+                    <a href="/buy?ref=<?php echo $item->book_sys_id ?>" class="blog-desc"><?php echo $item->book_title ?></a>
+                    <p class="list-book-desc"><?php echo $item->book_description_short ?></p>
+                    <div class="author align-items-center mt-3 mb-1">
+                      <span class="meta-value">- By <?php echo $item->book_author ?></span>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
--->
+      <?php } ?>
 
-<!-- //services page block 2 -->
-<!-- 
-<section class="w3l-index3 bg-grey">
-    <div class="midd-w3 py-5">
-        <div class="container py-lg-5 py-md-3">
-            <div class="row">
-                <div class="col-lg-6">
-                    <img src="webapp/images/image1.jpg" alt="" class="img-fluid radius-image">
-                </div>
-                <div class="col-lg-6 mt-lg-0 mt-md-5 mt-4 about-right-faq align-self">
-                    <h5 class="title-small">Who we are</h5>
-                    <h3 class="title-big">Easy to manage your all Data by this App!</h3>
-                    <p class="mt-3">Lorem ipsum viverra feugiat. Pellen tesque libero ut justo,
-                        ultrices in ligula. Semper at tempufddfel. Lorem ipsum dolor sit amet consectetur adipisicing
-                        elit. Non quae, fugiat consequatur voluptatem nihil ad.</p>
-                    <a href="about.html" class="btn btn-style btn-primary mt-4">Know More</a>
-                </div>
-                <div class="col-lg-6 mt-5 about-right-faq align-self order2">
-                    <h5 class="title-small">Why choose us</h5>
-                    <h3 class="title-big">Bug free responsive app with high performence speed!</h3>
-                    <p class="mt-3">Lorem ipsum viverra feugiat. Pellen tesque libero ut justo,
-                        ultrices in ligula. Semper at tempufddfel. Lorem ipsum dolor sit amet consectetur adipisicing
-                        elit. Non quae, fugiat consequatur voluptatem nihil ad.</p>
-                    <a href="about.html" class="btn btn-style btn-primary mt-4">Know More</a>
-                </div>
-                <div class="col-lg-6 mt-md-5 mt-4">
-                    <img src="webapp/images/image2.jpg" alt="" class="img-fluid radius-image">
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
--->
 
+    </div>
+  </div>
+</section>
 <!-- stats -->
 <section class="w3l-stats py-5" id="stats">
     <div class="gallery-inner container py-md-5 py-4">
@@ -338,15 +223,11 @@ Author URL: http://w3layouts.com
                 <tr>    
                   <th></th>               
                 </tr>
-            <div class="col-md-4 col-6 stats_info counter_grid">
-                <span class="fa fa-users"></span>
-                <p class="counter">{{$all_books_count}}</p>
-                <h3>EBooks</h3>
-            </div>
-            <div class="col-md-4 col-6 stats_info counter_grid1">
-                <span class="fa fa-download"></span>
-                <p class="counter">{{$all_users_count}}</p>
-                <h3>Summaries</h3>
+            <div class="offset-md-2"></div>
+            <div class="col-md-4 col-sm-6 stats_info counter_grid1">
+              <span class="fa fa-download"></span>
+              <p class="counter">{{$all_users_count}}</p>
+              <h3>Summaries</h3>
             </div>
             <div class="col-md-4 col-6 stats_info counter_grid mt-md-0 mt-5">
                 <span class="fa fa-smile-o"></span>
@@ -360,8 +241,8 @@ Author URL: http://w3layouts.com
 	<div class="middle py-5">
 		<div class="container py-xl-5 py-lg-3">
 			<div class="welcome-left text-center py-md-3 mb-md-5">
-        <h3 class="mb-4">Search & Read on our mobile Apps</h3>
-        <p class="text-italic">Find a book on the mobile app, use the reference number to pay on our website and read on your mobile apps or on our website. Click the button below to download your desired mobile app</p>
+        <h3 class="mb-4">Search & Read On Our Mobile Apps</h3>
+        <p class="text-italic">Find a summary on the mobile app, use the reference number to pay on our website and read on your mobile apps or on our website. Click the button below to download your desired mobile app</p>
 				<a href="https://play.google.com/store/apps/details?id=com.tafarri.tafarri" target="_blank" class="btn btn-primary btn-style mt-md-5 mt-4 mr-2">Android App</a>
 				<a href="https://apps.apple.com/us/app/id1670395865" target="_blank" class="btn btn-white btn-style mt-md-5 mt-4">iPhone App</a>
 			</div>

@@ -202,7 +202,7 @@ if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
   <div class="container py-xl-5 py-lg-3">
     <div class="welcome-left text-center py-md-3 mb-md-5">
       <h3 class="mb-4">Search & Read on our mobile Apps</h3>
-      <p class="text-italic">Find a book on the mobile app, use the reference number to pay on our website and read on your mobile apps or on our website. Click the button below to download your desired mobile app</p>
+      <p class="text-italic">Find a summary on the mobile app, use the reference number to pay on our website and read on your mobile apps or on our website. Click the button below to download your desired mobile app</p>
       <a href="https://play.google.com/store/apps/details?id=com.tafarri.tafarri" target="_blank" class="btn btn-primary btn-style mt-md-5 mt-4 mr-2">Android App</a>
       <a href="https://apps.apple.com/us/app/id1670395865" target="_blank" class="btn btn-white btn-style mt-md-5 mt-4">iPhone App</a>
     </div>
@@ -215,7 +215,7 @@ if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
             <div class="container">
                 <div class="heading text-center mx-auto">
                     <h5 class="title-small text-center mb-2"></h5>
-                    <h3 class="title-big2 mb-2">READER - ACCESS YOUR BOOKS</h3>
+                    <h3 class="title-big2 mb-2">READER - ACCESS YOUR SUMMARIES</h3>
                     <p class="mb-5" id="info_text">Enter your email to receive a login code</p>
                 </div>
                 <div class="row">
@@ -281,7 +281,7 @@ if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
       <div class="container py-xl-5 py-lg-3">
         <div class="welcome-left text-center py-md-3 mb-md-5">
           <h3 class="mb-4">Search & Read on our mobile Apps</h3>
-          <p class="text-italic">**Find a book on the mobile app, use the reference number to pay on our website and read on your mobile apps or on our website. Click the button below to download your desired mobile app</p>
+          <p class="text-italic">Find a summary on the mobile app, use the reference number to pay on our website and read on your mobile apps or on our website. Click the button below to download your desired mobile app</p>
           <a href="https://play.google.com/store/apps/details?id=com.tafarri.tafarri" class="btn btn-primary btn-style mt-md-5 mt-4 mr-2">Android App</a>
           <a href="https://apps.apple.com/us/app/id1670395865" target="_blank"  class="btn btn-white btn-style mt-md-5 mt-4">iPhone App</a>
         </div>

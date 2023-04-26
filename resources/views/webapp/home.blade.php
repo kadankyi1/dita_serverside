@@ -122,10 +122,10 @@ use App\Models\version1\Transaction;
                     <a class="nav-link" href="/">Search <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item @@about__active">
-                    <a class="nav-link" href="/reader">Read</a>
+                    <a class="nav-link" href="/how-to-pay">How To Buy</a>
                 </li>
                 <li class="nav-item @@about__active">
-                    <a class="nav-link" href="/how-to-pay">How To Buy</a>
+                    <a class="nav-link" href="/how-to-pay">Request Summary</a>
                 </li>
                  <!--
                   <li class="nav-item @@pages__active">
@@ -135,6 +135,9 @@ use App\Models\version1\Transaction;
                   <li class="nav-item @@contact__active">
                       <a class="nav-link" href="/contact">Contact</a>
                   </li>
+                  <li class="nav-item @@about__active">
+                      <a class="nav-link" href="/reader">MyBooks</a>
+                  </li>
               </ul>
           </div>
           <!-- toggle switch for light and dark theme -->
@@ -142,7 +145,7 @@ use App\Models\version1\Transaction;
           <div class="mobile-position">
               <nav class="navigation">
                   <div class="theme-switch-wrapper">
-                      <label class="theme-switch" for="checkbox">
+                      <label class="theme-switch" for="checkbox" style="cursor: pointer;">
                           <input type="checkbox" id="checkbox">
                           <div class="mode-container">
                               <i class="gg-sun"></i>

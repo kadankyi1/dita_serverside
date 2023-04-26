@@ -9,56 +9,56 @@ use App\Models\version1\Transaction;
 //var_dump($_GET["kw"]);
 
 if(!empty($_GET["kw"])){
-$kw = $_GET["kw"];
+    $kw = $_GET["kw"];
 } else {
-$kw = "a";
+    $kw = "a";
 }
 
   $like_keyword = '%' . $kw . '%';
     
     if(!empty($kw)){
-        //echo "here 1"; exit;
         $where_array = array(
-            //['book_title', 'LIKE', $like_keyword],
             ['book_sys_id', '=', $kw],
         ); 
         $orwhere_array = array(
             ['book_title', 'LIKE', $like_keyword],
         ); 
 
-        //if(count($orwhere_array) > 0){
-            $found_books = DB::table('books')
-                ->select('books.book_id', 'books.book_cover_photo', 'books.book_sys_id', 'books.book_title', 'books.book_author', 'books.book_ratings', 'books.book_description_short', 'books.book_description_long', 'books.book_pages', 'books.book_pdf', 'books.book_summary_pdf', 'books.book_audio', 'books.book_summary_audio', 'books.book_cost_usd', 'books.book_summary_cost_usd')
-                ->where($where_array)
-                ->orWhere($orwhere_array)
-                ->orderBy('read_count', 'desc')
-                ->take(30)
-                ->get();
-        /*                
-        } else {
-            $found_books = DB::table('rates')
-            ->select('books.book_id', 'books.book_cover_photo', 'books.book_sys_id', 'books.book_title', 'books.book_author', 'books.book_ratings', 'books.book_description_short', 'books.book_description_long', 'books.book_pages', 'books.book_pdf', 'books.book_summary_pdf', 'books.book_audio', 'books.book_summary_audio', 'books.book_cost_usd', 'books. book_summary_cost_usd')
+        $found_books = DB::table('books')
+            ->select('books.book_id', 'books.book_cover_photo', 'books.book_sys_id', 'books.book_title', 'books.book_author', 'books.book_ratings', 'books.book_description_short', 'books.book_description_long', 'books.book_pages', 'books.book_pdf', 'books.book_summary_pdf', 'books.book_audio', 'books.book_summary_audio', 'books.book_cost_usd', 'books.book_summary_cost_usd')
             ->where($where_array)
+            ->orWhere($orwhere_array)
             ->orderBy('read_count', 'desc')
             ->take(30)
             ->get();
-        }
-        */
     } else {
-      $found_books = DB::table('books')
-        ->select('books.book_id', 'books.book_cover_photo', 'books.book_sys_id', 'books.book_title', 'books.book_author', 'books.book_ratings', 'books.book_description_short', 'books.book_description_long', 'books.book_pages', 'books.book_pdf', 'books.book_summary_pdf', 'books.book_audio', 'books.book_summary_audio', 'books.book_cost_usd', 'books.book_summary_cost_usd')
-        ->orderBy('created_at', 'desc')
-        ->take(30)
-        ->get();
+        $found_books = DB::table('books')
+            ->select('books.book_id', 'books.book_cover_photo', 'books.book_sys_id', 'books.book_title', 'books.book_author', 'books.book_ratings', 'books.book_description_short', 'books.book_description_long', 'books.book_pages', 'books.book_pdf', 'books.book_summary_pdf', 'books.book_audio', 'books.book_summary_audio', 'books.book_cost_usd', 'books.book_summary_cost_usd')
+            ->orderBy('created_at', 'desc')
+            ->take(30)
+            ->get();
     }
     
     for ($i=0; $i < count($found_books); $i++) { 
+
+        if(!empty($found_books[$i]->book_summary_pdf) && file_exists(public_path() . "/uploads/books_summaries/" . $found_books[$i]->book_summary_pdf)){
+            $found_books[$i]->book_summary_pdf = config('app.books_summaries_folder') . "/" . $found_books[$i]->book_summary_pdf;
+            if($found_books[$i]->book_summary_cost_usd <=  0){
+                //$found_books[$i]->book_summary_cost_usd = "Summary available for Free";
+                $found_books[$i]->book_summary_cost_usd = "Free";
+            } else {
+                $found_books[$i]->book_summary_cost_usd = "$" . strval($found_books[$i]->book_summary_cost_usd);
+            }
+        } else { 
+            continue;
+        }
 
         if(!empty($found_books[$i]->book_cover_photo) && file_exists(public_path() . "/uploads/books_cover_arts/" . $found_books[$i]->book_cover_photo)){
             $found_books[$i]->book_cover_photo = config('app.books_cover_arts_folder') . "/" . $found_books[$i]->book_cover_photo;
         } else {
             $found_books[$i]->book_cover_photo = config('app.books_cover_arts_folder') . "/sample_cover_art.jpg";
         }
+
         if(!empty($found_books[$i]->book_pdf) && file_exists(public_path() . "/uploads/books_fulls/" . $found_books[$i]->book_pdf)){
             $found_books[$i]->book_pdf = config('app.books_full_folder') . "/" . $found_books[$i]->book_pdf;
             if($found_books[$i]->book_cost_usd <=  0){
@@ -69,41 +69,6 @@ $kw = "a";
         } else {
             $found_books[$i]->book_pdf = "";
             $found_books[$i]->book_cost_usd = "";
-        }
-        if(!empty($found_books[$i]->book_summary_pdf) && file_exists(public_path() . "/uploads/books_summaries/" . $found_books[$i]->book_summary_pdf)){
-            $found_books[$i]->book_summary_pdf = config('app.books_summaries_folder') . "/" . $found_books[$i]->book_summary_pdf;
-            if($found_books[$i]->book_summary_cost_usd <=  0){
-                $found_books[$i]->book_summary_cost_usd = "Summary available for Free";
-            } else {
-                $found_books[$i]->book_summary_available = "*Summary available for $" . $found_books[$i]->book_summary_cost_usd;
-            }
-        } else {
-            $found_books[$i]->book_summary_pdf = "";
-            $found_books[$i]->book_summary_available = "";
-        }
-        if(!empty($found_books[$i]->book_audio) && file_exists(public_path() . "/uploads/books_audios/" . $found_books[$i]->book_audio)){
-            $found_books[$i]->book_audio = config('app.url') . "/" . $found_books[$i]->book_audio;
-        } else {
-            $found_books[$i]->book_audio = "";
-        }
-        if(!empty($found_books[$i]->book_summary_audio) && file_exists(public_path() . "/uploads/books_audios_summaries/" . $found_books[$i]->book_summary_audio)){
-            $found_books[$i]->book_summary_audio = config('app.url') . "/" . $found_books[$i]->book_summary_audio;
-        } else {
-            $found_books[$i]->book_summary_audio = "";
-        }
-
-        $transaction = Transaction::where('transaction_type', '=', "book_full")->where('transaction_referenced_item_id', '=', $found_books[$i]->book_sys_id)->where('transaction_referenced_item_id', '=', $found_books[$i]->book_sys_id)->where('transaction_payment_status', '=', "verified_passed")->first();
-        if($transaction == null || empty($transaction->transaction_referenced_item_id)){
-            $found_books[$i]->book_full_purchased = "no";
-        } else {
-            $found_books[$i]->book_full_purchased = "yes";
-        }
-
-        $transaction = Transaction::where('transaction_type', '=', "book_summary")->where('transaction_referenced_item_id', '=', $found_books[$i]->book_sys_id)->where('transaction_referenced_item_id', '=', $found_books[$i]->book_sys_id)->where('transaction_payment_status', '=', "verified_passed")->first();
-        if($transaction == null || empty($transaction->transaction_referenced_item_id)){
-            $found_books[$i]->book_summary_purchased = "no";
-        } else {
-            $found_books[$i]->book_summary_purchased = "yes";
         }
     }
 
@@ -241,184 +206,16 @@ $kw = "a";
                           <img class="card-img-bottom d-block" src="<?php echo $item->book_cover_photo ?>" alt="Card image cap" height="300px">
                       </a>
                       <ul class="location-top">
-                          <li class="tip"><?php echo $item->book_cost_usd ?></li>
+                          <li class="tip"><?php echo $item->book_summary_cost_usd ?></li>
                       </ul>
                   </div>
                   <div class="card-body blog-details">
                       <a href="/buy?ref=<?php echo $item->book_sys_id ?>" class="blog-desc"><?php echo $item->book_title ?></a>
                       <p class="list-book-desc"><?php echo $item->book_description_short ?></p>
-                      <!--
-                        <div class="author align-items-center mt-3 mb-1">
-                            <span class="meta-value">- By <?php echo $item->book_author ?></span>
-                            <br>
-                            <span class="summary-available"><?php echo $item->book_summary_available; ?></span>
-                        </div>
-                      -->
                   </div>
               </div>
           </div>
         <?php } ?>
-        <!--
-          <div class="col-lg-4 col-md-6 item mt-md-0 mt-5">
-              <div class="card">
-                  <div class="card-header p-0 position-relative">
-                      <a href="blog-single.html">
-                          <img class="card-img-bottom d-block" src="webapp/images/blog7.jpg" alt="Card image cap">
-                      </a>
-                      <ul class="location-top">
-                          <li class="tip">Tips</li>
-                      </ul>
-                  </div>
-                  <div class="card-body blog-details">
-                      <a href="blog-single.html" class="blog-desc">New beautiful lifestyle app
-                      </a>
-                      <p>Lorem ipsum dolor sit amet consectetur ipsum elit. Qui eligendi
-                          vitae sit.</p>
-                      <div class="author align-items-center mt-3 mb-1">
-                          <a href="#author">Johnson</a> - <span class="meta-value">June 26, 2020 </span>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <div class="col-lg-4 col-md-6 item mt-lg-0 mt-5">
-              <div class="card">
-                  <div class="card-header p-0 position-relative">
-                      <a href="blog-single.html">
-                          <img class="card-img-bottom d-block" src="webapp/images/blog7.jpg" alt="Card image cap">
-                      </a>
-                      <ul class="location-top">
-                          <li class="design">Design</li>
-                      </ul>
-                  </div>
-                  <div class="card-body blog-details">
-                      <a href="blog-single.html" class="blog-desc">Quickly formulate backend
-                      </a>
-                      <p>Lorem ipsum dolor sit amet consectetur ipsum elit. Qui eligendi
-                          vitae sit.</p>
-                      <div class="author align-items-center mt-3 mb-1">
-                          <a href="#author">Johnson</a> - <span class="meta-value">June 26, 2020 </span>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <div class="col-lg-4 col-md-6 item mt-5 pt-lg-3">
-              <div class="card">
-                  <div class="card-header p-0 position-relative">
-                      <a href="blog-single.html">
-                          <img class="card-img-bottom d-block" src="webapp/images/blog7.jpg" alt="Card image cap">
-                      </a>
-                      <ul class="location-top">
-                          <li class="design">Design</li>
-                      </ul>
-                  </div>
-                  <div class="card-body blog-details">
-                      <a href="blog-single.html" class="blog-desc">Vintage for Creative working
-                      </a>
-                      <p>Lorem ipsum dolor sit amet consectetur ipsum elit. Qui eligendi
-                          vitae sit.</p>
-                      <div class="author align-items-center mt-3 mb-1">
-                          <a href="#author">Johnson</a> - <span class="meta-value">June 26, 2020 </span>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <div class="col-lg-4 col-md-6 item mt-5 pt-lg-3">
-              <div class="card">
-                  <div class="card-header p-0 position-relative">
-                      <a href="blog-single.html">
-                          <img class="card-img-bottom d-block" src="webapp/images/blog7.jpg" alt="Card image cap">
-                      </a>
-                  </div>
-                  <div class="card-body blog-details">
-                      <a href="blog-single.html" class="blog-desc">Believe, Achieve, Success
-                      </a>
-                      <p>Lorem ipsum dolor sit amet consectetur ipsum elit. Qui eligendi
-                          vitae sit.</p>
-                      <div class="author align-items-center mt-3 mb-1">
-                          <a href="#author">Johnson</a> - <span class="meta-value">June 26, 2020 </span>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <div class="col-lg-4 col-md-6 item mt-5 pt-lg-3">
-              <div class="card">
-                  <div class="card-header p-0 position-relative">
-                      <a href="blog-single.html">
-                          <img class="card-img-bottom d-block" src="webapp/images/blog7.jpg" alt="Card image cap">
-                      </a>
-                  </div>
-                  <div class="card-body blog-details">
-                      <a href="blog-single.html" class="blog-desc">Manage your Data by this App!
-                      </a>
-                      <p>Lorem ipsum dolor sit amet consectetur ipsum elit. Qui eligendi
-                          vitae sit.</p>
-                      <div class="author align-items-center mt-3 mb-1">
-                          <a href="#author">Johnson</a> - <span class="meta-value">June 26, 2020 </span>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <div class="col-lg-4 col-md-6 item mt-5 pt-lg-3">
-              <div class="card">
-                  <div class="card-header p-0 position-relative">
-                      <a href="blog-single.html">
-                          <img class="card-img-bottom d-block" src="webapp/images/blog7.jpg" alt="Card image cap">
-                      </a>
-                  </div>
-                  <div class="card-body blog-details">
-                      <a href="blog-single.html" class="blog-desc">High performence speed!
-                      </a>
-                      <p>Lorem ipsum dolor sit amet consectetur ipsum elit. Qui eligendi
-                          vitae sit.</p>
-                      <div class="author align-items-center mt-3 mb-1">
-                          <a href="#author">Johnson</a> - <span class="meta-value">June 26, 2020 </span>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <div class="col-lg-4 col-md-6 item mt-5 pt-lg-3">
-              <div class="card">
-                  <div class="card-header p-0 position-relative">
-                      <a href="blog-single.html">
-                          <img class="card-img-bottom d-block" src="webapp/images/blog7.jpg" alt="Card image cap">
-                      </a>
-                      <ul class="location-top">
-                          <li class="tip">Tips</li>
-                      </ul>
-                  </div>
-                  <div class="card-body blog-details">
-                      <a href="blog-single.html" class="blog-desc">Design your new App
-                      </a>
-                      <p>Lorem ipsum dolor sit amet consectetur ipsum elit. Qui eligendi
-                          vitae sit.</p>
-                      <div class="author align-items-center mt-3 mb-1">
-                          <a href="#author">Johnson</a> - <span class="meta-value">June 26, 2020 </span>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <div class="col-lg-4 col-md-6 item mt-5 pt-lg-3">
-              <div class="card">
-                  <div class="card-header p-0 position-relative">
-                      <a href="blog-single.html">
-                          <img class="card-img-bottom d-block" src="webapp/images/blog7.jpg" alt="Card image cap">
-                      </a>
-                      <ul class="location-top">
-                          <li class="new">Gallery</li>
-                      </ul>
-                  </div>
-                  <div class="card-body blog-details">
-                      <a href="blog-single.html" class="blog-desc">Variety of useful features
-                      </a>
-                      <p>Lorem ipsum dolor sit amet consectetur ipsum elit. Qui eligendi
-                          vitae sit.</p>
-                      <div class="author align-items-center mt-3 mb-1">
-                          <a href="#author">Johnson</a> - <span class="meta-value">June 26, 2020 </span>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          -->
       </div>
       <!-- pagination -->
       <!--

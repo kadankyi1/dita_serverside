@@ -95,19 +95,18 @@ Author URL: http://w3layouts.com
         <div class="container">
             <div class="row main-cont-wthree-2">
                 <div class="col-lg-12 feature-grid-left">
-                    <h3 class="title-big mb-4">Buying On Our Mobile Apps</h3>
+                    <h3 class="title-big mb-4">Buying On Our Website</h3>
                     <p class="text-para"></p>
                     <ol class="w3l-right mt-4 mb-0">
-                        <li>Login to the app by entering your email and confirming a code sent to you</li>
-                        <li>Go to "Summaries" and search for your book by entering a word from the title</li>
-                        <li>Click on the desired book from the list. A reference will be listed on the page that opens</li>
-                        <li>Visit tafarri.com and enter the reference code in the search bar. It will display the book</li>
-                        <li>Click on the book from the list, enter your email that you used on the mobile app email and click proceed</li>
-                        <li>This will take you to the page where you pay with card or mobile money</li>
-                        <li>Close your mobile app, reopen it and search for the book. It will provide you with the option to read</li>
+                      <li>Visit tafarri.com</li>
+                      <li>Search for a summary by entering a word from the title in the input provided</li>
+                      <li>Click on the desired summary from the list.</li>
+                      <li>Enter your email and click proceed</li>
+                      <li>This will take you to the page where you pay with card or mobile money</li>
+                      <li>Your summary will be displayed to you after payment.</li>
                     </ol>
-                    <a href="https://play.google.com/store/apps/details?id=com.tafarri.tafarri" target="_blank" class="btn btn-primary btn-style mt-md-5 mt-4 mr-2">Download Android App</a>
-                    <a href="https://apps.apple.com/us/app/id1670395865" target="_blank" class="btn btn-outline-primary btn-style mt-md-5 mt-4">Download iPhone App</a>
+                    <a href="/search" class="btn btn-primary btn-style mt-md-5 mt-4 mr-2">Find A Summary</a>
+                    <a href="/contact" class="btn btn-outline-primary btn-style mt-md-5 mt-4">Contact Us</a>
                 </div>
                 <!--
                 <div class="col-lg-6 feature-grid-right mt-lg-0 mt-5">
@@ -123,17 +122,18 @@ Author URL: http://w3layouts.com
         <div class="container">
 
                 <div class="col-lg-12 feature-grid-left">
-                    <h3 class="title-big mb-4">Buying On Our Website</h3>
+                    <h3 class="title-big mb-4">Buying On Our Mobile Apps</h3>
                     <ol class="w3l-right mt-4 mb-0">
-                      <li>Visit tafarri.com</li>
-                      <li>Search for your book by entering a word from the title in the input provided</li>
-                      <li>Click on the desired book from the list.</li>
-                      <li>Choose if it's a full book or summary you want, enter your email and click proceed</li>
+                      <li>Login to the app by entering your email and confirming a code sent to you</li>
+                      <li>Go to "Summaries" and search by entering a word from the title of the summary</li>
+                      <li>Click on the desired summary from the list. A reference will be listed on the page that opens</li>
+                      <li>Visit tafarri.com and enter the reference code in the search bar. It will display the summary</li>
+                      <li>Click on the summary from the list, enter your email that you used on the mobile app email and click proceed</li>
                       <li>This will take you to the page where you pay with card or mobile money</li>
-                      <li>Your book will be displayed to you after payment.</li>
+                      <li>Close your mobile app, reopen it and search for the summary. It will provide you with the option to read</li>
                   </ol>
-                    <a href="/search" class="btn btn-primary btn-style mt-md-5 mt-4 mr-2">Find A Book</a>
-                    <a href="/contact" class="btn btn-outline-primary btn-style mt-md-5 mt-4">Contact Us</a>
+                    <a href="https://play.google.com/store/apps/details?id=com.tafarri.tafarri" target="_blank" class="btn btn-primary btn-style mt-md-5 mt-4 mr-2">Download Android App</a>
+                    <a href="https://apps.apple.com/us/app/id1670395865" target="_blank"  class="btn btn-outline-primary btn-style mt-md-5 mt-4">Download iPhone App</a>
                 </div>
             </div>
         </div>

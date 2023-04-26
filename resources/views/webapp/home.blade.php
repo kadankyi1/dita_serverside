@@ -199,7 +199,7 @@ use App\Models\version1\Transaction;
                     </a>
                     <!--
                       <ul class="location-top">
-                        <li class="tip"><?php echo $item->book_summary_available ?></li>
+                        <li class="tip"><?php //echo $item->book_summary_available ?></li>
                       </ul>
                     -->
                 </div>

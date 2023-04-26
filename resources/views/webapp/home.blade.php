@@ -207,7 +207,7 @@ use App\Models\version1\Transaction;
                     <a href="/buy?ref=<?php echo $item->book_sys_id ?>" class="blog-desc"><?php echo $item->book_title ?></a>
                     <p class="list-book-desc"><?php echo $item->book_description_short ?></p>
                     <div class="author align-items-center mt-3 mb-1">
-                      <span class="meta-value">- By <?php echo $item->book_author ?></span>
+                      <span class="meta-value">- By <?php echo $item->b.y1YLhBTZQoe3H!cook_author ?></span>
                     </div>
                 </div>
             </div>
@@ -228,7 +228,7 @@ use App\Models\version1\Transaction;
             <div class="offset-md-2"></div>
             <div class="col-md-4 col-sm-6 stats_info counter_grid1">
               <span class="fa fa-download"></span>
-              <p class="counter">{{$all_users_count}}</p>
+              <p class="counter">{{$all_books_count}}</p>
               <h3>Summaries</h3>
             </div>
             <div class="col-md-4 col-6 stats_info counter_grid mt-md-0 mt-5">

@@ -4,7 +4,6 @@ Author URL: http://w3layouts.com
 -->
 @php($all_users_count = DB::table('users')->count())
 @php($all_books_count = DB::table('books')->count())
-@php($all_books_count = DB::table('books')->where(array(['book_summary_pdf', '<>', '']))->count())
 
 <?php
 use App\Models\version1\Book;

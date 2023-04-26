@@ -197,9 +197,11 @@ use App\Models\version1\Transaction;
                     <a href="/buy?ref=<?php echo $item->book_sys_id ?>">
                         <img class="card-img-bottom d-block" src="<?php echo $item->book_cover_photo ?>" alt="Card image cap" height="300px">
                     </a>
-                    <ul class="location-top">
+                    <!--
+                      <ul class="location-top">
                         <li class="tip"><?php echo $item->book_summary_available ?></li>
-                    </ul>
+                      </ul>
+                    -->
                 </div>
                 <div class="card-body blog-details">
                     <a href="/buy?ref=<?php echo $item->book_sys_id ?>" class="blog-desc"><?php echo $item->book_title ?></a>

@@ -202,7 +202,7 @@ if(!empty($_GET["kw"])){
           <div class="col-lg-3 col-md-6 item">
               <div class="card">
                   <div class="card-header p-0 position-relative">
-                      <a href="/buy?ref=<?php echo $item->book_sys_id ?>">
+                      <a href="/buy?ref=<?php echo $item->book_sys_id ?>">"<?php echo $item->book_cover_photo ?>
                           <img class="card-img-bottom d-block" src="<?php echo $item->book_cover_photo ?>" alt="Card image cap" height="300px">
                       </a>
                       <ul class="location-top">

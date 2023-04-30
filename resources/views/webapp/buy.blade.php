@@ -12,9 +12,10 @@ $id = $_GET["ref"];
 if(!empty($id)){
   $where_array = array(
       ['book_sys_id', '=', $id],
+      ['book_summary_pdf', '<>', ''],
   ); 
   $found_books = DB::table('books')
-                ->select('books.book_id', 'books.book_cover_photo', 'books.book_sys_id', 'books.book_title', 'books.book_author', 'books.book_ratings', 'books.book_description_short', 'books.book_description_long', 'books.book_pages', 'books.book_pdf', 'books.book_summary_pdf', 'books.book_audio', 'books.book_summary_audio', 'books.book_cost_usd', 'books.book_summary_cost_usd')
+                ->select('books.book_id', 'books.book_cover_photo', 'books.book_sys_id', 'books.book_title', 'books.book_author', 'books.book_ratings', 'books.book_description_short', 'books.book_description_long', 'books.book_pages', 'books.book_pdf', 'books.book_summary_pdf', 'books.book_cost_usd', 'books.book_summary_cost_usd')
                 ->where($where_array)
                 ->orderBy('read_count', 'desc')
                 ->take(1)
@@ -41,8 +42,8 @@ if(!empty($id)){
         if(!empty($found_books[0]->book_summary_pdf) && file_exists(public_path() . "/uploads/books_summaries/" . $found_books[0]->book_summary_pdf)){
             $found_books[0]->book_summary_pdf = config('app.books_summaries_folder') . "/" . $found_books[0]->book_summary_pdf;
             $found_books[0]->book_summary_available = "*Summary available for $" . $found_books[0]->book_summary_cost_usd;
+            $found_books[0]->book_summary_available_option = '<option selected value="book_summary">Summary</option>';
             if($found_books[0]->book_summary_cost_usd >  0){
-              $found_books[0]->book_summary_available_option = '<option value="book_summary">Summary</option>';
               $found_books[0]->book_string_summary_cost_usd = "$" . strval($found_books[0]->book_summary_cost_usd);
             } else {
               $found_books[0]->book_summary_available = '';
@@ -52,16 +53,6 @@ if(!empty($id)){
             $found_books[0]->book_summary_pdf = "";
             $found_books[0]->book_summary_available = "";
             $found_books[0]->book_summary_available_option = "";
-        }
-        if(!empty($found_books[0]->book_audio) && file_exists(public_path() . "/uploads/books_audios/" . $found_books[0]->book_audio)){
-            $found_books[0]->book_audio = config('app.url') . "/" . $found_books[0]->book_audio;
-        } else {
-            $found_books[0]->book_audio = "";
-        }
-        if(!empty($found_books[0]->book_summary_audio) && file_exists(public_path() . "/uploads/books_audios_summaries/" . $found_books[0]->book_summary_audio)){
-            $found_books[0]->book_summary_audio = config('app.url') . "/" . $found_books[0]->book_summary_audio;
-        } else {
-            $found_books[0]->book_summary_audio = "";
         }
         
       } else {
@@ -175,6 +166,7 @@ if(!empty($id)){
                 <p class="mb-5">You can read this summary here on the web, on androids or iphones</p>
             </div>
             <div class="row">
+
               <div class="col-lg-3 col-md-6 item">
                 <div class="card">
                     <div class="card-header p-0 position-relative">
@@ -182,103 +174,100 @@ if(!empty($id)){
                             <img class="card-img-bottom d-block" src="<?php echo $found_books[0]->book_cover_photo ?>" alt="Card image cap" height="300px">
                         </a>
                         <ul class="location-top">
-                            <li class="tip"><?php echo $found_books[0]->book_string_cost_usd ?></li>
+                            <li class="tip"><?php echo $found_books[0]->book_string_summary_cost_usd ?></li>
                         </ul>
                     </div>
                     <div class="card-body blog-details">
                         <a href="/buy?ref=<?php echo $found_books[0]->book_sys_id ?>" class="blog-desc"><?php echo $found_books[0]->book_title ?></a>
                         <div class="author align-items-center mt-3 mb-1">
                           <span class="meta-value">- By <?php echo $found_books[0]->book_author ?></span>
-                          <br>
-                          <span class="summary-available"><?php echo $found_books[0]->book_summary_available ?></span>
                         </div>
                     </div>
                 </div>
-            </div>
+              </div>
 
-                <div class="col-lg-4 form-inner-cont  section-gap mt-lg-0 mt-4">
+
+              <div class="col-lg-6 contacts-5-grid-main section-gap mt-lg-0 mt-4">
+                <div class="contacts-5-grid">
+                  <div class="map-content-5">
+                    <section class="tab-content">
+                      <div class="contact-type">
+                        <div class="address-grid mb-3">
+                          <h6>Description</h6>
+                          <p class="list-book-desc"><?php echo $found_books[0]->book_description_long ?></p>
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </div>
+              </div>
+
+                <div class="col-lg-3 form-inner-cont  section-gap mt-lg-0 mt-4">
                   <div style="align-content: center; text-align: center;">
                     <div id="loader" class="lds-roller" style="display: none"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
                   </div>          
                   <form action="" method="post" id="real_buy_form" class="signin-form">
                       <div class="">
                         <?php if($found_books[0]->book_cost_usd <= 0 && $found_books[0]->book_pdf != ""){ ?>
-                          <div  style="align-content: center; text-align: center;" class="text-right" id="readfull">
-                            <a id="proceed_btn" href="/reader?type=1&ref=<?php echo $found_books[0]->book_sys_id ?>"   class="btn btn-style btn-primary">Read Full Book</a>
-                         </div>
+                          <!--
+                            <div  style="align-content: center; text-align: center;" class="text-right" id="readfull">
+                              <a id="proceed_btn" href="/reader?type=1&ref=<?php echo $found_books[0]->book_sys_id ?>"   class="btn btn-style btn-primary">Read Full Book</a>
+                            </div>
+                          -->
                         <?php } ?>
                         
                         <?php if($found_books[0]->book_summary_cost_usd <= 0 && $found_books[0]->book_summary_pdf != ""){ ?>
                           <div  style="align-content: center; text-align: center;" class="text-right mt-2" id="readsum">
-                            <button id="proceed_btn" type="submit"  class="btn btn-style btn-primary">Read Summary</button>
-                         </div>
+                            <a id="proceed_btn" href="/reader?type=2&ref=<?php echo $found_books[0]->book_sys_id ?>"   class="btn btn-style btn-primary">Read Summary Book</a>
+                          </div>
                         <?php } ?>
                           
 
                         <?php if($found_books[0]->book_cost_usd > 0 || $found_books[0]->book_summary_cost_usd > 0 ){ ?>
-                          <div class="form-input mb-4">
+                          <div class="form-input mb-4" >
                             <select name="item_type" id="item_type" onchange="setBuyform(this, '$<?php echo $found_books[0]->book_cost_usd ?>', '$<?php echo $found_books[0]->book_summary_cost_usd ?>')">
                               <option value="">Choose Preference</option>
-                              <?php echo $found_books[0]->book_full_available_option ?>
+                              <?php //echo $found_books[0]->book_full_available_option ?>
                               <?php echo $found_books[0]->book_summary_available_option ?>
                             </select>
                           </div>
-                        <?php } ?>
-                          
-                          <span id="buyform" style="display: none">
 
-                            <!--
-                              <section class="tab-content">
-                              <div class="contact-type">
-                                  <div class="address-grid mb-3">
-                                      <h6>Payment Details</h6>
-                                      <p class="list-book-desc"><strong>Send the full payment to the details below and use your transaction ID to submit the form below</strong><br>
-                                        <p class="list-book-desc"><strong>Amount:</strong> {{ Config::get('app.momonetworkname') }}<br>
-                                        <p class="list-book-desc"><strong>Momo Network:</strong> {{ Config::get('app.momonetworkname') }}<br>
-                                        <p class="list-book-desc"><strong>Momo Number:</strong> {{ Config::get('app.momoaccountnumber') }}<br>
-                                        <p class="list-book-desc"><strong>Momo Name:</strong> {{ Config::get('app.momoaccountname') }}</p><br>
-                                                    
-                                      </span>
-                                  </div>
-                              </div>
-                              -->
-                          </section>
-                          <div class="form-input mb-4">
-                              <input type="hidden" name="item_id" id="item_id" value="<?php echo $found_books[0]->book_sys_id ?>"
-                                  readonly />
-                          </div>
-                          <div class="form-input mb-4">
-                              <input type="text" name="book_amt" id="book_amt" 
-                                  readonly />
-                          </div>
-                          <div class="form-input mb-4">
-                              <input type="email" name="user_email" id="user_email" placeholder="Email *"
-                                  required />
-                          </div>
-                          <div class="text-right" id="buybtn">
-                             <button id="proceed_btn" type="submit"  class="btn btn-style btn-primary">Proceed</button>
-                          </div>
+                          <span id="buyform" style="display: block">
+                              <!--
+                                <section class="tab-content">
+                                <div class="contact-type">
+                                    <div class="address-grid mb-3">
+                                        <h6>Payment Details</h6>
+                                        <p class="list-book-desc"><strong>Send the full payment to the details below and use your transaction ID to submit the form below</strong><br>
+                                          <p class="list-book-desc"><strong>Amount:</strong> {{ Config::get('app.momonetworkname') }}<br>
+                                          <p class="list-book-desc"><strong>Momo Network:</strong> {{ Config::get('app.momonetworkname') }}<br>
+                                          <p class="list-book-desc"><strong>Momo Number:</strong> {{ Config::get('app.momoaccountnumber') }}<br>
+                                          <p class="list-book-desc"><strong>Momo Name:</strong> {{ Config::get('app.momoaccountname') }}</p><br>
+                                                      
+                                        </span>
+                                    </div>
+                                </div>
+                                -->
+                            <div class="form-input mb-4">
+                                <input type="hidden" name="item_id" id="item_id" value="<?php echo $found_books[0]->book_sys_id ?>"
+                                    readonly />
+                            </div>
+                            <div class="form-input mb-4">
+                                <input type="text" name="book_amt" id="book_amt" value="<?php echo $found_books[0]->book_string_summary_cost_usd; ?>" readonly />
+                            </div>
+                            <div class="form-input mb-4">
+                                <input type="email" name="user_email" id="user_email" placeholder="Email *"
+                                    required />
+                            </div>
+                            <div class="text-right" id="buybtn">
+                              <button id="proceed_btn" type="submit"  class="btn btn-style btn-primary">Proceed</button>
+                            </div>
                           </span>
+                        <?php } ?>
                       </div>
                   </form>
               </div>
               
-              <div class="col-lg-5 contacts-5-grid-main section-gap mt-lg-0 mt-4">
-                <div class="contacts-5-grid">
-                    <div class="map-content-5">
-                      <section class="tab-content">
-                          <div class="contact-type">
-                              <div class="address-grid mb-3">
-                                  <h6>Description</h6>
-                                  <p class="list-book-desc"><?php echo $found_books[0]->book_description_long ?></p>
-                                  
-                                  </span>
-                              </div>
-                          </div>
-                      </section>
-                    </div>
-                </div>
-            </div>
 
             </div>
         </div>

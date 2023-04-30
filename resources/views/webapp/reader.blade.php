@@ -72,11 +72,11 @@ if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
       } else {
           $error = "The free book not found. You can contact support if this is a problem";
       }
-    } else if($this_transaction[0]->transaction_type == "2"){ //book_summary
+    } else if($summary_or_book == "2"){ //book_summary
       //echo "here 3"; exit;
       if(!empty($book->book_summary_pdf) && file_exists(public_path() . "/uploads/books_summaries/" . $book->book_summary_pdf)  && $book->book_summary_cost_usd <= 0){
-          $reader_book_url = config('app.books_summaries_folder') . "/" . $book->book_summary_pdf;
-      //echo "here 4"; exit;
+        $reader_book_url = config('app.books_summaries_folder') . "/" . $book->book_summary_pdf;
+        //echo "here 4"; exit;
       } else {
           $error = "The free book was not found. You can contact support if this is a problem";
       }

@@ -19,13 +19,15 @@ if(!empty($_GET["kw"])){
     if(!empty($kw)){
         $where_array = array(
             ['book_sys_id', '=', $kw],
+            ['book_summary_pdf', '<>', ''],
         ); 
         $orwhere_array = array(
             ['book_title', 'LIKE', $like_keyword],
+            ['book_summary_pdf', '<>', ''],
         ); 
 
         $found_books = DB::table('books')
-            ->select('books.book_id', 'books.book_cover_photo', 'books.book_sys_id', 'books.book_title', 'books.book_author', 'books.book_ratings', 'books.book_description_short', 'books.book_description_long', 'books.book_pages', 'books.book_pdf', 'books.book_summary_pdf', 'books.book_audio', 'books.book_summary_audio', 'books.book_cost_usd', 'books.book_summary_cost_usd')
+            ->select('books.book_id', 'books.book_cover_photo', 'books.book_sys_id', 'books.book_title', 'books.book_description_short', 'books.book_summary_pdf', 'books.book_cost_usd', 'books.book_summary_cost_usd')
             ->where($where_array)
             ->orWhere($orwhere_array)
             ->orderBy('read_count', 'desc')
@@ -33,7 +35,7 @@ if(!empty($_GET["kw"])){
             ->get();
     } else {
         $found_books = DB::table('books')
-            ->select('books.book_id', 'books.book_cover_photo', 'books.book_sys_id', 'books.book_title', 'books.book_author', 'books.book_ratings', 'books.book_description_short', 'books.book_description_long', 'books.book_pages', 'books.book_pdf', 'books.book_summary_pdf', 'books.book_audio', 'books.book_summary_audio', 'books.book_cost_usd', 'books.book_summary_cost_usd')
+            ->select('books.book_id', 'books.book_cover_photo', 'books.book_sys_id', 'books.book_title', 'books.book_description_short', 'books.book_summary_pdf', 'books.book_cost_usd', 'books.book_summary_cost_usd')
             ->orderBy('created_at', 'desc')
             ->take(30)
             ->get();
@@ -57,18 +59,6 @@ if(!empty($_GET["kw"])){
             $found_books[$i]->book_cover_photo = config('app.books_cover_arts_folder') . "/" . $found_books[$i]->book_cover_photo;
         } else {
             $found_books[$i]->book_cover_photo = config('app.books_cover_arts_folder') . "/sample_cover_art.jpg";
-        }
-
-        if(!empty($found_books[$i]->book_pdf) && file_exists(public_path() . "/uploads/books_fulls/" . $found_books[$i]->book_pdf)){
-            $found_books[$i]->book_pdf = config('app.books_full_folder') . "/" . $found_books[$i]->book_pdf;
-            if($found_books[$i]->book_cost_usd <=  0){
-                $found_books[$i]->book_cost_usd = "Free";
-            } else {
-                $found_books[$i]->book_cost_usd = "$" . strval($found_books[$i]->book_cost_usd);
-            }
-        } else {
-            $found_books[$i]->book_pdf = "";
-            $found_books[$i]->book_cost_usd = "";
         }
     }
 
@@ -198,11 +188,13 @@ if(!empty($_GET["kw"])){
     </div>
       <div class="row">
         <!-- https://p.w3layouts.com/demos_new/template_demo/11-08-2020/appflow-liberty-demo_Free/1795288211/web/assets/css/style-liberty.css -->
-        <?php foreach ($found_books as $key => $item) { ?>
+        <?php foreach ($found_books as $key => $item) { 
+            //if(empty($item->book_summary_pdf) || !file_exists(public_path() . "/uploads/books_summaries/" . $item->book_summary_pdf)){continue;}
+        ?>
           <div class="col-lg-3 col-md-6 item">
               <div class="card">
                   <div class="card-header p-0 position-relative">
-                      <a href="/buy?ref=<?php echo $item->book_sys_id ?>">"<?php echo $item->book_cover_photo ?>
+                      <a href="/buy?ref=<?php echo $item->book_sys_id ?>">
                           <img class="card-img-bottom d-block" src="<?php echo $item->book_cover_photo ?>" alt="Card image cap" height="300px">
                       </a>
                       <ul class="location-top">

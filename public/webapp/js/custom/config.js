@@ -5,8 +5,8 @@
 ****************************************/
 var show_logging_in_console = "true"
 
-//var hostweb = "http://dita.local";
-var hostweb = "https://tafarri.com";
+var hostweb = "http://dita.local";
+//var hostweb = "https://tafarri.com";
 
 // LOGIN PAGE URL
 var web_reader_url = `${hostweb}/reader`;
@@ -22,8 +22,8 @@ var web_reader_url = `${hostweb}/reader`;
 
 ****************************************/
 
-//var host_api = "http://dita.local";
-var host_api = "https://tafarri.com";
+var host_api = "http://dita.local";
+//var host_api = "https://tafarri.com";
 
 // GET LOGIN CODE URL
 var get_login_code_url = `${host_api}/api/v1/user/send-login-code`;

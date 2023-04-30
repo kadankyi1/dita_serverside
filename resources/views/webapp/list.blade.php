@@ -62,8 +62,8 @@ if(!empty($_GET["kw"])){
         }
     }
 
-  var_dump($found_books);
-  exit;
+  //var_dump($found_books);
+  //exit;
 ?>
 <!doctype html>
 <html lang="en">
@@ -195,7 +195,7 @@ if(!empty($_GET["kw"])){
               <div class="card">
                   <div class="card-header p-0 position-relative">
                       <a href="/buy?ref=<?php echo $item->book_sys_id ?>">
-                          <img class="card-img-bottom d-block" src="<?php echo $item->book_cover_photo ?>" alt="Card image cap" height="300px">
+                          <img class="card-img-bottom d-block" src="<?php echo config('app.books_summaries_folder') . "/" . $item->book_cover_photo ?>" alt="Card image cap" height="300px">
                       </a>
                       <ul class="location-top">
                           <li class="tip"><?php echo $item->book_summary_cost_usd ?></li>

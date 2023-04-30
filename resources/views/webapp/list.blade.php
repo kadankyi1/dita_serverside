@@ -56,9 +56,9 @@ if(!empty($_GET["kw"])){
         }
 
         if(!empty($found_books[$i]->book_cover_photo) && file_exists(public_path() . "/uploads/books_cover_arts/" . $found_books[$i]->book_cover_photo)){
-            $found_books[$i]->book_cover_photo = config('app.books_cover_arts_folder') . "/" . $found_books[$i]->book_cover_photo;
+            $found_books[$i]->book_cover_photo_url = config('app.books_cover_arts_folder') . "/" . $found_books[$i]->book_cover_photo;
         } else {
-            $found_books[$i]->book_cover_photo = config('app.books_cover_arts_folder') . "/sample_cover_art.jpg";
+            $found_books[$i]->book_cover_photo_url = config('app.books_cover_arts_folder') . "/sample_cover_art.jpg";
         }
     }
 

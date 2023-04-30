@@ -22,9 +22,9 @@ if(!empty($id)){
                 ->get();
       if(!empty($found_books[0])){
         if(!empty($found_books[0]->book_cover_photo) && file_exists(public_path() . "/uploads/books_cover_arts/" . $found_books[0]->book_cover_photo)){
-            $found_books[0]->book_cover_photo_url = config('app.books_cover_arts_folder') . "/" . $found_books[0]->book_cover_photo;
+            $found_books[0]->book_cover_photo = config('app.books_cover_arts_folder') . "/" . $found_books[0]->book_cover_photo;
         } else {
-            $found_books[0]->book_cover_photo_url = config('app.books_cover_arts_folder') . "/sample_cover_art.jpg";
+            $found_books[0]->book_cover_photo = config('app.books_cover_arts_folder') . "/sample_cover_art.jpg";
         }
         if(!empty($found_books[0]->book_pdf) && file_exists(public_path() . "/uploads/books_fulls/" . $found_books[0]->book_pdf)){
             $found_books[0]->book_pdf = config('app.books_full_folder') . "/" . $found_books[0]->book_pdf;
@@ -62,8 +62,8 @@ if(!empty($id)){
   $found_books = array();
 }
 
-  var_dump($found_books);
-  exit;
+  //var_dump($found_books);
+  //exit;
 
 
 ?>

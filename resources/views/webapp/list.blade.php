@@ -62,8 +62,8 @@ if(!empty($_GET["kw"])){
         }
     }
 
-  //var_dump($found_books);
-  //exit;
+  var_dump($found_books);
+  exit;
 ?>
 <!doctype html>
 <html lang="en">

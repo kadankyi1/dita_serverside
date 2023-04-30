@@ -93,6 +93,7 @@ return [
     'url' => env('APP_URL', 'https://tafarri.com'),
     
     // INVESTORY FOLDERS
+    //'books_cover_arts_folder' => env('books_cover_arts_folder', 'https://dita.local/uploads/books_cover_arts'),
     'books_cover_arts_folder' => env('books_cover_arts_folder', 'https://tafarri.com/uploads/books_cover_arts'),
     'books_full_folder' => env('books_full_folder', 'https://tafarri.com/uploads/books_fulls'),
     'books_summaries_folder' => env('books_summaries_folder', 'https://tafarri.com/uploads/books_summaries'),

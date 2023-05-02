@@ -49,7 +49,7 @@ Author URL: http://w3layouts.com
                   <a class="nav-link" href="/">Search</a>
               </li>
               <li class="nav-item @@about__active">
-                  <a class="nav-link" href="/reader">Read</a>
+                  <a class="nav-link" href="/reader">MyBooks</a>
               </li>
               <li class="nav-item">
                   <a class="nav-link" href="/how-to-pay">How To Buy</a>
@@ -68,7 +68,7 @@ Author URL: http://w3layouts.com
           <div class="mobile-position">
               <nav class="navigation">
                   <div class="theme-switch-wrapper">
-                      <label class="theme-switch" for="checkbox">
+                      <label class="theme-switch" for="checkbox" style="cursor: pointer;">
                           <input type="checkbox" id="checkbox">
                           <div class="mode-container">
                               <i class="gg-sun"></i>

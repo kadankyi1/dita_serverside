@@ -108,7 +108,7 @@ if(!empty($_GET["kw"])){
                     <a class="nav-link" href="/">Search <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item @@about__active">
-                    <a class="nav-link" href="/reader">Read</a>
+                    <a class="nav-link" href="/reader">MyBooks</a>
                 </li>
                 <li class="nav-item @@about__active">
                     <a class="nav-link" href="/how-to-pay">How To Buy</a>
@@ -127,7 +127,7 @@ if(!empty($_GET["kw"])){
           <div class="mobile-position">
               <nav class="navigation">
                   <div class="theme-switch-wrapper">
-                      <label class="theme-switch" for="checkbox">
+                      <label class="theme-switch" for="checkbox" style="cursor: pointer;">
                           <input type="checkbox" id="checkbox">
                           <div class="mode-container">
                               <i class="gg-sun"></i>

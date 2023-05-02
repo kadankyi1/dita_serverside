@@ -125,19 +125,19 @@ use App\Models\version1\Transaction;
                     <a class="nav-link" href="/how-to-pay">How To Buy</a>
                 </li>
                 <li class="nav-item @@about__active">
+                    <a class="nav-link" href="/reader">MyBooks</a>
+                </li>
+                <li class="nav-item @@contact__active">
+                    <a class="nav-link" href="/contact">Contact</a>
+                </li>
+                <!--
+                <li class="nav-item @@about__active">
                     <a class="nav-link" href="/how-to-pay">Request Summary</a>
                 </li>
-                 <!--
-                  <li class="nav-item @@pages__active">
-                      <a class="nav-link" href="features.html">App features</a>
-                  </li>
-                  -->
-                  <li class="nav-item @@contact__active">
-                      <a class="nav-link" href="/contact">Contact</a>
-                  </li>
-                  <li class="nav-item @@about__active">
-                      <a class="nav-link" href="/reader">MyBooks</a>
-                  </li>
+                <li class="nav-item @@pages__active">
+                    <a class="nav-link" href="features.html">App features</a>
+                </li>
+                -->
               </ul>
           </div>
           <!-- toggle switch for light and dark theme -->

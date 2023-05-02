@@ -24,8 +24,8 @@ return new class extends Migration
             $table->text('book_description_long')->nullable();
             $table->integer('book_pages')->default(0);
             $table->string('book_cover_photo', 255)->unique();
-            $table->string('book_pdf', 255)->unique();
-            $table->string('book_summary_pdf', 255)->default("");
+            $table->string('book_pdf', 255)->default("");
+            $table->string('book_summary_pdf', 255)->unique();
             $table->string('book_audio', 255)->default("");
             $table->string('book_summary_audio', 255)->default("");
             $table->decimal('book_cost_usd', 12, 2);

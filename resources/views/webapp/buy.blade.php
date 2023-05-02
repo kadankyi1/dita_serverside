@@ -208,7 +208,7 @@ if(!empty($id)){
                         <?php } ?>
                           
 
-                        <?php if($found_books[0]->book_cost_usd > 0 || $found_books[0]->book_summary_cost_usd > 0 ){ ?>
+                        <?php if($found_books[0]->book_summary_cost_usd > 0 ){ ?>
                           <div class="form-input mb-4" >
                             <select name="item_type" id="item_type" onchange="setBuyform(this, '$<?php echo $found_books[0]->book_cost_usd ?>', '$<?php echo $found_books[0]->book_summary_cost_usd ?>')">
                               <option value="">Choose Preference</option>

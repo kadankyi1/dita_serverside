@@ -199,7 +199,7 @@ if(!empty($_GET["kw"])){
                       </a>
                       <ul class="location-top">
                           <li class="tip">
-                            <?php if($found_books[$i]->book_summary_cost_usd <=  0){ ?>
+                            <?php if($item->book_summary_cost_usd <=  0){ ?>
                               Free
                               <?php } else { echo "$" . $item->book_summary_cost_usd; }?>
                                 

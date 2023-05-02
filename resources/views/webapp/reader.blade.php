@@ -189,7 +189,7 @@ if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
                 <p class="mb-5">You can read this book on our mobile apps on androids or iphones</p>
             </div>
 
-                <div class="col-lg-12"><iframe src="https://docs.google.com/viewer?url=<?php echo $reader_book_url; ?>&embedded=true" frameborder="0" height="1500px" width="100%"></iframe>
+                <div class="col-lg-12"><iframe src="<?php echo $reader_book_url; ?>" frameborder="0" height="1500px" width="100%"></iframe>
                 </div>
 
             </div>

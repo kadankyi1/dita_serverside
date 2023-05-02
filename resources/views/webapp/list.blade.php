@@ -45,12 +45,6 @@ if(!empty($_GET["kw"])){
 
         if(!empty($found_books[$i]->book_summary_pdf) && file_exists(public_path() . "/uploads/books_summaries/" . $found_books[$i]->book_summary_pdf)){
             $found_books[$i]->book_summary_pdf = config('app.books_summaries_folder') . "/" . $found_books[$i]->book_summary_pdf;
-            if($found_books[$i]->book_summary_cost_usd <=  0){
-                //$found_books[$i]->book_summary_cost_usd = "Summary available for Free";
-                $found_books[$i]->book_summary_cost_usd = "Free";
-            } else {
-                $found_books[$i]->book_summary_cost_usd = "$" . strval($found_books[$i]->book_summary_cost_usd);
-            }
         } else { 
             continue;
         }

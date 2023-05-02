@@ -161,7 +161,11 @@ if(!empty($id)){
                             <img class="card-img-bottom d-block" src="<?php echo $found_books[0]->book_cover_photo ?>" alt="Card image cap" height="300px">
                         </a>
                         <ul class="location-top">
-                            <li class="tip"><?php echo $found_books[0]->book_string_summary_cost_usd ?></li>
+                            <li class="tip">
+                              <?php if($found_books[0]->book_summary_cost_usd <=  0){ ?>
+                                Free
+                              <?php } else { echo "$" . $found_books[0]->book_summary_cost_usd; }?>
+                            </li>
                         </ul>
                     </div>
                     <div class="card-body blog-details">

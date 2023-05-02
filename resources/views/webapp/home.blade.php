@@ -208,9 +208,6 @@ use App\Models\version1\Transaction;
                 <div class="card-body blog-details">
                     <a href="/buy?ref=<?php echo $item->book_sys_id ?>" class="blog-desc"><?php echo $item->book_title ?></a>
                     <p class="list-book-desc"><?php echo $item->book_description_short ?></p>
-                    <div class="author align-items-center mt-3 mb-1">
-                      <span class="meta-value">- By <?php echo $item->book_author ?></span>
-                    </div>
                 </div>
             </div>
         </div>

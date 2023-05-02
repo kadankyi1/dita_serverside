@@ -199,8 +199,8 @@ if(!empty($id)){
                   </div>          
                   <form action="" method="post" id="real_buy_form" class="signin-form">
                       <div class="">
-                        <?php echo "book_summary_cost_usd: " . $found_books[0]->book_summary_cost_usd; ?>
-                        <?php echo "book_summary_pdf: " . $found_books[0]->book_summary_pdf; ?>
+                        <?php //echo "book_summary_cost_usd: " . $found_books[0]->book_summary_cost_usd; ?>
+                        <?php //echo "book_summary_pdf: " . $found_books[0]->book_summary_pdf; ?>
                         <?php if($found_books[0]->book_summary_cost_usd <= 0 && $found_books[0]->book_summary_pdf != ""){ ?>
                           <div  style="align-content: center; text-align: center;" class="text-right mt-2" id="readsum">
                             <a id="proceed_btn" href="/reader?type=2&ref=<?php echo $found_books[0]->book_sys_id ?>"   class="btn btn-style btn-primary">Read Summary Book</a>

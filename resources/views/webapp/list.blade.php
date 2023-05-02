@@ -47,9 +47,9 @@ if(!empty($_GET["kw"])){
             $found_books[$i]->book_summary_pdf = config('app.books_summaries_folder') . "/" . $found_books[$i]->book_summary_pdf;
             if($found_books[$i]->book_summary_cost_usd <=  0){
                 //$found_books[$i]->book_summary_cost_usd = "Summary available for Free";
-                $found_books[$i]->book_summary_cost_usd = "Free";
+                $found_books[$i]->book_summary_cost_usd_string = "Free";
             } else {
-                $found_books[$i]->book_summary_cost_usd = "$" . strval($found_books[$i]->book_summary_cost_usd);
+                $found_books[$i]->book_summary_cost_usd_string = "$" . strval($found_books[$i]->book_summary_cost_usd);
             }
         } else { 
             continue;
@@ -198,7 +198,7 @@ if(!empty($_GET["kw"])){
                           <img class="card-img-bottom d-block" src="<?php echo config('app.books_cover_arts_folder') . "/" . $item->book_cover_photo ?>" alt="Card image cap" height="300px">
                       </a>
                       <ul class="location-top">
-                          <li class="tip"><?php echo $item->book_summary_cost_usd ?></li>
+                          <li class="tip"><?php echo $item->book_summary_cost_usd_string ?></li>
                       </ul>
                   </div>
                   <div class="card-body blog-details">

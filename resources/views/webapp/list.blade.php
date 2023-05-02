@@ -47,9 +47,9 @@ if(!empty($_GET["kw"])){
             $found_books[$i]->book_summary_pdf = config('app.books_summaries_folder') . "/" . $found_books[$i]->book_summary_pdf;
             if($found_books[$i]->book_summary_cost_usd <=  0){
                 //$found_books[$i]->book_summary_cost_usd = "Summary available for Free";
-                $found_books[$i]->book_summary_cost_usd_string = "Free";
+                $found_books[$i]->book_summary_cost_usd = "Free";
             } else {
-                $found_books[$i]->book_summary_cost_usd_string = "$" . strval($found_books[$i]->book_summary_cost_usd);
+                $found_books[$i]->book_summary_cost_usd = "$" . strval($found_books[$i]->book_summary_cost_usd);
             }
         } else { 
             continue;
@@ -189,7 +189,7 @@ if(!empty($_GET["kw"])){
       <div class="row">
         <!-- https://p.w3layouts.com/demos_new/template_demo/11-08-2020/appflow-liberty-demo_Free/1795288211/web/assets/css/style-liberty.css -->
         <?php foreach ($found_books as $key => $item) { 
-          var_dump($item);
+            //if(empty($item->book_summary_pdf) || !file_exists(public_path() . "/uploads/books_summaries/" . $item->book_summary_pdf)){continue;}
         ?>
           <div class="col-lg-3 col-md-6 item">
               <div class="card">
@@ -198,7 +198,12 @@ if(!empty($_GET["kw"])){
                           <img class="card-img-bottom d-block" src="<?php echo config('app.books_cover_arts_folder') . "/" . $item->book_cover_photo ?>" alt="Card image cap" height="300px">
                       </a>
                       <ul class="location-top">
-                          <li class="tip"><?php echo $item->book_summary_cost_usd_string ?></li>
+                          <li class="tip">
+                            <?php if($found_books[$i]->book_summary_cost_usd <=  0){ ?>
+                              Free
+                              <?php } else { echo "$" . $item->book_summary_cost_usd; }?>
+                                
+                          </li>
                       </ul>
                   </div>
                   <div class="card-body blog-details">

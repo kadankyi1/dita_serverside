@@ -27,9 +27,9 @@ if(!empty($id)){
             $found_books[0]->book_summary_pdf = config('app.books_summaries_folder') . "/" . $found_books[0]->book_summary_pdf;
             $found_books[0]->book_summary_available_option = '<option selected value="book_summary">Summary</option>';
             if($found_books[0]->book_summary_cost_usd >  0){
-              $found_books[0]["book_string_summary_cost_usd"] = "$" . strval($found_books[0]->book_summary_cost_usd);
+              $found_books[0]->book_string_summary_cost_usd = "$" . strval($found_books[0]->book_summary_cost_usd);
             } else {
-              $found_books[0]["book_string_summary_cost_usd"] = "Free";
+              $found_books[0]->book_string_summary_cost_usd = "Free";
             }
         } else {
             $found_books[0]->book_summary_pdf = "";

@@ -189,7 +189,7 @@ if(!empty($_GET["kw"])){
       <div class="row">
         <!-- https://p.w3layouts.com/demos_new/template_demo/11-08-2020/appflow-liberty-demo_Free/1795288211/web/assets/css/style-liberty.css -->
         <?php foreach ($found_books as $key => $item) { 
-            //if(empty($item->book_summary_pdf) || !file_exists(public_path() . "/uploads/books_summaries/" . $item->book_summary_pdf)){continue;}
+          var_dump($item);
         ?>
           <div class="col-lg-3 col-md-6 item">
               <div class="card">

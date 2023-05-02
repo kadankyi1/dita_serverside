@@ -627,7 +627,17 @@ public function getPaymentUrl(Request $request){
     }
 
     $url = "https://api.paystack.co/transaction/initialize";
-    $amt = $found_books[0]->book_cost_usd*100*config('app.dollartocedirate');
+
+    if($request->item_type == "book_full"){
+        $amt = $found_books[0]->book_cost_usd*100*config('app.dollartocedirate');
+    } else if($request->item_type == "book_summary"){
+        $amt = $found_books[0]->book_summary_cost_usd*100*config('app.dollartocedirate');
+    } else {
+        return response([
+            "status" => "error", 
+            "message" => "Book error"
+        ]);
+    }
     $fields = [
         'email' => $request->user_email,
         'amount' => $amt,

@@ -20,41 +20,28 @@ if(!empty($id)){
                 ->orderBy('read_count', 'desc')
                 ->take(1)
                 ->get();
+
       if(!empty($found_books[0])){
+        
+        if(!empty($found_books[0]->book_summary_pdf) && file_exists(public_path() . "/uploads/books_summaries/" . $found_books[0]->book_summary_pdf)){
+            $found_books[0]->book_summary_pdf = config('app.books_summaries_folder') . "/" . $found_books[0]->book_summary_pdf;
+            $found_books[0]->book_summary_available_option = '<option selected value="book_summary">Summary</option>';
+            if($found_books[0]->book_summary_cost_usd >  0){
+              $found_books[0]["book_string_summary_cost_usd"] = "$" . strval($found_books[0]->book_summary_cost_usd);
+            } else {
+              $found_books[0]["book_string_summary_cost_usd"] = "Free";
+            }
+        } else {
+            $found_books[0]->book_summary_pdf = "";
+            $found_books[0]->book_summary_available_option = "";
+        }
+
         if(!empty($found_books[0]->book_cover_photo) && file_exists(public_path() . "/uploads/books_cover_arts/" . $found_books[0]->book_cover_photo)){
             $found_books[0]->book_cover_photo = config('app.books_cover_arts_folder') . "/" . $found_books[0]->book_cover_photo;
         } else {
             $found_books[0]->book_cover_photo = config('app.books_cover_arts_folder') . "/sample_cover_art.jpg";
         }
-        if(!empty($found_books[0]->book_pdf) && file_exists(public_path() . "/uploads/books_fulls/" . $found_books[0]->book_pdf)){
-            $found_books[0]->book_pdf = config('app.books_full_folder') . "/" . $found_books[0]->book_pdf;
-            if($found_books[0]->book_cost_usd >  0){
-              $found_books[0]->book_full_available_option = '<option value="book_full">Full Book</option>';
-              $found_books[0]->book_string_cost_usd = "$" . strval($found_books[0]->book_cost_usd);
-            } else {
-              $found_books[0]->book_full_available_option = '';
-              $found_books[0]->book_string_cost_usd = "Free";
-            }
-        } else {
-            $found_books[0]->book_pdf = "";
-            $found_books[0]->book_full_available_option = "";
-        }
-        if(!empty($found_books[0]->book_summary_pdf) && file_exists(public_path() . "/uploads/books_summaries/" . $found_books[0]->book_summary_pdf)){
-            $found_books[0]->book_summary_pdf = config('app.books_summaries_folder') . "/" . $found_books[0]->book_summary_pdf;
-            $found_books[0]->book_summary_available = "*Summary available for $" . $found_books[0]->book_summary_cost_usd;
-            $found_books[0]->book_summary_available_option = '<option selected value="book_summary">Summary</option>';
-            if($found_books[0]->book_summary_cost_usd >  0){
-              $found_books[0]->book_string_summary_cost_usd = "$" . strval($found_books[0]->book_summary_cost_usd);
-            } else {
-              $found_books[0]->book_summary_available = '';
-              $found_books[0]->book_string_summary_cost_usd = "Free";
-            }
-        } else {
-            $found_books[0]->book_summary_pdf = "";
-            $found_books[0]->book_summary_available = "";
-            $found_books[0]->book_summary_available_option = "";
-        }
-        
+         
       } else {
         $found_books = array();
       }

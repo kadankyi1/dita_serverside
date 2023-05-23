@@ -824,6 +824,12 @@ public function recordWebPurchase(Request $request){
         //->take(100)
         ->get();
         
+        return response([
+            "status" => "success", 
+            "message" => "Operation successful", 
+            "data" => $found_transactions
+        ]);
+
         $found_books = array();
         for ($i=0; $i < count($found_transactions); $i++) { 
 

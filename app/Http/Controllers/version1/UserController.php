@@ -823,13 +823,6 @@ public function recordWebPurchase(Request $request){
         ->orderBy('created_at', 'desc')
         //->take(100)
         ->get();
-        
-        return response([
-            "status" => "success", 
-            "user_email" => $request->user()->user_email, 
-            "message" => "found_transactions", 
-            "data" => $found_transactions
-        ]);
 
         $found_books = array();
         for ($i=0; $i < count($found_transactions); $i++) { 

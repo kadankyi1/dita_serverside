@@ -38,3 +38,6 @@ Route::post('/v1/user/verify-payment',[App\Http\Controllers\version1\UserControl
 
 // RECORD PURCHSE
 Route::middleware('auth:api')->post('/v1/user/record-payment', [App\Http\Controllers\version1\UserController::class, 'recordPurchase']);
+
+// GET MY BOOKS
+Route::middleware('auth:api')->post('/v1/user/get-my-books', [App\Http\Controllers\version1\UserController::class, 'getMyBooksListing']);

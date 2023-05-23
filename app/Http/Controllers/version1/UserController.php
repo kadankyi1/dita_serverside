@@ -767,6 +767,145 @@ public function recordWebPurchase(Request $request){
 
 }
 
+    /*
+    |--------------------------------------------------------------------------
+    |--------------------------------------------------------------------------
+    | THIS FUNCTION SENDS LIST OF BOOKS
+    |--------------------------------------------------------------------------
+    |--------------------------------------------------------------------------
+    */
+
+    public function getMyBooksListing(Request $request)
+    {
+    
+        // CHECKING THAT THE REQUEST FROM THE USER HAS A VALID TOKEN
+        if (!Auth::guard('api')->check()) {
+            return response([
+                "status" => "error", 
+                "message" => "Session closed. You have to login again"
+            ]);
+        }
+    
+        // CHECKING THAT USER TOKEN HAS THE RIGHT PERMISSION
+        if (!$request->user()->tokenCan('get-info-on-apps')) {
+            return response([
+                "status" => "error", 
+                "message" => "You do not have permission"
+            ]);
+        }
+    
+        // CHECKING IF USER FLAGGED
+        if (auth()->user()->user_flagged) {
+            $request->user()->token()->revoke();
+            return response([
+                "status" => "error", 
+                "message" => "Account flagged."
+            ]);
+        }
+    
+
+        // MAKING SURE THE INPUT HAS THE EXPECTED VALUES
+        $validatedData = $request->validate([
+            "kw" => "",
+            "app_type" => "bail|required|max:8",
+            "app_version_code" => "bail|required|integer"
+        ]);
+    
+    
+        $where_array = array(
+            ['transaction_buyer_email', '=', $request->user()->user_email],
+            ['transaction_payment_status', '=', "verified_passed"]
+        ); 
+
+        $found_transactions = DB::table('transactions')
+        ->select('transactions.transaction_referenced_item_id')
+        ->where($where_array)
+        ->orderBy('created_at', 'desc')
+        //->take(100)
+        ->get();
+        
+        $found_books = array();
+        for ($i=0; $i < count($found_transactions); $i++) { 
+
+            $where_array2 = array(
+                ['books.book_id', '=', $found_transactions[$i]->transaction_referenced_item_id],
+                ['books.booksummary_flagged', '=', 0]
+            ); 
+            
+            $this_book = DB::table('books')
+            ->select('books.book_id', 'books.book_cover_photo', 'books.book_sys_id', 'books.book_title', 'books.book_author', 'books.book_ratings', 'books.book_description_short', 'books.book_description_long', 'books.book_pages', 'books.book_pdf', 'books.book_summary_pdf', 'books.book_audio', 'books.book_summary_audio', 'books.book_cost_usd', 'books.book_summary_cost_usd', 'books.bookfull_flagged', 'books.booksummary_flagged')
+            ->where($where_array2)
+            ->orderBy('created_at', 'desc')
+            //->take(100)
+            ->get();
+    
+
+            if(!empty($this_book[0]->book_cover_photo) && file_exists(public_path() . "/uploads/books_cover_arts/" . $this_book[0]->book_cover_photo)){
+                $this_book[0]->book_cover_photo = config('app.books_cover_arts_folder') . "/" . $this_book[0]->book_cover_photo;
+            } else {
+                $this_book[0]->book_cover_photo = config('app.books_cover_arts_folder') . "/sample_cover_art.jpg";
+            }
+
+            if(!$this_book[0]->bookfull_flagged && !empty($this_book[0]->book_pdf) && file_exists(public_path() . "/uploads/books_fulls/" . $this_book[0]->book_pdf)){
+                $this_book[0]->book_pdf = config('app.books_full_folder') . "/" . $this_book[0]->book_pdf;
+                if($this_book[0]->book_cost_usd <=  0){
+                    $this_book[0]->book_cost_usd = "Free";
+                } else {
+                    $this_book[0]->book_cost_usd = "$" . strval($this_book[0]->book_cost_usd);
+                }
+            } else {
+                $this_book[0]->book_pdf = "";
+                $this_book[0]->book_cost_usd = "";
+            }
+            if(!$this_book[0]->booksummary_flagged && !empty($this_book[0]->book_summary_pdf) && file_exists(public_path() . "/uploads/books_summaries/" . $this_book[0]->book_summary_pdf)){
+                $this_book[0]->book_summary_pdf = config('app.books_summaries_folder') . "/" . $this_book[0]->book_summary_pdf;
+                if($this_book[0]->book_summary_cost_usd <=  0){
+                    $this_book[0]->book_summary_cost_usd = "Free";
+                } else {
+                    $this_book[0]->book_summary_cost_usd = "$" . strval($this_book[0]->book_summary_cost_usd);
+                }
+            } else {
+                $this_book[0]->book_summary_pdf = "";
+                $this_book[0]->book_summary_cost_usd = "";
+            }
+            if(!empty($this_book[0]->book_audio) && file_exists(public_path() . "/uploads/books_audios/" . $this_book[0]->book_audio)){
+                $this_book[0]->book_audio = config('app.url') . "/" . $this_book[0]->book_audio;
+            } else {
+                $this_book[0]->book_audio = "";
+            }
+            if(!empty($this_book[0]->book_summary_audio) && file_exists(public_path() . "/uploads/books_audios_summaries/" . $this_book[0]->book_summary_audio)){
+                $this_book[0]->book_summary_audio = config('app.url') . "/" . $this_book[0]->book_summary_audio;
+            } else {
+                $this_book[0]->book_summary_audio = "";
+            }
+            $this_book[0]->book_cost_cedi_info = "You will be charged the cedi equivalent of the listed price at $1 to Ghc" .  strval(config('app.dollartocedirate'));
+
+            $transaction = Transaction::where('transaction_type', '=', "book_full")->where('transaction_referenced_item_id', '=', $this_book[0]->book_sys_id)->where('transaction_buyer_email', '=', auth()->user()->user_email)->where('transaction_payment_status', '=', "verified_passed")->first();
+            if($transaction == null || empty($transaction->transaction_referenced_item_id)){
+                $this_book[0]->book_full_purchased = "no";
+            } else {
+                $this_book[0]->book_full_purchased = "yes";
+            }
+
+            $transaction = Transaction::where('transaction_type', '=', "book_summary")->where('transaction_referenced_item_id', '=', $this_book[0]->book_sys_id)->where('transaction_buyer_email', '=', auth()->user()->user_email)->where('transaction_payment_status', '=', "verified_passed")->first();
+            if($transaction == null || empty($transaction->transaction_referenced_item_id)){
+                $this_book[0]->book_summary_purchased = "no";
+            } else {
+                $this_book[0]->book_summary_purchased = "yes";
+            }
+
+            $this_book[0]->book_reference_url = config('app.url') . "/buy?ref=" . $this_book[0]->book_sys_id;
+
+            array_push($found_books, $this_book[0]);
+
+        }
+
+        return response([
+            "status" => "success", 
+            "message" => "Operation successful", 
+            "data" => $found_books
+        ]);
+    }
 
 
     

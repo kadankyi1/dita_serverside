@@ -826,7 +826,8 @@ public function recordWebPurchase(Request $request){
         
         return response([
             "status" => "success", 
-            "message" => "Operation successful", 
+            "user_email" => $request->user()->user_email, 
+            "message" => "found_transactions", 
             "data" => $found_transactions
         ]);
 

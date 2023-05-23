@@ -828,7 +828,7 @@ public function recordWebPurchase(Request $request){
         for ($i=0; $i < count($found_transactions); $i++) { 
 
             $where_array2 = array(
-                ['books.book_id', '=', $found_transactions[$i]->transaction_referenced_item_id],
+                ['books.book_sys_id', '=', $found_transactions[$i]->transaction_referenced_item_id],
                 ['books.booksummary_flagged', '=', 0]
             ); 
             
@@ -838,65 +838,67 @@ public function recordWebPurchase(Request $request){
             ->orderBy('created_at', 'desc')
             //->take(100)
             ->get();
+            
     
-
-            if(!empty($this_book[0]->book_cover_photo) && file_exists(public_path() . "/uploads/books_cover_arts/" . $this_book[0]->book_cover_photo)){
-                $this_book[0]->book_cover_photo = config('app.books_cover_arts_folder') . "/" . $this_book[0]->book_cover_photo;
-            } else {
-                $this_book[0]->book_cover_photo = config('app.books_cover_arts_folder') . "/sample_cover_art.jpg";
-            }
-
-            if(!$this_book[0]->bookfull_flagged && !empty($this_book[0]->book_pdf) && file_exists(public_path() . "/uploads/books_fulls/" . $this_book[0]->book_pdf)){
-                $this_book[0]->book_pdf = config('app.books_full_folder') . "/" . $this_book[0]->book_pdf;
-                if($this_book[0]->book_cost_usd <=  0){
-                    $this_book[0]->book_cost_usd = "Free";
+            if(!empty($this_book[0]->book_sys_id)){
+                if(!empty($this_book[0]->book_cover_photo) && file_exists(public_path() . "/uploads/books_cover_arts/" . $this_book[0]->book_cover_photo)){
+                    $this_book[0]->book_cover_photo = config('app.books_cover_arts_folder') . "/" . $this_book[0]->book_cover_photo;
                 } else {
-                    $this_book[0]->book_cost_usd = "$" . strval($this_book[0]->book_cost_usd);
+                    $this_book[0]->book_cover_photo = config('app.books_cover_arts_folder') . "/sample_cover_art.jpg";
                 }
-            } else {
-                $this_book[0]->book_pdf = "";
-                $this_book[0]->book_cost_usd = "";
-            }
-            if(!$this_book[0]->booksummary_flagged && !empty($this_book[0]->book_summary_pdf) && file_exists(public_path() . "/uploads/books_summaries/" . $this_book[0]->book_summary_pdf)){
-                $this_book[0]->book_summary_pdf = config('app.books_summaries_folder') . "/" . $this_book[0]->book_summary_pdf;
-                if($this_book[0]->book_summary_cost_usd <=  0){
-                    $this_book[0]->book_summary_cost_usd = "Free";
+
+                if(!$this_book[0]->bookfull_flagged && !empty($this_book[0]->book_pdf) && file_exists(public_path() . "/uploads/books_fulls/" . $this_book[0]->book_pdf)){
+                    $this_book[0]->book_pdf = config('app.books_full_folder') . "/" . $this_book[0]->book_pdf;
+                    if($this_book[0]->book_cost_usd <=  0){
+                        $this_book[0]->book_cost_usd = "Free";
+                    } else {
+                        $this_book[0]->book_cost_usd = "$" . strval($this_book[0]->book_cost_usd);
+                    }
                 } else {
-                    $this_book[0]->book_summary_cost_usd = "$" . strval($this_book[0]->book_summary_cost_usd);
+                    $this_book[0]->book_pdf = "";
+                    $this_book[0]->book_cost_usd = "";
                 }
-            } else {
-                $this_book[0]->book_summary_pdf = "";
-                $this_book[0]->book_summary_cost_usd = "";
-            }
-            if(!empty($this_book[0]->book_audio) && file_exists(public_path() . "/uploads/books_audios/" . $this_book[0]->book_audio)){
-                $this_book[0]->book_audio = config('app.url') . "/" . $this_book[0]->book_audio;
-            } else {
-                $this_book[0]->book_audio = "";
-            }
-            if(!empty($this_book[0]->book_summary_audio) && file_exists(public_path() . "/uploads/books_audios_summaries/" . $this_book[0]->book_summary_audio)){
-                $this_book[0]->book_summary_audio = config('app.url') . "/" . $this_book[0]->book_summary_audio;
-            } else {
-                $this_book[0]->book_summary_audio = "";
-            }
-            $this_book[0]->book_cost_cedi_info = "You will be charged the cedi equivalent of the listed price at $1 to Ghc" .  strval(config('app.dollartocedirate'));
+                if(!$this_book[0]->booksummary_flagged && !empty($this_book[0]->book_summary_pdf) && file_exists(public_path() . "/uploads/books_summaries/" . $this_book[0]->book_summary_pdf)){
+                    $this_book[0]->book_summary_pdf = config('app.books_summaries_folder') . "/" . $this_book[0]->book_summary_pdf;
+                    if($this_book[0]->book_summary_cost_usd <=  0){
+                        $this_book[0]->book_summary_cost_usd = "Free";
+                    } else {
+                        $this_book[0]->book_summary_cost_usd = "$" . strval($this_book[0]->book_summary_cost_usd);
+                    }
+                } else {
+                    $this_book[0]->book_summary_pdf = "";
+                    $this_book[0]->book_summary_cost_usd = "";
+                }
+                if(!empty($this_book[0]->book_audio) && file_exists(public_path() . "/uploads/books_audios/" . $this_book[0]->book_audio)){
+                    $this_book[0]->book_audio = config('app.url') . "/" . $this_book[0]->book_audio;
+                } else {
+                    $this_book[0]->book_audio = "";
+                }
+                if(!empty($this_book[0]->book_summary_audio) && file_exists(public_path() . "/uploads/books_audios_summaries/" . $this_book[0]->book_summary_audio)){
+                    $this_book[0]->book_summary_audio = config('app.url') . "/" . $this_book[0]->book_summary_audio;
+                } else {
+                    $this_book[0]->book_summary_audio = "";
+                }
+                $this_book[0]->book_cost_cedi_info = "You will be charged the cedi equivalent of the listed price at $1 to Ghc" .  strval(config('app.dollartocedirate'));
 
-            $transaction = Transaction::where('transaction_type', '=', "book_full")->where('transaction_referenced_item_id', '=', $this_book[0]->book_sys_id)->where('transaction_buyer_email', '=', auth()->user()->user_email)->where('transaction_payment_status', '=', "verified_passed")->first();
-            if($transaction == null || empty($transaction->transaction_referenced_item_id)){
-                $this_book[0]->book_full_purchased = "no";
-            } else {
-                $this_book[0]->book_full_purchased = "yes";
+                $transaction = Transaction::where('transaction_type', '=', "book_full")->where('transaction_referenced_item_id', '=', $this_book[0]->book_sys_id)->where('transaction_buyer_email', '=', auth()->user()->user_email)->where('transaction_payment_status', '=', "verified_passed")->first();
+                if($transaction == null || empty($transaction->transaction_referenced_item_id)){
+                    $this_book[0]->book_full_purchased = "no";
+                } else {
+                    $this_book[0]->book_full_purchased = "yes";
+                }
+
+                $transaction = Transaction::where('transaction_type', '=', "book_summary")->where('transaction_referenced_item_id', '=', $this_book[0]->book_sys_id)->where('transaction_buyer_email', '=', auth()->user()->user_email)->where('transaction_payment_status', '=', "verified_passed")->first();
+                if($transaction == null || empty($transaction->transaction_referenced_item_id)){
+                    $this_book[0]->book_summary_purchased = "no";
+                } else {
+                    $this_book[0]->book_summary_purchased = "yes";
+                }
+
+                $this_book[0]->book_reference_url = config('app.url') . "/buy?ref=" . $this_book[0]->book_sys_id;
+
+                array_push($found_books, $this_book[0]);
             }
-
-            $transaction = Transaction::where('transaction_type', '=', "book_summary")->where('transaction_referenced_item_id', '=', $this_book[0]->book_sys_id)->where('transaction_buyer_email', '=', auth()->user()->user_email)->where('transaction_payment_status', '=', "verified_passed")->first();
-            if($transaction == null || empty($transaction->transaction_referenced_item_id)){
-                $this_book[0]->book_summary_purchased = "no";
-            } else {
-                $this_book[0]->book_summary_purchased = "yes";
-            }
-
-            $this_book[0]->book_reference_url = config('app.url') . "/buy?ref=" . $this_book[0]->book_sys_id;
-
-            array_push($found_books, $this_book[0]);
 
         }
 

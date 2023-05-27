@@ -700,6 +700,31 @@ public function verifyPayStackPayment(Request $request){
 
 public function recordGoogleInAppPurchase(Request $request){
 
+    // CHECKING THAT THE REQUEST FROM THE USER HAS A VALID TOKEN
+    if (!Auth::guard('api')->check()) {
+        return response([
+            "status" => "error", 
+            "message" => "Session closed. You have to login again"
+        ]);
+    }
+
+    // CHECKING THAT USER TOKEN HAS THE RIGHT PERMISSION
+    if (!$request->user()->tokenCan('get-info-on-apps')) {
+        return response([
+            "status" => "error", 
+            "message" => "You do not have permission"
+        ]);
+    }
+
+    // CHECKING IF USER FLAGGED
+    if (auth()->user()->user_flagged) {
+        $request->user()->token()->revoke();
+        return response([
+            "status" => "error", 
+            "message" => "Account flagged."
+        ]);
+    }
+
     $validatedData = $request->validate([
         "user_email" => "bail|required|max:100",
         "item_id" => "bail|required|max:100",

@@ -46,9 +46,9 @@ class UserController extends Controller
         ){
             return response([
                 "status" => "error", 
-                "status1" => $request->app_version_code , 
-                "status2" => config('app.androidminvc'), 
-                "status3" => config('app.androidmaxvc'), 
+                "app_version_code" => $request->app_version_code , 
+                "androidminvc" => config('app.androidminvc'), 
+                "androidmaxvc" => config('app.androidmaxvc'), 
                 "message" => "Please update your app from the Google Play Store."
             ]);
         }

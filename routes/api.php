@@ -33,6 +33,9 @@ Route::middleware('auth:api')->post('/v1/user/send-message', [App\Http\Controlle
 // GET PAYMENT URL
 Route::post('/v1/user/get-payment-url',[App\Http\Controllers\version1\UserController::class, 'getPaymentUrl']);
 
+// RECORD IN-APP PAYMENT URL
+Route::post('/v1/user/record-payment',[App\Http\Controllers\version1\UserController::class, 'recordWebPurchase']);
+
 // VERIFY PAYMENT URL
 Route::post('/v1/user/verify-payment',[App\Http\Controllers\version1\UserController::class, 'verifyPayStackPayment']);
 

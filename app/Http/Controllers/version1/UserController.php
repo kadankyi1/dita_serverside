@@ -739,7 +739,7 @@ public function recordWebPurchase(Request $request){
     if($request->payment_type != "momo" && $request->payment_type != "card" && $request->payment_type != "google"){
         return response([
             "status" => "error", 
-            "message" => "Payment error"
+            "message" => "Payment error."
         ]);
     } 
 

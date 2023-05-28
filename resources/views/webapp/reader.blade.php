@@ -23,9 +23,17 @@ if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
         $error = "We could not verify your payment";
     } 
 
-    $verification_response = UtilController::verifyPayStackPayment($reference);
+    if($this_transaction[0]->transaction_payment_type == "google" && $this_transaction[0]->transaction_payment_status == "verified_passed"){
+      $verification_response = "google_passed";
+    } else {
+      $verification_response = UtilController::verifyPayStackPayment($reference);
+    }
     //var_dump($verification_response); exit;
-    if(!empty($verification_response->data->status) && $verification_response->data->status == "success"){
+    if(
+      (!empty($verification_response->data->status) && $verification_response->data->status == "success")
+      || 
+      $verification_response = "google_passed";
+      ){
         $book = Book::where('book_sys_id', '=', $this_transaction[0]->transaction_referenced_item_id)->first();
         if($book == null || empty($book->book_sys_id)){
             $error = "Book not found. You can contact support if this is a problem";

@@ -32,7 +32,7 @@ if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
     if(
       (!empty($verification_response->data->status) && $verification_response->data->status == "success")
       || 
-      $verification_response = "google_passed";
+      $verification_response = "google_passed"
       ){
         $book = Book::where('book_sys_id', '=', $this_transaction[0]->transaction_referenced_item_id)->first();
         if($book == null || empty($book->book_sys_id)){

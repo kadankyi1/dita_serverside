@@ -17,7 +17,7 @@ if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
             ->take(1)
             ->get();
 
-    //var_dump($this_transaction[0]); exit;
+    var_dump($this_transaction[0]); exit;
     if(empty($this_transaction[0]) || empty($this_transaction[0]->transaction_sys_id)){
         //echo "here 2"; exit;
         $error = "We could not verify your payment";
@@ -28,7 +28,7 @@ if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
     } else {
       $verification_response = UtilController::verifyPayStackPayment($reference);
     }
-    var_dump($verification_response); exit;
+    //var_dump($verification_response); exit;
     if(
       (!empty($verification_response->data->status) && $verification_response->data->status == "success")
       || 

@@ -28,7 +28,7 @@ if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
     } else {
       $verification_response = UtilController::verifyPayStackPayment($reference);
     }
-    //var_dump($verification_response); exit;
+    var_dump($verification_response); exit;
     if(
       (!empty($verification_response->data->status) && $verification_response->data->status == "success")
       || 

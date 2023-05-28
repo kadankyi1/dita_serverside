@@ -11,7 +11,7 @@ if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
     $reference = $_GET["reference"];
 
     $this_transaction = DB::table('transactions')
-            ->select('transaction_sys_id', 'transaction_referenced_item_id', 'transaction_type', 'transaction_payment_status')
+            ->select('transaction_sys_id', 'transaction_referenced_item_id', 'transaction_type', 'transaction_payment_status', 'transaction_payment_type')
             ->where([['transaction_payment_ref_id', '=', $reference]])
             ->orderBy('created_at', 'desc')
             ->take(1)

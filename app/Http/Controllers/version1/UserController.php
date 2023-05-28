@@ -784,7 +784,7 @@ public function recordGoogleInAppPurchase(Request $request){
     $transactionData["transaction_payment_type"] = $request->payment_type;
     $transactionData["transaction_payment_ref_id"] = $request->payment_ref_number;
     $transactionData["transaction_payment_date"] = $request->payment_date;
-    $transactionData["transaction_payment_status"] = "unverified";
+    $transactionData["transaction_payment_status"] = "verified_passed";
     $transaction = Transaction::create($transactionData);
 
 

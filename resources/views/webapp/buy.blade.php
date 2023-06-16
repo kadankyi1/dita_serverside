@@ -6,10 +6,8 @@ Author URL: http://w3layouts.com
 use App\Models\version1\Book;
 use App\Models\version1\Transaction;
 
-//var_dump($_GET["kw"]);
-
-$id = $_GET["ref"];
-if(!empty($id)){
+if(!empty($_GET["ref"])){
+  $id = $_GET["ref"];
   $where_array = array(
       ['book_sys_id', '=', $id],
       ['book_summary_pdf', '<>', ''],
@@ -241,8 +239,11 @@ if(!empty($id)){
                                 <input type="text" name="book_amt" id="book_amt" value="<?php echo $found_books[0]->book_string_summary_cost_usd; ?>" readonly />
                             </div>
                             <div class="form-input mb-4">
-                                <input type="email" name="user_email" id="user_email" placeholder="Email *"
-                                    required />
+                              <?php if(!empty($_GET["em"]) && filter_var($_GET["em"], FILTER_VALIDATE_EMAIL)) { ?>
+                                <input type="email" name="user_email" id="user_email" placeholder="Email *" value="<?php echo $_GET["em"]; ?>" required />
+                              <?php else { ?>
+                                <input type="email" name="user_email" id="user_email" placeholder="Email *" required />
+                              <?php } ?>
                             </div>
                             <div class="text-right" id="buybtn">
                               <button id="proceed_btn" type="submit"  class="btn btn-style btn-primary">Proceed</button>

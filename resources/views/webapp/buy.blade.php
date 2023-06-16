@@ -241,7 +241,7 @@ if(!empty($_GET["ref"])){
                             <div class="form-input mb-4">
                               <?php if(!empty($_GET["em"]) && filter_var($_GET["em"], FILTER_VALIDATE_EMAIL)) { ?>
                                 <input type="email" name="user_email" id="user_email" placeholder="Email *" value="<?php echo $_GET["em"]; ?>" required />
-                              <?php else { ?>
+                              <?php } else { ?>
                                 <input type="email" name="user_email" id="user_email" placeholder="Email *" required />
                               <?php } ?>
                             </div>

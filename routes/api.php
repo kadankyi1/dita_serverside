@@ -15,6 +15,7 @@ use App\Http\Controllers\version1\UserController;
 |
 */
 
+
 // GET LOGIN CODE
 Route::post('/v1/user/send-login-code',[App\Http\Controllers\version1\UserController::class, 'sendLoginVerificationCode']);
 

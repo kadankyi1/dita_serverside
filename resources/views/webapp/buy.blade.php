@@ -183,7 +183,7 @@ if(!empty($_GET["ref"])){
                       <div class="contact-type">
                         <div class="address-grid mb-3">
                           <h6>Description</h6>
-                          <p class="list-book-desc"><?php echo $found_books[0]->book_description_long ?></p>
+                          <p class="list-book-desc"><?php echo nl2br($found_books[0]->book_description_long); ?></p>
                         </div>
                       </div>
                     </section>

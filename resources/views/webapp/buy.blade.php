@@ -47,8 +47,8 @@ if(!empty($_GET["ref"])){
   $found_books = array();
 }
 
-  var_dump($found_books);
-  exit;
+  //var_dump($found_books);
+  //exit;
 
 
 ?>

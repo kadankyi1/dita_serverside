@@ -49,8 +49,6 @@ if(!empty($_GET["ref"])){
 
   //var_dump($found_books);
   //exit;
-
-
 ?>
 <!doctype html>
 <html lang="en">

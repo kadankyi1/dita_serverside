@@ -47,8 +47,8 @@ if(!empty($_GET["ref"])){
   $found_books = array();
 }
 
-  //var_dump($found_books);
-  //exit;
+  var_dump($found_books);
+  exit;
 
 
 ?>
@@ -236,7 +236,7 @@ if(!empty($_GET["ref"])){
                                     readonly />
                             </div>
                             <div class="form-input mb-4">
-                                <input type="text" name="book_amt" id="book_amt" value="<?php //echo $found_books[0]->book_string_summary_cost_usd; ?>" readonly />
+                                <input type="text" name="book_amt" id="book_amt" value="<?php echo $found_books[0]->book_string_summary_cost_usd; ?>" readonly />
                             </div>
                             <div class="form-input mb-4">
                               <?php if(!empty($_GET["em"]) && filter_var($_GET["em"], FILTER_VALIDATE_EMAIL)) { ?>

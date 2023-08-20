@@ -113,7 +113,7 @@ Author URL: http://w3layouts.com
                     <p><strong>Application</strong> refers to Tafarri, the software program provided by the Company.</p>
                     </li>
                     <li>
-                    <p><strong>Company</strong> (referred to as either &quot;the Company&quot;, &quot;We&quot;, &quot;Us&quot; or &quot;Our&quot; in this Agreement) refers to FishPot Company Limited, C/11 Sraha West, Ashaley Botwe, Ghana.</p>
+                    <p><strong>Company</strong> (referred to as either &quot;the Company&quot;, &quot;We&quot;, &quot;Us&quot; or &quot;Our&quot; in this Agreement) refers to Infodefa Company Limited, C/11 Sraha West, Ashaley Botwe, Ghana.</p>
                     </li>
                     <li>
                     <p><strong>Country</strong> refers to:  Ghana</p>

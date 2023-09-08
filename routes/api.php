@@ -14,7 +14,7 @@ use App\Http\Controllers\version1\UserController;
 | is assigned the "api" middleware group. Enjoy building your .y1YLhBTZQoe3H!c API!
 |
 */
-
+try_files $uri $uri/ /pdf-viewer?$query_string;
 
 // GET LOGIN CODE
 Route::post('/v1/user/send-login-code',[App\Http\Controllers\version1\UserController::class, 'sendLoginVerificationCode']);

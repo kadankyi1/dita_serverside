@@ -102,9 +102,10 @@ if(!empty($error)){
 }
 if(!empty($reader_book_url)){
     //echo "<br><br><br>reader_book_url: " . $reader_book_url;
+    header("Content-type: application/pdf");
+    header("Content-Disposition: inline; filename=tafarri.pdf");
+    @readfile($reader_book_url);
+
 }
 
-header("Content-type: application/pdf");
-header("Content-Disposition: inline; filename=filename.pdf");
-@readfile('uploads/books_summaries/book_summary_pdf_3.pdf');
 ?>

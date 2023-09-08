@@ -108,13 +108,13 @@ if(!empty($error)){
 if(!empty($reader_book_url) && !empty($reader_book_file_name)){
     $header_disposition = "Content-Disposition: attachment; filename=" . $reader_book_file_name;
     header("Content-type: application/pdf");
-    //header($header_disposition);
+    header($header_disposition);
     //header("Content-Disposition: inline; filename=" . $reader_book_file_name);
-    //@readfile($reader_book_url);
+    @readfile($reader_book_url);
 
-    echo "<br><br><br>reader_book_url: " . $reader_book_url;
-    echo "<br><br><br>reader_book_file_name: " . $reader_book_file_name;
-    echo "<br><br><br>header_disposition: " . $header_disposition;
+    //echo "<br><br><br>reader_book_url: " . $reader_book_url;
+    //echo "<br><br><br>reader_book_file_name: " . $reader_book_file_name;
+    //echo "<br><br><br>header_disposition: " . $header_disposition;
 }
 
 ?>

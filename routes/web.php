@@ -45,6 +45,10 @@ Route::get('/privacy-policy', function () {
     return view('webapp/privacypolicy');
 });
 
+Route::get('/pdf-viewer', function () {
+    return view('webapp/pdfviewer');
+});
+
 
 // ADMINER DATABASE MANAGEMENT TOOL
 Route::any('adminer', '\Aranyasen\LaravelAdminer\AdminerAutologinController@index');

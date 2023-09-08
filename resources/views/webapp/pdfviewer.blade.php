@@ -43,6 +43,7 @@ if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
         //echo "here 1"; 
             if(!empty($book->book_pdf) && file_exists(public_path() . "/uploads/books_fulls/" . $book->book_pdf)){
                 $reader_book_url = "uploads/books_fulls/" . $book->book_pdf;
+                $reader_book_file_name = $book->book_pdf;
         //echo "here 2"; exit;
             } else {
                 $error = "Book not found. You can contact support if this is a problem";
@@ -51,6 +52,7 @@ if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
         //echo "here 3"; exit;
             if(!empty($book->book_summary_pdf) && file_exists(public_path() . "/uploads/books_summaries/" . $book->book_summary_pdf)){
                 $reader_book_url = "uploads/books_summaries/" . $book->book_summary_pdf;
+                $reader_book_file_name = $book->book_summary_pdf;
         //echo "here 4"; exit;
             } else {
                 $error = "Book not found. You can contact support if this is a problem";
@@ -76,6 +78,7 @@ if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
       //echo "here 1"; 
       if(!empty($book->book_pdf) && file_exists(public_path() . "/uploads/books_fulls/" . $book->book_pdf) && $book->book_cost_usd <= 0){
           $reader_book_url = "uploads/books_fulls/" . $book->book_pdf;
+          $reader_book_file_name = $book->book_pdf;
       //echo "here 2"; exit;
       } else {
           $error = "The free book not found. You can contact support if this is a problem";
@@ -84,6 +87,7 @@ if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
       //echo "here 3"; exit;
       if(!empty($book->book_summary_pdf) && file_exists(public_path() . "/uploads/books_summaries/" . $book->book_summary_pdf)  && $book->book_summary_cost_usd <= 0){
         $reader_book_url = "uploads/books_summaries/" . $book->book_summary_pdf;
+        $reader_book_file_name = $book->book_summary_pdf;
         //echo "here 4"; exit;
       } else {
           $error = "The free book was not found. You can contact support if this is a problem";
@@ -95,15 +99,16 @@ if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
 } else {
     $error = "Please buy this book to read";
     $reader_book_url = "";
+    $reader_book_file_name = "";
 }
 
 if(!empty($error)){
     //echo "error: " . $error;
 }
-if(!empty($reader_book_url)){
+if(!empty($reader_book_url) && !empty($reader_book_file_name)){
     //echo "<br><br><br>reader_book_url: " . $reader_book_url;
     header("Content-type: application/pdf");
-    header("Content-Disposition: inline; filename=tafarri.pdf");
+    header("Content-Disposition: inline; filename=" . $reader_book_file_name);
     @readfile($reader_book_url);
 
 }

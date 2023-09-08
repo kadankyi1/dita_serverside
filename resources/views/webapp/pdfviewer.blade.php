@@ -97,6 +97,10 @@ if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
     $reader_book_url = "";
 }
 
-echo "error: " . $error;
-echo "<br><br><br>reader_book_url: " . $reader_book_url; //exit;
+if(!empty($error)){
+    echo "error: " . $error;
+}
+if(!empty($reader_book_url)){
+    echo "<br><br><br>reader_book_url: " . $reader_book_url;
+}
 ?>

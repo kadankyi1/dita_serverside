@@ -109,12 +109,11 @@ if(!empty($reader_book_url) && !empty($reader_book_file_name)){
     //$header_disposition = "Content-Disposition: attachment; filename=" . $reader_book_file_name;
     //header($header_disposition);
     
+    header("Content-Type: text/html;charset=utf-8");
     header("Content-type: application/pdf");
     header("Content-Disposition: inline; filename=" . $reader_book_file_name);
 
-    $final_url = "https://tafarri.com/" . $reader_book_url;
-
-    @readfile($final_url);
+    @readfile($reader_book_url);
 
     //echo "<br><br><br>reader_book_url: " . $reader_book_url;
     //echo "<br><br><br>reader_book_file_name: " . $reader_book_file_name;

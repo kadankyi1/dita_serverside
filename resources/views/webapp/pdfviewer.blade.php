@@ -116,7 +116,7 @@ if(!empty($reader_book_url) && !empty($reader_book_file_name)){
 
     echo "<br><br><br>reader_book_url: " . $reader_book_url;
     echo "<br><br><br>reader_book_file_name: " . $reader_book_file_name;
-    echo "<br><br><br>header_disposition: " . $header_disposition;
+    //echo "<br><br><br>header_disposition: " . $header_disposition;
 }
 
 ?>

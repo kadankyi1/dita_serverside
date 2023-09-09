@@ -114,11 +114,11 @@ if(!empty($reader_book_url) && !empty($reader_book_file_name)){
 
     $final_url = "https://tafarri.com/" . $reader_book_url;
 
-    //@readfile($final_url);
+    @readfile($final_url);
 
-    echo "<br><br><br>reader_book_url: " . $reader_book_url;
-    echo "<br><br><br>reader_book_file_name: " . $reader_book_file_name;
-    echo "<br><br><br>final_url: " . $final_url;
+    //echo "<br><br><br>reader_book_url: " . $reader_book_url;
+    //echo "<br><br><br>reader_book_file_name: " . $reader_book_file_name;
+    //echo "<br><br><br>final_url: " . $final_url;
 }
 
 ?>

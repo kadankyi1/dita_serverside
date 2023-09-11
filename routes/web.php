@@ -1,8 +1,11 @@
 <?php
 
+use App\Models\version1\Book;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Response;
+use App\Models\version1\Transaction;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Response;
+use App\Http\Controllers\version1\UtilController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,13 +54,12 @@ Route::get('/pdf-viewer', function () {
     return view('webapp/pdfviewer');
 });
 
-Route::get('storage/{filename}', function ($filename)
+Route::get('storage/{trxref}/{reference}/{filename}', function ($filename)
 {
     $path = storage_path('app/public/books_summaries/' . $filename);
 
     if (!File::exists($path)) {
-        //abort(404);
-        return view('webapp/howtopay');
+        abort(404);
     }
 
     $file = File::get($path);

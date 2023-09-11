@@ -53,7 +53,7 @@ Route::get('/pdf-viewer', function () {
 
 Route::get('storage/{filename}', function ($filename)
 {
-    $path = storage_path('public/books_summaries/' . $filename);
+    $path = storage_path('app/public/books_summaries/' . $filename);
 
     if (!File::exists($path)) {
         //abort(404);

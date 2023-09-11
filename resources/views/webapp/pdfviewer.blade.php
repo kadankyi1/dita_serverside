@@ -209,7 +209,7 @@ if(!empty($reader_book_url) && !empty($reader_book_file_name)){
 <!-- contacts-5-grid -->
 <?php if(!empty($reader_book_url) && !empty($reader_book_file_name)) { ?>
 
-    111<embed src="/folder1/folder2/folder3/name.pdf" width="500" height="375" type='application/pdf'>
+    <embed src="<?php echo $reader_book_url; ?>" width="500" height="375" type='application/pdf'>
 
 <?php } else { ?>
 

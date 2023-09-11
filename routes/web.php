@@ -56,7 +56,8 @@ Route::get('storage/{filename}', function ($filename)
     $path = storage_path('public/books_summaries/' . $filename);
 
     if (!File::exists($path)) {
-        abort(404);
+        //abort(404);
+        return view('webapp/howtopay');
     }
 
     $file = File::get($path);

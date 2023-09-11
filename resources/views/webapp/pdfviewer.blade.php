@@ -110,10 +110,10 @@ if(!empty($reader_book_url) && !empty($reader_book_file_name)){
     //header("Content-Disposition: attachment; filename=" . $reader_book_file_name);
     header("Content-Disposition: inline; filename=" . $reader_book_file_name);
 
-    @readfile($reader_book_url);
+    //@readfile($reader_book_url);
 
-    //echo "<br><br><br>reader_book_url: " . $reader_book_url;
-    //echo "<br><br><br>reader_book_file_name: " . $reader_book_file_name;
+    echo "<br><br><br>reader_book_url: " . $reader_book_url;
+    echo "<br><br><br>reader_book_file_name: " . $reader_book_file_name;
     //echo "<br><br><br>final_url: " . $final_url;
 }
 

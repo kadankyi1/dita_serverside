@@ -17,7 +17,7 @@ if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
             ->take(1)
             ->get();
 
-    var_dump($this_transaction[0]); exit;
+    //var_dump($this_transaction); exit;
     if(empty($this_transaction[0]) || empty($this_transaction[0]->transaction_sys_id)){
         //echo "here 2"; exit;
         $error = "We could not verify your payment";
@@ -30,12 +30,7 @@ if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
     }
 
     //var_dump($verification_response); exit;
-    if(
-      empty($error) && 
-      (!empty($verification_response->data->status) && $verification_response->data->status == "success")
-      || 
-      $verification_response = "google_passed"
-      ){
+    if(empty($error) && ((!empty($verification_response->data->status) && $verification_response->data->status == "success") || $verification_response = "google_passed")){
         $book = Book::where('book_sys_id', '=', $this_transaction[0]->transaction_referenced_item_id)->first();
         if($book == null || empty($book->book_sys_id)){
             $error = "Book not found. You can contact support if this is a problem";

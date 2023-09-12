@@ -54,7 +54,7 @@ Route::get('/pdf-viewer', function () {
     return view('webapp/pdfviewer');
 });
 
-Route::get('storage/{trxref}/{reference}/{filename}', function ($filename)
+Route::get('storage/{trxref}/{reference}/{filename}', function ($trxref, $reference, $filename)
 {
     $path = storage_path('app/public/books_summaries/' . $filename);
 

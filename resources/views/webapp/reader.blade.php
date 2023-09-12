@@ -17,19 +17,21 @@ if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
             ->take(1)
             ->get();
 
-    var_dump($this_transaction); exit;
-    if(empty($this_transaction) || empty($this_transaction[0]) || empty($this_transaction[0]->transaction_sys_id)){
+    //var_dump($this_transaction[0]); exit;
+    if(empty($this_transaction[0]) || empty($this_transaction[0]->transaction_sys_id)){
         //echo "here 2"; exit;
         $error = "We could not verify your payment";
-    } 
-
-    if($this_transaction[0]->transaction_payment_type == "google" && $this_transaction[0]->transaction_payment_status == "verified_passed"){
-      $verification_response = "google_passed";
     } else {
-      $verification_response = UtilController::verifyPayStackPayment($reference);
+      if($this_transaction[0]->transaction_payment_type == "google" && $this_transaction[0]->transaction_payment_status == "verified_passed"){
+        $verification_response = "google_passed";
+      } else {
+        $verification_response = UtilController::verifyPayStackPayment($reference);
+      }
     }
+
     //var_dump($verification_response); exit;
     if(
+      empty($error) && 
       (!empty($verification_response->data->status) && $verification_response->data->status == "success")
       || 
       $verification_response = "google_passed"

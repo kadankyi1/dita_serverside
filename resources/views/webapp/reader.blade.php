@@ -43,7 +43,7 @@ if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
         //echo "here 1"; 
             if(!empty($book->book_pdf) && file_exists(storage_path('app/public/books_fulls/' . $book->book_pdf))){
                 //$reader_book_url = config('app.books_full_folder') . "/" . $book->book_pdf;
-                $reader_book_url = "https://tafarri.com/full/" . $trxref . "/" . $reference . "/" . $book->book_pdf;
+                $reader_book_url = "https://tafarri.com/storage/" . $trxref . "/" . $reference . "/" . $book->book_pdf;
         //echo "here 2"; exit;
             } else {
                 $error = "Book not found. You can contact support if this is a problem";
@@ -52,7 +52,7 @@ if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
         //echo "here 3"; exit;
             if(!empty($book->book_summary_pdf) && file_exists(storage_path('app/public/books_summaries/' . $book->book_summary_pdf))){
                 //$reader_book_url = config('app.books_summaries_folder') . "/" . $book->book_summary_pdf;
-                $reader_book_url = "https://tafarri.com/summary/" . $trxref . "/" . $reference . "/" . $book->book_summary_pdf;
+                $reader_book_url = "https://tafarri.com/storage/" . $trxref . "/" . $reference . "/" . $book->book_summary_pdf;
 
         //echo "here 4"; exit;
             } else {
@@ -78,7 +78,7 @@ if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
     if($summary_or_book == "1"){ // book_full
       //echo "here 1"; 
       if(!empty($book->book_pdf) && file_exists(storage_path('app/public/books_fulls/' . $book->book_pdf)) && $book->book_cost_usd <= 0){
-        $reader_book_url = "https://tafarri.com/full/" . $trxref . "/" . $reference . "/" . $book->book_pdf;
+        $reader_book_url = "https://tafarri.com/storage/" . $trxref . "/" . $reference . "/" . $book->book_pdf;
       //echo "here 2"; exit;
       } else {
           $error = "The free book not found. You can contact support if this is a problem";
@@ -86,7 +86,7 @@ if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
     } else if($summary_or_book == "2"){ //book_summary
       //echo "here 3"; exit;
       if(!empty($book->book_summary_pdf) && file_exists(storage_path('app/public/books_summaries/' . $book->book_summary_pdf))  && $book->book_summary_cost_usd <= 0){
-        $reader_book_url = "https://tafarri.com/summary/" . $trxref . "/" . $reference . "/" . $book->book_summary_pdf;
+        $reader_book_url = "https://tafarri.com/storage/" . $trxref . "/" . $reference . "/" . $book->book_summary_pdf;
         //echo "here 4"; exit;
       } else {
           $error = "The free book was not found. You can contact support if this is a problem";

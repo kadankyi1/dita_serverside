@@ -21,7 +21,7 @@ if(!empty($_GET["ref"])){
 
       if(!empty($found_books[0])){
         
-        if(!empty($found_books[0]->book_summary_pdf) && file_exists(public_path() . "/uploads/books_summaries/" . $found_books[0]->book_summary_pdf)){
+        if(!empty($found_books[0]->book_summary_pdf) && file_exists(storage_path('app/public/books_summaries/' . $found_books[0]->book_summary_pdf))){
             $found_books[0]->book_summary_pdf = config('app.books_summaries_folder') . "/" . $found_books[0]->book_summary_pdf;
             $found_books[0]->book_summary_available_option = '<option selected value="book_summary">Summary</option>';
             if($found_books[0]->book_summary_cost_usd >  0){
@@ -32,6 +32,7 @@ if(!empty($_GET["ref"])){
         } else {
             $found_books[0]->book_summary_pdf = "";
             $found_books[0]->book_summary_available_option = "";
+            $found_books[0]->book_string_summary_cost_usd = "Free";
         }
 
         if(!empty($found_books[0]->book_cover_photo) && file_exists(public_path() . "/uploads/books_cover_arts/" . $found_books[0]->book_cover_photo)){
@@ -47,8 +48,8 @@ if(!empty($_GET["ref"])){
   $found_books = array();
 }
 
-  var_dump($found_books);
-  exit;
+  //var_dump($found_books);
+  //exit;
 ?>
 <!doctype html>
 <html lang="en">

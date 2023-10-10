@@ -197,7 +197,8 @@ if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
                 <h3 class="mb-5"><?php echo $book->book_title; ?></h3>
             </div>
 
-                <div class="col-lg-12"><iframe type="application/pdf" scrolling="auto" src="<?php echo $reader_book_url; ?>" frameborder="0" height="1500px" width="100%"></iframe>
+                <div class="col-lg-12">
+                  <iframe id="theFrame" src="<?php echo $reader_book_url; ?>" frameborder="0" height="1500px" width="100%"></iframe>
                 </div>
 
             </div>
@@ -480,7 +481,11 @@ if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
   <script src="webapp/js/bootstrap.min.js"></script>
   <script src="webapp/js/custom/config.js"></script>
   <script src="webapp/js/custom/reader/custom-reader.js"></script>
-
+  <script>
+    document.getElementById("theFrame").contentWindow.onload = function() {
+        this.document.getElementsByTagName("img")[0].style.width="100%";
+    };
+    </script>
   </body>
 
   </html>

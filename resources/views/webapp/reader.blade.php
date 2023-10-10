@@ -195,7 +195,7 @@ if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
         <div class="container">
             <div class="heading text-center mx-auto">
                 <h3 class="mb-5"><?php echo $book->book_title; ?></h3>
-                <p class="mb-5" style="display: none" id="fail_notice">If your book fails to show, please reload the page.</p>
+                <p class="mb-5" id="fail_notice">If your book fails to show, please reload the page.</p>
             </div>
 
                 <div class="col-lg-12">

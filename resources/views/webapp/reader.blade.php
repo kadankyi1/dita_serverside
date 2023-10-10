@@ -194,7 +194,7 @@ if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
     <div class="form-41-mian pt-lg-4 pt-md-3 pb-4">
         <div class="container">
             <div class="heading text-center mx-auto">
-                <p class="mb-5"><?php echo $book->book_pdf; ?></p>
+                <p class="mb-5"><?php echo $book->book_title; ?></p>
             </div>
 
                 <div class="col-lg-12"><iframe type="application/pdf" scrolling="auto" src="<?php echo $reader_book_url; ?>" frameborder="0" height="1500px" width="100%"></iframe>

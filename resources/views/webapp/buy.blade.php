@@ -147,7 +147,7 @@ if(!empty($_GET["ref"])){
             <div class="heading text-center mx-auto">
                 <h5 class="title-small text-center mb-2">You Are Buying</h5>
                 <h3 class="title-big2 mb-2"><?php echo $found_books[0]->book_title ?></h3>
-                <p class="mb-5">You can read this summary here on the web, on androids or iphones</p>
+                <!--<p class="mb-5">You can read this summary here on the web, on androids or iphones</p>-->
             </div>
             <div class="row">
 

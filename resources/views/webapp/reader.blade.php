@@ -200,7 +200,7 @@ if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
 
                 <div class="col-lg-12 text-center mx-auto">
                   @if($agent->isMobile())         
-                    <a href="<?php echo $reader_book_url; ?>" download="<?php echo $book->book_title; ?>" class="btn btn-style btn-primary">Download Your Book</a>
+                    <br><br><a href="<?php echo $reader_book_url; ?>" download="<?php echo $book->book_title; ?>" class="btn btn-style btn-primary">Download Your Book</a>
                   @else
                     <!--<iframe id="theFrame" type="application/pdf" scrolling="auto" src="https://drive.google.com/viewerng/viewer?embedded=true&url=<?php //echo $reader_book_url; ?>" frameborder="0" height="1500px" width="100%"></iframe>-->
                     <iframe id="theFrame" type="application/pdf" scrolling="auto" src="<?php echo $reader_book_url; ?>" frameborder="0" height="1500px" width="100%"></iframe>

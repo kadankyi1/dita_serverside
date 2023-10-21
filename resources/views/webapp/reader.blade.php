@@ -198,7 +198,7 @@ if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
                 <!--<p class="mb-5" id="fail_notice" style="font-size: 11px">If your book fails to show, please reload the page.</p>-->
             </div>
 
-                <div class="col-lg-12">
+                <div class="col-lg-12 text-center mx-auto">
                   @if($agent->isMobile())         
                     <a href="<?php echo $reader_book_url; ?>" download="<?php echo $book->book_title; ?>" class="btn btn-style btn-primary">Download Your Book</a>
                   @else

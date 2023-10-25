@@ -9,7 +9,7 @@ Author URL: http://w3layouts.com
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <meta name="keywords" content="Contact Us,Contact,Tafarri,Tafarr.com,Summaries,Book Summaries">
+    <meta name="keywords" content="Contact Tafarri, Contact Us, Tafarri, Tafarri.com, Ebooks, Summaries, Ghana EBooks, Ghana Summaries">
     <link rel="apple-touch-icon" sizes="180x180" href="webapp/images/favico/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="webapp/images/favico/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="webapp/images/favico/favicon-16x16.png">
@@ -17,7 +17,7 @@ Author URL: http://w3layouts.com
     <link rel="mask-icon" href="webapp/images/favico/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
-    <title>Tafarri - Contact Us</title>
+    <title>Contact Tafarri - Ghana's Leading Online Book Store</title>
 
 
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,700&display=swap" rel="stylesheet">

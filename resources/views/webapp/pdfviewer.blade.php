@@ -125,7 +125,7 @@ if(!empty($reader_book_url) && !empty($reader_book_file_name)){
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="keywords" content="Reader,Tafarri,Tafarr.com,Summaries,Book Summaries">
+    <meta name="keywords" content="Reader, Tafarri, Tafarri.com, Ebooks, Summaries, Ghana EBooks, Ghana Summaries">
     <link rel="apple-touch-icon" sizes="180x180" href="webapp/images/favico/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="webapp/images/favico/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="webapp/images/favico/favicon-16x16.png">
@@ -133,7 +133,7 @@ if(!empty($reader_book_url) && !empty($reader_book_file_name)){
     <link rel="mask-icon" href="webapp/images/favico/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
-    <title>Tafarri - Read</title>
+    <title>Reader - Tafarri</title>
 
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,700&display=swap" rel="stylesheet">
     

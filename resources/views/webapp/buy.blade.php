@@ -58,7 +58,7 @@ if(!empty($_GET["ref"])){
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <meta name="keywords" content="Tafarri, Tafarr.com, Ebooks, Summaries, Buy <?php echo $found_books[0]->book_title ?>">
+    <meta name="keywords" content="Buy <?php echo $found_books[0]->book_title ?>, Tafarri, Tafarri.com, Ebooks, Summaries, Ghana EBooks, Ghana Summaries">
     <link rel="apple-touch-icon" sizes="180x180" href="webapp/images/favico/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="webapp/images/favico/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="webapp/images/favico/favicon-16x16.png">

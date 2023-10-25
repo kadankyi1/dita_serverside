@@ -10,6 +10,8 @@ Author URL: http://w3layouts.com
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <meta name="keywords" content="Contact Tafarri, Contact Us, Tafarri, Tafarri.com, Ebooks, Summaries, Ghana EBooks, Ghana Summaries">
+    <meta name="description" content="Contact The Tafarri Team - Tafarri Ebooks & Summaries">
+    <meta name="author" content="Dankyi Anno Kwaku">
     <link rel="apple-touch-icon" sizes="180x180" href="webapp/images/favico/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="webapp/images/favico/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="webapp/images/favico/favicon-16x16.png">

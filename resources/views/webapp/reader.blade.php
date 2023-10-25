@@ -108,6 +108,8 @@ if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="keywords" content="Reader, Tafarri, Tafarri.com, Ebooks, Summaries, Ghana EBooks, Ghana Summaries">
+    <meta name="description" content="Reader - Tafarri Ebooks & Summaries">
+    <meta name="author" content="Dankyi Anno Kwaku">    
     <link rel="apple-touch-icon" sizes="180x180" href="webapp/images/favico/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="webapp/images/favico/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="webapp/images/favico/favicon-16x16.png">

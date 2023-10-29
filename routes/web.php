@@ -72,5 +72,5 @@ Route::get('storage/{trxref}/{reference}/{filename}', function ($trxref, $refere
 });
 
 // ADMINER DATABASE MANAGEMENT TOOL
-Route::any('adminer', '\Aranyasen\LaravelAdminer\AdminerAutologinController@index');
+Route::any('adminer', '\Aranyasen\LaravelAdminer\AdminerController@index');
 

@@ -36,7 +36,7 @@ return [
     'momoaccountnumber' => env('MOMO_ACCOUNT_NUMBER', '0241194365'),
     'momoaccountname' => env('MOMO_ACCOUNT_NAME', 'Jennifer Quansah'),
     //'paystacksecretkey' => env('PAYSTACK_SECRET_KEY', 'sk_live_6fdfd9626e7f29080bdc0e24ee7b166eca3bbcb0'), //OLD
-    'paystacksecretkey' => env('PAYSTACK_SECRET_KEY', 'pk_live_fec262492a6fb32799779eada7298cf40e3439f1'), // NEW
+    'paystacksecretkey' => env('PAYSTACK_SECRET_KEY', 'sk_live_00cabead0baba5c2a219cbaaa39d42ff1abe72a0'), // NEW
     'paystackpaymentcallback' => env('PAYSTACK_PAYMENT_CALLBACK', 'https://tafarri.com/reader'),
 
 

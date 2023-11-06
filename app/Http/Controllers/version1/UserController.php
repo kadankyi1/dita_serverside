@@ -616,7 +616,7 @@ public function getPaymentUrl(Request $request){
         ]);
     }
     $found_books = DB::table('books')
-                  ->select('book_sys_id', 'books.book_cost_usd', 'books.book_summary_cost_usd', 'books.bookfull_flagged', 'books.booksummary_flagged')
+                  ->select('book_sys_id', 'books.book_cost_usd', 'books.book_summary_cost_usd', 'books.bookfull_flagged', 'books.booksummary_flagged', 'books.book_title')
                   ->where($where_array)
                   ->orderBy('read_count', 'desc')
                   ->take(1)
@@ -630,7 +630,7 @@ public function getPaymentUrl(Request $request){
     }
 
     $url = "https://api.paystack.co/transaction/initialize";
-
+    $book_name = $found_books[0]->book_title;
     if($request->item_type == "book_full"){
         $amt = $found_books[0]->book_cost_usd*100*config('app.dollartocedirate');
     } else if($request->item_type == "book_summary"){
@@ -646,6 +646,9 @@ public function getPaymentUrl(Request $request){
         'amount' => $amt,
         //'currency' => "USD",
         'callback_url' => config('app.paystackpaymentcallback'),
+        'metadata' => [
+            'item_name' => $book_name
+        ]
     ];
 
     $authorization =  "Authorization: Bearer " . config('app.paystacksecretkey');

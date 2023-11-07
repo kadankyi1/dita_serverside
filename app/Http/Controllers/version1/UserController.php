@@ -646,10 +646,15 @@ public function getPaymentUrl(Request $request){
         'amount' => $amt,
         //'currency' => "USD",
         'callback_url' => config('app.paystackpaymentcallback'),
-        /*
         'metadata' => [
-            'item_name' => $book_name
-        ]*/
+            'custom_fields' => [
+                [
+                  'display_name' => 'Book Name',
+                  'variable_name"' => 'Book Name',
+                  'value'=> $book_name
+                ]
+              ]
+        ]
     ];
 
     $authorization =  "Authorization: Bearer " . config('app.paystacksecretkey');

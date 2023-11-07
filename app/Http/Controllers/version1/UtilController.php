@@ -75,8 +75,8 @@ class UtilController extends Controller
                 ]);
             }
             
-            var_dump($response); exit;
-            if($response->data->status == "success"){
+            //var_dump($response); exit;
+            if(!empty($response->data->status) && $response->data->status == "success"){
                 $transaction->transaction_payment_status = "verified_passed";
                 $transaction->save();  
             }

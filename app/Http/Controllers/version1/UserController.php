@@ -646,6 +646,7 @@ public function getPaymentUrl(Request $request){
         'amount' => $amt,
         //'currency' => "USD",
         'callback_url' => config('app.paystackpaymentcallback'),
+        /*
         'metadata' => [
             'custom_fields' => [
                 [
@@ -655,6 +656,7 @@ public function getPaymentUrl(Request $request){
                 ]
               ]
         ]
+        */
     ];
 
     $authorization =  "Authorization: Bearer " . config('app.paystacksecretkey');

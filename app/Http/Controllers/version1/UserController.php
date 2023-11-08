@@ -641,22 +641,31 @@ public function getPaymentUrl(Request $request){
             "message" => "Book error"
         ]);
     }
+    
+    /*
+    $book_details_array = array(
+        'display_name' => 'Book Name',
+        'variable_name' => 'Book Name',
+        'value' => $book_name,
+    );
+    
+    $custom_fields_array = array(
+        'custom_fields' => $book_details_array
+    );
+
+    $fields = array(
+        'email' => $request->user_email,
+        'amount' => $amt,
+        //'currency' => "USD",
+        'metadata' => $custom_fields_array
+    );
+    */
+
     $fields = [
         'email' => $request->user_email,
         'amount' => $amt,
         //'currency' => "USD",
         'callback_url' => config('app.paystackpaymentcallback'),
-        /*
-        'metadata' => [
-            'custom_fields' => [
-                [
-                  'display_name' => 'Book Name',
-                  'variable_name"' => 'Book Name',
-                  'value'=> $book_name
-                ]
-              ]
-        ]
-        */
     ];
 
     $authorization =  "Authorization: Bearer " . config('app.paystacksecretkey');

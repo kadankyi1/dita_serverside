@@ -122,6 +122,9 @@ use App\Models\version1\Transaction;
                 <li class="nav-item active">
                     <a class="nav-link" href="/">Search <span class="sr-only">(current)</span></a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/categories">Categories</a>
+                </li>
                 <li class="nav-item @@about__active">
                     <a class="nav-link" href="/how-to-pay">How To Buy</a>
                 </li>
@@ -168,8 +171,8 @@ use App\Models\version1\Transaction;
         <div class="banner-text py-md-4">
             <div class="row banner-info">
                 <div class="col-lg-7 w3pvt-logo align-self">
-                    <h2>Summaries</h2>
-                    <p class="mt-3">Search for a summary using a book title or a reference number you get from our mobile app. We want to make it easier to get the vital information books provide</p>
+                    <h2>Ebooks & Summaries</h2>
+                    <p class="mt-3">Search for a book using a title or a reference number you get from our mobile app. We want to make it easier to get the vital information books provide</p>
                     <form id="kw_form" method="post" class="">
                         <input type="text" id="kw" placeholder="book name or a reference number" required="">
                         <button onclick="goToSearch();" class="btn">Search</button>

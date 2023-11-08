@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('book_ratings')->default(0);
             $table->string('book_description_short', 255)->default("");
             $table->text('book_description_long')->nullable();
+            $table->string('book_categories_ids', 255)->default("");
             $table->integer('book_pages')->default(0);
             $table->string('book_cover_photo', 255)->unique();
             $table->string('book_pdf', 255)->default("");
@@ -38,6 +39,15 @@ return new class extends Migration
             $table->boolean('booksummary_flagged')->default(false);
             $table->timestamps();
         });
+
+
+        /*
+        // FOREIGN KEY
+        Schema::table('books', function (Blueprint $table) {
+            $table->unsignedBigInteger('book_category_id');
+            $table->foreign('book_category_id')->references('category_id')->on('categories');
+        });
+        */
     }
     
     /**

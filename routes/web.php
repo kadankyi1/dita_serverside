@@ -31,6 +31,11 @@ Route::get('/search', function () {
     return view('webapp/list');
 });
 
+
+Route::get('/categories', function () {
+    return view('webapp/categories');
+});
+
 Route::get('/buy', function () {
     return view('webapp/buy');
 });

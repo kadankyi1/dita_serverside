@@ -122,9 +122,11 @@ use App\Models\version1\Transaction;
                 <li class="nav-item active">
                     <a class="nav-link" href="/">Search <span class="sr-only">(current)</span></a>
                 </li>
+                <!--
                 <li class="nav-item">
                     <a class="nav-link" href="/categories">Categories</a>
                 </li>
+                -->
                 <li class="nav-item @@about__active">
                     <a class="nav-link" href="/how-to-pay">How To Buy</a>
                 </li>
@@ -225,16 +227,13 @@ use App\Models\version1\Transaction;
 <section class="w3l-stats py-5" id="stats">
     <div class="gallery-inner container py-md-5 py-4">
         <div class="row stats-con">
-                <tr>    
-                  <th></th>               
-                </tr>
-            <div class="offset-md-2"></div>
-            <div class="col-md-4 col-sm-6 stats_info counter_grid1">
+            <div class="offset-md-1"></div>
+            <div class="col-md-5 col-sm-12 stats_info counter_grid1">
               <span class="fa fa-download"></span>
               <p class="counter">{{$all_books_count}}</p>
               <h3>Summaries</h3>
             </div>
-            <div class="col-md-4 col-6 stats_info counter_grid mt-md-0 mt-5">
+            <div class="col-md-5 col-12 stats_info counter_grid mt-md-0 mt-5">
                 <span class="fa fa-smile-o"></span>
                 <p class="counter">{{$all_users_count}}</p>
                 <h3>Users</h3>

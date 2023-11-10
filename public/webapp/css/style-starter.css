@@ -9746,7 +9746,9 @@ a.link-style:hover:before {
     line-height: 46px;
     font-weight: 600;
     max-width: 570px;
-    margin: auto; }
+    margin: auto; 
+    text-align: center;
+  }
 
 .title-big2 {
   font-size: 38px;

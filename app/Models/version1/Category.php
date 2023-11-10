@@ -25,6 +25,7 @@ class Category extends Model
     protected $fillable = [
         'category_id',
         'category_name',
+        'category_short_description',
         'created_at',
         'updated_at',
     ];}

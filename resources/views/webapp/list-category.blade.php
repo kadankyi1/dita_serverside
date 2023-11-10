@@ -3,18 +3,57 @@ Author: W3layouts
 Author URL: http://w3layouts.com
 -->
 <?php
-use App\Models\version1\Book;
-use App\Models\version1\Transaction;
+use App\Models\version1\Category;
 
-//var_dump($_GET["kw"]);
+//var_dump($_GET["cat"]);
 
-$found_categories = DB::table('categories')
-            ->select('categories.category_id', 'categories.category_name', 'categories.category_short_description')
-            ->orderBy('created_at', 'desc')
-            ->take(40)
+if(!empty($_GET["cat"])){
+    $kw = $_GET["cat"];
+    
+} else {
+    $kw = "1";
+}
+
+// GETTING CATEGORY ITEM
+$the_category = Category::where('category_id', '=', $kw)->first();
+
+$like_keyword =  '%' . $kw . ',%';
+    
+    if(!empty($kw)){
+        $where_array = array(
+            ['book_categories_ids', 'like', $like_keyword],
+            ['book_summary_pdf', '<>', ''],
+        );
+        $found_books = DB::table('books')
+            ->select('books.book_id', 'books.book_cover_photo', 'books.book_sys_id', 'books.book_title', 'books.book_description_short', 'books.book_summary_pdf', 'books.book_cost_usd', 'books.book_summary_cost_usd')
+            ->where($where_array)
+            ->orderBy('read_count', 'desc')
+            ->take(30)
             ->get();
+    } else {
+        $found_books = DB::table('books')
+            ->select('books.book_id', 'books.book_cover_photo', 'books.book_sys_id', 'books.book_title', 'books.book_description_short', 'books.book_summary_pdf', 'books.book_cost_usd', 'books.book_summary_cost_usd')
+            ->orderBy('created_at', 'desc')
+            ->take(30)
+            ->get();
+    }
+    
+    for ($i=0; $i < count($found_books); $i++) { 
 
-  //var_dump($found_categories);
+        if(!empty($found_books[$i]->book_summary_pdf) && file_exists(public_path() . "/uploads/books_summaries/" . $found_books[$i]->book_summary_pdf)){
+            $found_books[$i]->book_summary_pdf = config('app.books_summaries_folder') . "/" . $found_books[$i]->book_summary_pdf;
+        } else { 
+            continue;
+        }
+
+        if(!empty($found_books[$i]->book_cover_photo) && file_exists(public_path() . "/uploads/books_cover_arts/" . $found_books[$i]->book_cover_photo)){
+            $found_books[$i]->book_cover_photo_url = config('app.books_cover_arts_folder') . "/" . $found_books[$i]->book_cover_photo;
+        } else {
+            $found_books[$i]->book_cover_photo_url = config('app.books_cover_arts_folder') . "/sample_cover_art.jpg";
+        }
+    }
+
+  //var_dump($found_books);
   //exit;
 ?>
 <!doctype html>
@@ -23,8 +62,8 @@ $found_categories = DB::table('categories')
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="keywords" content="Categories, Tafarri, Tafarri.com, Ebooks, Summaries, Ghana EBooks, Ghana Summaries">
-    <meta name="description" content="Categories - Tafarri Ebooks & Summaries">
+    <meta name="keywords" content="Search, Tafarri, Tafarri.com, Ebooks, Summaries, Ghana EBooks, Ghana Summaries">
+    <meta name="description" content="Search - Tafarri Ebooks & Summaries">
     <meta name="author" content="Dankyi Anno Kwaku">    
     <link rel="apple-touch-icon" sizes="180x180" href="webapp/images/favico/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="webapp/images/favico/favicon-32x32.png">
@@ -33,7 +72,7 @@ $found_categories = DB::table('categories')
     <link rel="mask-icon" href="webapp/images/favico/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
-    <title>Categories</title>
+    <title>Search</title>
 
 
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,700&display=swap" rel="stylesheet">
@@ -125,19 +164,49 @@ $found_categories = DB::table('categories')
 </section>
 -->
 <section class="w3l-blog-block py-5">
-  <div class="container py-lg-4 py-md-3">
-    <div class="container py-5">
-        <div class="banner-text py-md-4">
-        </div>
+  <div class="w3l-features py-5 container py-lg-4 py-md-3">
+    <div class="call-w3 py-lg-5 py-md-4">
+      <div class="row main-cont-wthree-2">
+          <div class="col-lg-12">
+                <?php if($the_category == null || empty($the_category->category_name)){ ?>
+                  <h3 class="title-big mb-4">Category Books</h3>
+                  <p class="text-para"></p>
+                  <li><a>Category Not Found</a></li>
+                <?php } else { ?>
+                  <h3 class="title-big mb-4"><?php echo $the_category->category_name; ?></h3>
+                  <p class="text-para"></p>
+                  <li><a><?php echo $the_category->category_short_description; ?></a></li>
+                <?php } ?>
+              
+          </div>
+          <!--
+          <div class="col-lg-6 feature-grid-right mt-lg-0 mt-5">
+              <img src="webapp/images/about.png" alt="" class="img-fluid">
+          </div>
+          -->
+      </div>
     </div>
       <div class="row">
         <!-- https://p.w3layouts.com/demos_new/template_demo/11-08-2020/appflow-liberty-demo_Free/1795288211/web/assets/css/style-liberty.css -->
-        <?php foreach ($found_categories as $key => $item) {?>
-          <div class="col-lg-3 col-md-6 mb-3 item">
+        <?php foreach ($found_books as $key => $item) { ?>
+          <div class="col-lg-3 col-md-6 item">
               <div class="card">
+                  <div class="card-header p-0 position-relative">
+                      <a href="/buy?ref=<?php echo $item->book_sys_id ?>">
+                          <img class="card-img-bottom d-block" src="<?php echo config('app.books_cover_arts_folder') . "/" . $item->book_cover_photo ?>" alt="Card image cap" height="300px">
+                      </a>
+                      <ul class="location-top">
+                          <li class="tip">
+                            <?php if($item->book_summary_cost_usd <=  0){ ?>
+                              Free
+                              <?php } else { echo "$" . $item->book_summary_cost_usd; }?>
+                                
+                          </li>
+                      </ul>
+                  </div>
                   <div class="card-body blog-details">
-                      <a href="/categories/list?cat=<?php echo $item->category_id ?>" class="blog-desc"><?php echo $item->category_name ?></a>
-                      <p class="list-book-desc"><?php echo $item->category_short_description ?></p>
+                      <a href="/buy?ref=<?php echo $item->book_sys_id ?>" class="blog-desc"><?php echo $item->book_title ?></a>
+                      <p class="list-book-desc"><?php echo $item->book_description_short ?></p>
                   </div>
               </div>
           </div>

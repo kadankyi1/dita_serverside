@@ -108,6 +108,9 @@ if(!empty($_GET["kw"])){
                 <li class="nav-item active">
                     <a class="nav-link" href="/">Search <span class="sr-only">(current)</span></a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/categories">Categories</a>
+                </li>
                 <li class="nav-item @@about__active">
                     <a class="nav-link" href="/reader">MyBooks</a>
                 </li>

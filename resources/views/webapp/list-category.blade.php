@@ -102,8 +102,11 @@ $like_keyword =  '%' . $kw . ',%';
 
           <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Search</a>
+                </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="/">Search <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/categories">Categories <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item @@about__active">
                     <a class="nav-link" href="/reader">MyBooks</a>
@@ -171,11 +174,11 @@ $like_keyword =  '%' . $kw . ',%';
                 <?php if($the_category == null || empty($the_category->category_name)){ ?>
                   <h3 class="title-big mb-4">Category Books</h3>
                   <p class="text-para"></p>
-                  <li><a>Category Not Found</a></li>
+                  <p class="text-para" style="text-align: center">Category Not Found</p>
                 <?php } else { ?>
                   <h3 class="title-big mb-4"><?php echo $the_category->category_name; ?></h3>
                   <p class="text-para"></p>
-                  <li><a><?php echo $the_category->category_short_description; ?></a></li>
+                  <p class="text-para" style="text-align: center"><?php echo $the_category->category_short_description; ?></p>
                 <?php } ?>
               
           </div>

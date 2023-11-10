@@ -600,6 +600,20 @@ public function getPaymentUrl(Request $request){
         "item_type" => "bail|required|max:100"
     ]);
 
+
+    // Check phone number for 10 digits
+    if(is_numeric($request->user_email)){
+        if(!preg_match('/^\d{10}$/',$ep)) {
+            $error = "invalid phone number.";
+        }
+        $eptype = "phone";
+    } else {  
+        if (!filter_var($$request->user_email, FILTER_VALIDATE_EMAIL)) {
+            $error = "invalid email address.";
+        }
+        $eptype = "email";
+    }
+
     if($request->item_type == "book_full"){
         $where_array = array(
             ['book_sys_id', '=', $request->item_id],
@@ -660,6 +674,8 @@ public function getPaymentUrl(Request $request){
         'metadata' => $custom_fields_array
     );
     */
+
+
 
     $fields = [
         'email' => $request->user_email,

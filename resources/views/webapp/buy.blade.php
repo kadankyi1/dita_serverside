@@ -102,6 +102,9 @@ if(!empty($_GET["ref"])){
               <li class="nav-item">
                   <a class="nav-link" href="/">Search</a>
               </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/categories">Categories</a>
+              </li>
               <li class="nav-item @@about__active">
                   <a class="nav-link" href="/reader">MyBooks</a>
               </li>
@@ -238,14 +241,14 @@ if(!empty($_GET["ref"])){
                                 <input type="hidden" name="item_id" id="item_id" value="<?php echo $found_books[0]->book_sys_id ?>"
                                     readonly />
                             </div>
-                            <div class="form-input mb-4">
+                            <div class="form-input mb-4" style="display:none">
                                 <input type="text" name="book_amt" id="book_amt" value="<?php echo $found_books[0]->book_string_summary_cost_usd; ?>" readonly />
                             </div>
                             <div class="form-input mb-4">
                               <?php if(!empty($_GET["em"]) && filter_var($_GET["em"], FILTER_VALIDATE_EMAIL)) { ?>
-                                <input type="email" name="user_email" id="user_email" placeholder="Email *" value="<?php echo $_GET["em"]; ?>" required />
+                                <input type="text" name="user_email" id="user_email" placeholder="Email or Phone Number *" value="<?php echo $_GET["em"]; ?>" required />
                               <?php } else { ?>
-                                <input type="email" name="user_email" id="user_email" placeholder="Email *" required />
+                                <input type="text" name="user_email" id="user_email" placeholder="Email or Phone Number *" required />
                               <?php } ?>
                             </div>
                             <div class="text-right" id="buybtn">

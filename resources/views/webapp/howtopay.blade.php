@@ -51,6 +51,9 @@ Author URL: http://w3layouts.com
               <li class="nav-item">
                   <a class="nav-link" href="/">Search</a>
               </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/categories">Categories</a>
+              </li>
               <li class="nav-item @@about__active">
                   <a class="nav-link" href="/reader">MyBooks</a>
               </li>

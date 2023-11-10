@@ -63,8 +63,11 @@ $found_categories = DB::table('categories')
 
           <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Search</a>
+                </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="/">Search <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/categories">Categories <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item @@about__active">
                     <a class="nav-link" href="/reader">MyBooks</a>
@@ -136,7 +139,7 @@ $found_categories = DB::table('categories')
           <div class="col-lg-3 col-md-6 mb-3 item">
               <div class="card">
                   <div class="card-body blog-details">
-                      <a href="/categories/list?cat=<?php echo $item->category_id ?>" class="blog-desc"><?php echo $item->category_name ?></a>
+                      <a href="/category?cat=<?php echo $item->category_id ?>" class="blog-desc"><?php echo $item->category_name ?></a>
                       <p class="list-book-desc"><?php echo $item->category_short_description ?></p>
                   </div>
               </div>

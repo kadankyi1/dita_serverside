@@ -595,23 +595,31 @@ public function recordPurchase(Request $request){
 
 public function getPaymentUrl(Request $request){
     $validatedData = $request->validate([
-        "user_email" => "bail|required|max:100",
+        "user_email_or_phone" => "bail|required|max:100",
         "item_id" => "bail|required|max:100",
         "item_type" => "bail|required|max:100"
     ]);
 
 
     // Check phone number for 10 digits
-    if(is_numeric($request->user_email)){
-        if(!preg_match('/^\d{10}$/',$ep)) {
-            $error = "invalid phone number.";
+    if(is_numeric($request->user_email_or_phone)){
+        if(!preg_match('/^\d{10}$/',$request->user_email_or_phone)) {
+            return response([
+                "status" => "error", 
+                "message" => "Invalid phone number."
+            ]);
         }
-        $eptype = "phone";
+        $final_phone = $request->user_email_or_phone;
+        $final_email = $request->user_email_or_phone . "@tafarri.com";
     } else {  
-        if (!filter_var($$request->user_email, FILTER_VALIDATE_EMAIL)) {
-            $error = "invalid email address.";
+        if (!filter_var($request->user_email_or_phone, FILTER_VALIDATE_EMAIL)) {
+            return response([
+                "status" => "error", 
+                "message" => "Invalid email address."
+            ]);
         }
-        $eptype = "email";
+        $final_phone = $request->user_email_or_phone;
+        $final_email = $request->user_email_or_phone;
     }
 
     if($request->item_type == "book_full"){
@@ -678,7 +686,7 @@ public function getPaymentUrl(Request $request){
 
 
     $fields = [
-        'email' => $request->user_email,
+        'email' => $final_email,
         'amount' => $amt,
         //'currency' => "USD",
         'callback_url' => config('app.paystackpaymentcallback'),

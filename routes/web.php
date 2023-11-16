@@ -44,6 +44,15 @@ Route::get('/buy', function () {
     return view('webapp/buy');
 });
 
+Route::get('/intro-subscription', function () {
+    return view('webapp/subscription-intro');
+});
+
+
+Route::get('/buy-subscription', function () {
+    return view('webapp/buy-subscription');
+});
+
 Route::get('/reader', function () {
     return view('webapp/reader');
 });

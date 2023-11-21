@@ -33,11 +33,21 @@ $(document).ready(function ()
 
 function success_response_function(response)
 {
-    $('#info_text').html('A code has been sent to your email/spam. Enter the code below to complete your login');
-    $('#choosebookform').hide();
-    $('#sendlogincodeform').hide();
-    $('#user_email2').val($('#user_email').val());
-    fade_out_loader_and_fade_in_form("loader", "verifylogincodeform"); 
+    console.log(response);
+    console.log(response.status);
+    console.log(response.message);
+
+    if(response.status === "success" && response.message === "Login successful"){
+        console.log("here 1");
+        success_response_function2(response);
+    } else {
+        console.log("here 2");
+        $('#info_text').html('A code has been sent to your email/spam. Enter the code below to complete your login');
+        $('#choosebookform').hide();
+        $('#sendlogincodeform').hide();
+        $('#user_email2').val($('#user_email').val());
+        fade_out_loader_and_fade_in_form("loader", "verifylogincodeform"); 
+    }
 }
 
 function error_response_function(errorThrown)

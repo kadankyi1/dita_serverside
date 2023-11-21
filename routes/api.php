@@ -18,7 +18,7 @@ use App\Http\Controllers\version1\UserController;
 
 // COMMENT OUT THIS LINK WHEN YOU ARE DONE USING IT
 // CREATE A PLAN FOR SUBSCRIPTIONS ON PAYSTACK
-Route::post('/v1/user/send-login-code',[App\Http\Controllers\version1\UserController::class, 'sendLoginVerificationCode']);
+Route::post('/v1/user/create-plan-for-subscription',[App\Http\Controllers\version1\UserController::class, 'sendCreatePayStackPaymentPlan']);
 
 
 // GET LOGIN CODE

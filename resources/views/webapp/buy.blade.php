@@ -246,9 +246,9 @@ if(!empty($_GET["ref"])){
                             </div>
                             <div class="form-input mb-4">
                               <?php if(!empty($_GET["em"]) && filter_var($_GET["em"], FILTER_VALIDATE_EMAIL)) { ?>
-                                <input type="text" name="user_email" id="user_email" placeholder="Email or Phone Number *" value="<?php echo $_GET["em"]; ?>" required />
+                                <input type="text" name="user_email_or_phone" id="user_email" placeholder="Email or Phone Number *" value="<?php echo $_GET["em"]; ?>" required />
                               <?php } else { ?>
-                                <input type="text" name="user_email" id="user_email" placeholder="Email or Phone Number *" required />
+                                <input type="text" name="user_email_or_phone" id="user_email" placeholder="Email or Phone Number *" required />
                               <?php } ?>
                             </div>
                             <div class="text-right" id="buybtn">

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->bigIncrements('user_id');
             $table->string('user_sys_id', 255)->unique();
             $table->string('user_email', 255)->unique();
+            $table->string('user_phone', 255)->unique();
             $table->string('passcode');
             $table->datetime('passcode_set_time')->nullable();
             $table->string('user_fcm_token_android', 255)->default("");

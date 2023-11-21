@@ -35,7 +35,7 @@ class UserController extends Controller
 
         // MAKING SURE THE INPUT HAS THE EXPECTED VALUES
         $validatedData = $request->validate([
-            "user_email" => "bail|required|email|min:4|max:50",
+            "user_email_or_phone" => "bail|required|max:100",
             "app_type" => "bail|required|max:8",
             "app_version_code" => "bail|required|integer"
         ]);
@@ -68,47 +68,163 @@ class UserController extends Controller
                 ]);
         }
 
-        // SENDING LOGIN CODE
-        $passcode = UtilController::getRandomString(10);
 
-        $email_data = array(
-            'reset_code' => $passcode,
-            'time' => date("F j, Y, g:i a")
-        );
+        // Check phone number for 10 digits
+        if(is_numeric($request->user_email_or_phone)){
+            if(!preg_match('/^\d{10}$/',$request->user_email_or_phone)) {
+                return response([
+                    "status" => "error", 
+                    "message" => "Invalid phone number."
+                ]);
+            }
+            $final_phone = $request->user_email_or_phone;
+            $final_email = $request->user_email_or_phone . "@tafarri.com";
 
-        //CHECKING IF USER EXISTS
-        $user1 = User::where('user_email', '=', $request->user_email)->first();
-        if($user1 === null){
-            $userData["user_sys_id"] = date("Y-m-d-H-i-s") . UtilController::getRandomString(91);
-            $userData["user_email"] = $validatedData["user_email"];
-            $userData["user_fcm_token_android"] = "";
-            $userData["user_fcm_token_web"] = "";
-            $userData["user_fcm_token_ios"] = "";
-            $userData["user_flagged"] = false;
-            $userData["user_flagged_reason"] = "";
-            $userData["passcode_set_time"] = date("Y-m-d H:i:s");
-            $userData["passcode"] = $passcode;        
-            // SAVING APP TYPE VERSION CODE
-            if($request->app_type == "ANDROID"){
-                $userData["user_android_app_version_code"] = $validatedData["app_version_code"];
-            } else if($request->app_type == "IOS"){
-                $userData["user_ios_app_version_code"] = $validatedData["app_version_code"];
-            } 
-            $user1 = User::create($userData);
-        } else {
-            $user1->passcode_set_time = date("Y-m-d H:i:s");
-            $user1->passcode = $passcode;
-            $user1->save();    
+            return UserController::verifyPhoneNumberAndLogin($request);
+        } else {  
+            if (!filter_var($request->user_email_or_phone, FILTER_VALIDATE_EMAIL)) {
+                return response([
+                    "status" => "error", 
+                    "message" => "Invalid email address."
+                ]);
+            }
+            $final_phone = $request->user_email_or_phone;
+            $final_email = $request->user_email_or_phone;
+            // SENDING LOGIN CODE
+            $passcode = UtilController::getRandomString(10);
+
+            $email_data = array(
+                'reset_code' => $passcode,
+                'time' => date("F j, Y, g:i a")
+            );
+
+            //CHECKING IF USER EXISTS
+            $user1 = User::where('user_email', '=', $request->user_email_or_phone)->first();
+            if($user1 === null){
+                $userData["user_sys_id"] = date("Y-m-d-H-i-s") . UtilController::getRandomString(91);
+                $userData["user_email"] = $validatedData["user_email_or_phone"];
+                $userData["user_fcm_token_android"] = "";
+                $userData["user_fcm_token_web"] = "";
+                $userData["user_fcm_token_ios"] = "";
+                $userData["user_flagged"] = false;
+                $userData["user_flagged_reason"] = "";
+                $userData["passcode_set_time"] = date("Y-m-d H:i:s");
+                $userData["passcode"] = $passcode;        
+                // SAVING APP TYPE VERSION CODE
+                if($request->app_type == "ANDROID"){
+                    $userData["user_android_app_version_code"] = $validatedData["app_version_code"];
+                } else if($request->app_type == "IOS"){
+                    $userData["user_ios_app_version_code"] = $validatedData["app_version_code"];
+                } 
+                $user1 = User::create($userData);
+            } else {
+                $user1->passcode_set_time = date("Y-m-d H:i:s");
+                $user1->passcode = $passcode;
+                $user1->save();    
+            }
+
+            Mail::to($request->user_email_or_phone)->send(new LoginCodeMail($email_data));
+
+            return response([
+                "status" => "success", 
+                "message" => "Passcode sent",
+            ]);
+
         }
+    }
 
-        Mail::to($request->user_email)->send(new LoginCodeMail($email_data));
+    /*
+    |--------------------------------------------------------------------------
+    |--------------------------------------------------------------------------
+    | THIS FUNCTION REGISTER EMAIL AND SENDS LOGIN CODE
+    |--------------------------------------------------------------------------
+    |--------------------------------------------------------------------------
+    */
 
-        return response([
-            "status" => "success", 
-            "message" => "Passcode sent",
+    function verifyPhoneNumberAndLogin(Request $request)
+    {
+
+        // MAKING SURE THE INPUT HAS THE EXPECTED VALUES
+        $validatedData = $request->validate([
+            "user_email_or_phone" => "bail|required|min:10|max:15",
+            "app_type" => "bail|required|max:8",
+            "app_version_code" => "bail|required|integer"
         ]);
 
+        
+        //CHECKING IF USER EXISTS
+        $user1 = User::where('user_phone', '=', $request->user_email_or_phone)->where('user_flagged', '=', 0)->first();
+        if($user1 === null){
+            return response([
+                "status" => "error", 
+                "message" => "Login failed sent",
+            ]);
+        } else {
+            // GENERATING THE ACCESS TOKEN FOR THE REGISTERED USER
+            //$accessToken = $user1->createToken("authToken")->accessToken;
+            $accessToken = $user1->createToken("authToken", ["get-info-on-apps get-info-in-background"])->accessToken;
+
+            $user1->passcode_set_time = null;
+            $user1->passcode = "";
+            $user1->save();  
+
+            $where_array = array(
+                ['transaction_buyer_email', '=', $user1->user_email],
+                ['transaction_payment_status', '=', 'verified_passed']
+            ); 
+
+            $purchases_books_transactions = DB::table('transactions')
+            ->select('transactions.transaction_referenced_item_id', 'transactions.transaction_payment_ref_id', 'transactions.transaction_type')
+            ->where($where_array)
+            ->orderBy('created_at', 'desc')
+            ->get();
+    
+    
+        $found_books = array();
+
+        for ($i=0; $i < count($purchases_books_transactions); $i++) { 
+            
+            $where_array = array(
+                ['book_sys_id', '=', $purchases_books_transactions[$i]->transaction_referenced_item_id]
+            ); 
+            
+            $this_book = DB::table('books')
+            ->select('books.book_sys_id', 'books.book_title')
+            ->where($where_array)
+            ->orderBy('read_count', 'desc')
+            ->take(1)
+            ->get();
+
+
+            if(!empty($this_book[0])){
+                $this_book[0]->transaction_payment_ref_id =  $purchases_books_transactions[$i]->transaction_payment_ref_id;
+                
+                if($purchases_books_transactions[$i]->transaction_type == "book_full"){
+                    $this_book[0]->book_title =  $this_book[0]->book_title . "(Full Book)";
+                } else if($purchases_books_transactions[$i]->transaction_type == "book_summary"){
+                    $this_book[0]->book_title =  $this_book[0]->book_title . "(Summary)";
+                } else {
+                    continue;
+                }
+                array_push($found_books, $this_book);
+            }
+        }
+
+
+            return response([
+                "status" => "success", 
+                "message" => "Login successful",
+                "user_email" => $user1->user_email,
+                "user_id" => $user1->user_sys_id,
+                "access_token" => $accessToken,
+                "data" => $found_books, 
+            ]);
+    
+    
+        }
     }
+    
+
 
     /*
     |--------------------------------------------------------------------------
@@ -676,7 +792,7 @@ public function getPaymentUrl(Request $request){
     );
 
     $fields = array(
-        'email' => $request->user_email,
+        'email' => $final_email,
         'amount' => $amt,
         //'currency' => "USD",
         'metadata' => $custom_fields_array
@@ -716,10 +832,11 @@ public function getPaymentUrl(Request $request){
     $result = json_decode($result);
 
     if($result->status == true && !empty($result->data->reference)){
-        $transactionData["transaction_sys_id"] =  $request->user_email . "_" . date("YmdHis") . UtilController::getRandomString(4);
+        $transactionData["transaction_sys_id"] =  $final_email . "_" . date("YmdHis") . UtilController::getRandomString(4);
         $transactionData["transaction_type"] = $request->item_type;
         $transactionData["transaction_referenced_item_id"] = $found_books[0]->book_sys_id;
-        $transactionData["transaction_buyer_email"] = $request->user_email;
+        $transactionData["transaction_buyer_email"] = $final_email;
+        $transactionData["transaction_buyer_email"] = $final_phone;
         $transactionData["transaction_payment_type"] = "paystack";
         $transactionData["transaction_payment_ref_id"] = $result->data->reference;
         $transactionData["transaction_payment_date"] = date("Y-m-d");
@@ -1100,5 +1217,24 @@ public function recordGoogleInAppPurchase(Request $request){
         
 
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    |--------------------------------------------------------------------------
+    | THIS FUNCTION CREATES A PLAN ON PAYSTACK FOR SUBSCRIPTIONS
+    |--------------------------------------------------------------------------
+    |--------------------------------------------------------------------------
+    */
+
+    public function sendCreatePayStackPaymentPlan(Request $request){
+
+        $validatedData = $request->validate([
+            "plan_name" => "bail|required|max:100",
+            "plan_interval" => "bail|required|integer",
+            "plan_benefits_description" => "bail|required|max:2000",
+        ]);
+        return UtilController::createPayStackPaymentPlan($request->plan_name, $request->plan_interval, $request->plan_benefits_description);
+    }
+
 
 }

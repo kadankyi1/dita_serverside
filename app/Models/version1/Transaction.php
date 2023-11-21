@@ -27,6 +27,7 @@ class Transaction extends Model
         'transaction_type',
         'transaction_referenced_item_id',
         'transaction_buyer_email',
+        'transaction_buyer_phone',
         'transaction_payment_type',
         'transaction_payment_ref_id',
         'transaction_payment_date',

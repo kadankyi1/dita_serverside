@@ -241,7 +241,7 @@ if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
                 <div class="heading text-center mx-auto">
                     <h5 class="title-small text-center mb-2"></h5>
                     <h3 class="title-big2 mb-2">READER - ACCESS YOUR SUMMARIES</h3>
-                    <p class="mb-5" id="info_text">Enter your email to receive a login code</p>
+                    <p class="mb-5" id="info_text">Enter your email or phone number to proceed</p>
                 </div>
                 <div class="row">
 
@@ -250,12 +250,12 @@ if(!empty($_GET["trxref"]) && !empty($_GET["reference"])){
                             <div class="">
                                 <span id="buyform" >
                                 <div class="form-input mb-4">
-                                    <input type="email" name="user_email" id="user_email" placeholder="Email *" required />
+                                    <input type="text" name="user_email_or_phone" id="user_email" placeholder="Email / Phone Number *" required />
                                     <input type="hidden" name="app_type" id="app_type" value="web" readonly />
                                     <input type="hidden" name="app_version_code" id="app_version_code" value="1" readonly />
                                 </div>
                                 <div class="text-center" id="buybtn">
-                                   <button id="proceed_btn" type="submit"  class="btn btn-style btn-primary">Send Code</button>
+                                   <button id="proceed_btn" type="submit"  class="btn btn-style btn-primary">Proceed</button>
                                 </div>
                                 </span>
                             </div>

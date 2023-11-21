@@ -103,6 +103,9 @@ if(!empty($_GET["ref"])){
                   <a class="nav-link" href="/">Search</a>
               </li>
               <li class="nav-item">
+                  <a class="nav-link" href="/schools">Schools</a>
+              </li>
+              <li class="nav-item">
                   <a class="nav-link" href="/categories">Categories</a>
               </li>
               <li class="nav-item @@about__active">
@@ -160,55 +163,25 @@ if(!empty($_GET["ref"])){
 
 
 
-              <div class="w3l-features col-lg-4 contacts-5-grid-main section-gap mt-lg-0 mt-4">
+              <div class="w3l-features col-lg-3 contacts-5-grid-main section-gap mt-lg-0 mt-4">
                 <div class="contacts-5-grid">
                   <div class="map-content-5">
                       <div class="contact-type">
                         <div class="address-grid mb-3">
-                          <h6 style="text-align: center; width: 100%;">All-Access</h6>
+                          <h6 style="text-align: center; width: 100%;">Lite Reader</h6>
                           
+                          <br>
+                          <p class="mt-3 text-primary" style="width: 100%; text-align: center;">
+                            <span style="font-size: 35px;">Ghc36</span> / year
+                          </p>
                           <br>
                           <ol class="w3l-right mt-4 mb-0">
                             <li>
                               <p class="list-book-desc">
-                                Public Domain Summaries
+                                1 books / month
                               </p>
                             </li>
                             <hr>
-                            <li>
-                              <p class="list-book-desc">
-                                Public Domain Audios
-                              </p>
-                            </li>
-                            <hr>
-                            <li>
-                              <p class="list-book-desc">
-                                Public Domain Books
-                              </p>
-                            </li>
-                            <hr>
-                          </ol>
-
-
-                          <div class="text-right mt-4" id="buybtn">
-                            <button style="width: 100%;" id="proceed_btn" type="submit"  class="btn btn-style btn-primary">Buy Subscription</button>
-                          </div>
-                        </div>
-                      </div>
-                  </div>
-                </div>
-              </div>
-
-
-              <div class="w3l-features col-lg-4 contacts-5-grid-main section-gap mt-lg-0 mt-4">
-                <div class="contacts-5-grid">
-                  <div class="map-content-5">
-                      <div class="contact-type">
-                        <div class="address-grid mb-3">
-                          <h6 style="text-align: center; width: 100%;">All-Access</h6>
-                          
-                          <br>
-                          <ol class="w3l-right mt-4 mb-0">
                             <li>
                               <p class="list-book-desc">
                                 Copyrighted Books
@@ -244,7 +217,6 @@ if(!empty($_GET["ref"])){
                                 Public Domain Books
                               </p>
                             </li>
-                            <hr>
                           </ol>
 
 
@@ -258,16 +230,43 @@ if(!empty($_GET["ref"])){
               </div>
 
 
-
-              <div class="w3l-features col-lg-4 contacts-5-grid-main section-gap mt-lg-0 mt-4">
+              <div class="w3l-features col-lg-3 contacts-5-grid-main section-gap mt-lg-0 mt-4">
                 <div class="contacts-5-grid">
                   <div class="map-content-5">
                       <div class="contact-type">
                         <div class="address-grid mb-3">
-                          <h6 style="text-align: center; width: 100%;">All-Access</h6>
+                          <h6 style="text-align: center; width: 100%;">Average Reader</h6>
                           
                           <br>
+                          <p class="mt-3 text-primary" style="width: 100%; text-align: center;">
+                            <span style="font-size: 35px;">Ghc60</span> / year
+                          </p>
+                          <br>
                           <ol class="w3l-right mt-4 mb-0">
+                            <li>
+                              <p class="list-book-desc">
+                                15 books
+                              </p>
+                            </li>
+                            <hr>
+                            <li>
+                              <p class="list-book-desc">
+                                Copyrighted Books
+                              </p>
+                            </li>
+                            <hr>
+                            <li>
+                              <p class="list-book-desc">
+                                Copyrighted Summaries
+                              </p>
+                            </li>
+                            <hr>
+                            <li>
+                              <p class="list-book-desc">
+                                Copyrighted Audios
+                              </p>
+                            </li>
+                            <hr>
                             <li>
                               <p class="list-book-desc">
                                 Public Domain Summaries
@@ -285,7 +284,6 @@ if(!empty($_GET["ref"])){
                                 Public Domain Books
                               </p>
                             </li>
-                            <hr>
                           </ol>
 
 
@@ -298,6 +296,141 @@ if(!empty($_GET["ref"])){
                 </div>
               </div>
 
+
+
+              <div class="w3l-features col-lg-3 contacts-5-grid-main section-gap mt-lg-0 mt-4">
+                <div class="contacts-5-grid">
+                  <div class="map-content-5">
+                      <div class="contact-type">
+                        <div class="address-grid mb-3">
+                          <h6 style="text-align: center; width: 100%;">Student Reader</h6>
+                          
+                          <br>
+                          <p class="mt-3 text-primary" style="width: 100%; text-align: center;">
+                            <span style="font-size: 35px;">Ghc120</span> / year
+                          </p>
+                          <br>
+                          <ol class="w3l-right mt-4 mb-0">
+                            <li>
+                              <p class="list-book-desc">
+                                20 books
+                              </p>
+                            </li>
+                            <hr>
+                            <li>
+                              <p class="list-book-desc">
+                                Copyrighted Books
+                              </p>
+                            </li>
+                            <hr>
+                            <li>
+                              <p class="list-book-desc">
+                                Copyrighted Summaries
+                              </p>
+                            </li>
+                            <hr>
+                            <li>
+                              <p class="list-book-desc">
+                                Copyrighted Audios
+                              </p>
+                            </li>
+                            <hr>
+                            <li>
+                              <p class="list-book-desc">
+                                Public Domain Summaries
+                              </p>
+                            </li>
+                            <hr>
+                            <li>
+                              <p class="list-book-desc">
+                                Public Domain Audios
+                              </p>
+                            </li>
+                            <hr>
+                            <li>
+                              <p class="list-book-desc">
+                                Public Domain Books
+                              </p>
+                            </li>
+                          </ol>
+
+
+                          <div class="text-right mt-4" id="buybtn">
+                            <button style="width: 100%;" id="proceed_btn" type="submit"  class="btn btn-style btn-primary">Buy Subscription</button>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+              <div class="w3l-features col-lg-3 contacts-5-grid-main section-gap mt-lg-0 mt-4">
+                <div class="contacts-5-grid">
+                  <div class="map-content-5">
+                      <div class="contact-type">
+                        <div class="address-grid mb-3">
+                          <h6 style="text-align: center; width: 100%;">Prolific Reader</h6>
+                          
+                          <br>
+                          <p class="mt-3 text-primary" style="width: 100%; text-align: center;">
+                            <span style="font-size: 35px;">Ghc240</span> / year
+                          </p>
+                          <br>
+                          <ol class="w3l-right mt-4 mb-0">
+                            <li>
+                              <p class="list-book-desc">
+                                50 books
+                              </p>
+                            </li>
+                            <hr>
+                            <li>
+                              <p class="list-book-desc">
+                                Copyrighted Books
+                              </p>
+                            </li>
+                            <hr>
+                            <li>
+                              <p class="list-book-desc">
+                                Copyrighted Summaries
+                              </p>
+                            </li>
+                            <hr>
+                            <li>
+                              <p class="list-book-desc">
+                                Copyrighted Audios
+                              </p>
+                            </li>
+                            <hr>
+                            <li>
+                              <p class="list-book-desc">
+                                Public Domain Summaries
+                              </p>
+                            </li>
+                            <hr>
+                            <li>
+                              <p class="list-book-desc">
+                                Public Domain Audios
+                              </p>
+                            </li>
+                            <hr>
+                            <li>
+                              <p class="list-book-desc">
+                                Public Domain Books
+                              </p>
+                            </li>
+                          </ol>
+
+
+                          <div class="text-right mt-4" id="buybtn">
+                            <button style="width: 100%;" id="proceed_btn" type="submit"  class="btn btn-style btn-primary">Buy Subscription</button>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
                 <!--
                 <div class="col-lg-4 form-inner-cont  section-gap mt-lg-0 mt-4">
                   <div style="align-content: center; text-align: center;">
